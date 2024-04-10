@@ -1,0 +1,124 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              Int               @id @default(autoincrement())
+  full_name       String            @db.VarChar(200)
+  email           String            @unique @db.VarChar(200)
+  password        String            @db.VarChar(50)
+  country         String?           @default("Bangladesh") @db.VarChar(50)
+  mobile          String?           @db.VarChar(50)
+  img             String?           @db.LongText
+  summary         String?           @db.LongText
+  designation     String?           @db.VarChar(100)
+  facebook        String?           @db.VarChar(300)
+  twitter         String?           @db.VarChar(300)
+  git             String?           @db.VarChar(300)
+  linkdin         String?           @db.VarChar(300)
+  createdAt       DateTime          @default(now()) @db.Timestamp(0)
+  updatedAt       DateTime          @default(now()) @updatedAt @db.Timestamp(0)
+  Project         Project[]
+  Work_experience Work_experience[]
+  Education       Education[]
+  Skill           Skill[]
+  // My_CV           My_CV[]
+}
+
+model Project {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(300)
+  link      String   @db.LongText
+  des       String   @db.LongText
+  approve   Boolean  @default(true)
+  createdAt DateTime @default(now()) @db.Timestamp(0)
+  updatedAt DateTime @default(now()) @updatedAt @db.Timestamp(0)
+
+  UserId Int
+  User   User @relation(fields: [UserId], references: [id])
+  // My_CV  My_CV[]
+}
+
+model Work_experience {
+  id           Int      @id @default(autoincrement())
+  company_name String   @db.VarChar(200)
+  designation  String   @db.VarChar(300)
+  start_date   String   @db.VarChar(300)
+  end_date     String   @default("Present") @db.VarChar(200)
+  createdAt    DateTime @default(now()) @db.Timestamp(0)
+  updatedAt    DateTime @default(now()) @updatedAt @db.Timestamp(0)
+
+  UserId Int
+  User   User @relation(fields: [UserId], references: [id])
+  // My_CV  My_CV[]
+}
+
+model Education {
+  id          Int      @id @default(autoincrement())
+  school_name String   @db.VarChar(300)
+  degree      String   @db.VarChar(300)
+  start_date  String   @db.VarChar(300)
+  end_date    String   @default("Present") @db.VarChar(300)
+  createdAt   DateTime @default(now()) @db.Timestamp(0)
+  updatedAt   DateTime @default(now()) @updatedAt @db.Timestamp(0)
+
+  UserId Int
+  User   User @relation(fields: [UserId], references: [id])
+  // My_CV  My_CV[]
+}
+
+model Skill {
+  id        Int        @id @default(autoincrement())
+  title     String     @db.VarChar(10)
+  range     SkillRange @default(Beginner)
+  createdAt DateTime   @default(now()) @db.Timestamp(0)
+  updatedAt DateTime   @default(now()) @updatedAt @db.Timestamp(0)
+
+  UserId Int
+  User   User @relation(fields: [UserId], references: [id])
+  // My_CV  My_CV[]
+}
+
+enum SkillRange {
+  Beginner
+  Intermediate
+  Advanced
+  Expert
+  Masterful
+}
+
+//
+// model My_CV {
+//   id Int @id @default(autoincrement())
+//
+//   UserId Int
+//   User   User @relation(fields: [UserId], references: [id])
+//
+//   ProjectId Int
+//   Project   Project @relation(fields: [ProjectId], references: [id])
+//
+//   WorkId          Int
+//   Work_experience Work_experience @relation(fields: [WorkId], references: [id])
+//
+//   EducationId Int
+//   Education   Education @relation(fields: [EducationId], references: [id])
+//
+//   SkillId Int
+//   Skill   Skill @relation(fields: [SkillId], references: [id])
+//
+//   createdAt DateTime @default(now()) @db.Timestamp(0)
+//   updatedAt DateTime @default(now()) @updatedAt @db.Timestamp(0)
+// }
+//
+//

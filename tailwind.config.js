@@ -4,15 +4,34 @@ module.exports = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./node_modules/keep-react/**/*.{js,jsx,ts,tsx}",
   ],
+  presets: [require("keep-react/preset")],
   theme: {
-    extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+    container:{
+      center:true,
+      padding:{
+        default:"1rem",
+        sm:"1rem",
+        md:"2rem",
+        lg:"2rem",
+        xl:"2rem",
+        "2xl":"2rem"
       },
     },
+    screens:{
+      sm:"380px",
+      md:"768px",
+      lg:"1024px",
+      xl:"1280",
+      "2xl":"1536"
+    },
+    extend: {
+      animation:{
+        spin:"spin 1s linear infinite;"
+      }
+    },
   },
+  important: true,
   plugins: [],
 };
