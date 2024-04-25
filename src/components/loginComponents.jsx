@@ -2,15 +2,17 @@
 import React, {useRef, useState} from 'react';
 import SubmitButton from "@/components/ChildComponents/SubmitButton";
 import {useRouter} from "next/navigation";
-import {ErrToast, IsEmail, IsEmpty, Successtoast} from "@/utility/FromHelper";
+import {ErrorSweet, ErrToast, IsEmail, IsEmpty, SuccSweetAlert} from "@/utility/FromHelper";
 import {Create} from "@/utility/APIHelper";
 import {Toaster} from "react-hot-toast";
 import Link from "next/link";
 
+
 const LoginComponents = () => {
     const router = useRouter();
     const [submit ,setSubmit] = useState(false);
-    let fullNameRef, emailRef,mobileRef, passwordRef = useRef();
+    let  emailRef,passwordRef = useRef();
+
     const handelSubmit =async () => {
         setSubmit(true);
         const data = {
@@ -21,21 +23,25 @@ const LoginComponents = () => {
         if(IsEmpty(data.email)){
             ErrToast("Email is Required!!");
             setSubmit(false);
-        } else if(IsEmail(data.email)){
-            ErrToast("Provide a valid Email!!");
+        }else if(IsEmail(data.email)){
+            ErrToast("Password is Required!!");
             setSubmit(false);
-        }else if(IsEmpty(data.password)){
+        } else if(IsEmpty(data.password)){
             ErrToast("Password is Required!!");
             setSubmit(false);
         } else {
             Create("/api/user/login",data).then((res)=>{
                 if(res?.status === true){
-                    Successtoast("Registetion Success")
+                    setSubmit(false);
+                    SuccSweetAlert("Login Success")
                     window.location.href="/my-cv/project";
+                }else if(res?.user === null ){
                     setSubmit(false);
+                    ErrorSweet(res?.message ?? "User Not Found")
+                    router.replace("/user/registetion")
                 }else {
-                    ErrToast("Something went wrong")
                     setSubmit(false);
+                    ErrorSweet("Something went wrong")
                 }
             })
         }

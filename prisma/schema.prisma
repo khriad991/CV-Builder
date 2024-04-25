@@ -37,13 +37,14 @@ model User {
 }
 
 model Project {
-  id        Int      @id @default(autoincrement())
-  name      String   @db.VarChar(300)
-  link      String   @db.LongText
-  des       String   @db.LongText
-  approve   Boolean  @default(true)
-  createdAt DateTime @default(now()) @db.Timestamp(0)
-  updatedAt DateTime @default(now()) @updatedAt @db.Timestamp(0)
+  id          Int      @id @default(autoincrement())
+  name        String   @db.VarChar(300)
+  live_link   String   @db.LongText
+  github_link String?  @db.LongText
+  des         String   @db.LongText
+  approve     Boolean  @default(true)
+  createdAt   DateTime @default(now()) @db.Timestamp(0)
+  updatedAt   DateTime @default(now()) @updatedAt @db.Timestamp(0)
 
   UserId Int
   User   User @relation(fields: [UserId], references: [id])
@@ -55,12 +56,12 @@ model Work_experience {
   company_name String   @db.VarChar(200)
   designation  String   @db.VarChar(300)
   start_date   String   @db.VarChar(300)
-  end_date     String   @default("Present") @db.VarChar(200)
+  end_date     String   @default("Going On") @db.VarChar(200)
+  UserId       Int
+  User         User     @relation(fields: [UserId], references: [id])
   createdAt    DateTime @default(now()) @db.Timestamp(0)
   updatedAt    DateTime @default(now()) @updatedAt @db.Timestamp(0)
 
-  UserId Int
-  User   User @relation(fields: [UserId], references: [id])
   // My_CV  My_CV[]
 }
 
@@ -69,24 +70,24 @@ model Education {
   school_name String   @db.VarChar(300)
   degree      String   @db.VarChar(300)
   start_date  String   @db.VarChar(300)
-  end_date    String   @default("Present") @db.VarChar(300)
+  end_date    String   @default("Going On") @db.VarChar(300)
+  UserId      Int
+  User        User     @relation(fields: [UserId], references: [id])
   createdAt   DateTime @default(now()) @db.Timestamp(0)
   updatedAt   DateTime @default(now()) @updatedAt @db.Timestamp(0)
 
-  UserId Int
-  User   User @relation(fields: [UserId], references: [id])
   // My_CV  My_CV[]
 }
 
 model Skill {
-  id        Int        @id @default(autoincrement())
-  title     String     @db.VarChar(10)
-  range     SkillRange @default(Beginner)
-  createdAt DateTime   @default(now()) @db.Timestamp(0)
-  updatedAt DateTime   @default(now()) @updatedAt @db.Timestamp(0)
+  id    Int        @id @default(autoincrement())
+  title String     @db.VarChar(10)
+  range SkillRange @default(Beginner)
 
-  UserId Int
-  User   User @relation(fields: [UserId], references: [id])
+  UserId    Int
+  User      User     @relation(fields: [UserId], references: [id])
+  createdAt DateTime @default(now()) @db.Timestamp(0)
+  updatedAt DateTime @default(now()) @updatedAt @db.Timestamp(0)
   // My_CV  My_CV[]
 }
 

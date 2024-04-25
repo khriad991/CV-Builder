@@ -13,7 +13,7 @@ export async function GET(req,res) {
         const data = await prisma.Education.findMany({
             where:{UserId},
         })
-        return NextResponse.json({status:true,message:`You have ${data.length} Project`,data})
+        return NextResponse.json({status:true,message:`You have ${data.length} Cirtificate`,data})
 
     }catch (e) {
         return NextResponse.json({status:false,data:e.toString()})

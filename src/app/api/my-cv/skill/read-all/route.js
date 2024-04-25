@@ -1,7 +1,6 @@
 export const revalidate = 0
 import {NextResponse} from "next/server";
 import {PrismaClient} from "@prisma/client";
-
 import {headers} from "next/headers";
 
 export async function GET(req,res) {

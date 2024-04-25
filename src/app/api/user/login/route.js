@@ -9,24 +9,23 @@ export async function POST(req,res){
         const reqBody = await req.json();
 
         const user = await prisma.User.findUnique({
-            where:reqBody,
+            where: {email:reqBody["email"], password:reqBody["password"]},
         })
 
-        if(user === 0){
-            return NextResponse.json({status:true,data:"User does not exist"})
-        }else {
+        if(user){
             let token = await CreateToken(user["email"],user['id'])
             let expirationDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 days
             const cookieString  = `token=${token}; expires=${expirationDate.toUTCString()}; path=/`
 
             return NextResponse.json(
-                {status:true,data:token},
-                {status:200 , headers:{"set-cookie":cookieString} }
+                {status:true,message:`Login Successful`,token:token,},
+                { status: 200, headers: { "set-cookie": cookieString } }
             )
+        }else {
+            return NextResponse.json({status:false,message:"User Does't Exist",user:user})
         }
 
     }catch (e) {
-        return NextResponse.json({status:false, data:e})
-
+        return NextResponse.json({status:false, data:e.toString()})
     }
 }

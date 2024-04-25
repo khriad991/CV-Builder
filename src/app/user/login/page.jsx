@@ -4,10 +4,6 @@ import MainLayout from "@/components/MainLayout";
 import LoginComponents from "@/components/loginComponents";
 
 const RegisterForm = () => {
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Handle form submission logic here
-    };
 
     return (
         <>

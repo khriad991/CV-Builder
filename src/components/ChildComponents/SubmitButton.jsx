@@ -5,7 +5,7 @@ import {Button, Spinner} from "keep-react";
 const SubmitButton = (props) => {
    if(props?.submit === false){
        return (
-           <Button type="submit" size="md" className="px-10 py-3 hover:bg-white hover:text-blue-700 border-2 hover:border-blue-700 capitalize font-bold" onClick={props?.onClick}>
+           <Button type="submit" size="md" className="px-5 md:px-10 max-w-fit py-3 hover:bg-white hover:text-blue-700 border-2 hover:border-blue-700 capitalize font-bold" onClick={props?.onClick}>
                {props?.text}
            </Button>
        )

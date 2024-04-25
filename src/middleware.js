@@ -3,6 +3,7 @@ import {VerifyToken} from "@/utility/TokenHelper";
 
 export async function middleware(req,res){
     try {
+
         let token=req.cookies.get('token');
         let payload= await VerifyToken(token['value']);
 
