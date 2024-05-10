@@ -48,15 +48,16 @@ const SkillComponent = () => {
                         SuccSweetAlert("Created Success")
                         setSubmit(false);
                         setHidden(false);
-                        // titleRef.value = "",
-                        // rangeRef.value = ""
-
+                        titleRef.value = "";
+                        rangeRef.value = "";
                     }}
                 ).catch((e)=>{
                     ErrToast("Something went wrong");
                     setSubmit(false);
                     setHidden(false);
             })
+
+
               }
     }
 

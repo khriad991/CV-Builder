@@ -1,3 +1,4 @@
+
 'use client'
 import React, {useRef, useState} from 'react';
 import SubmitButton from "@/components/ChildComponents/SubmitButton";
@@ -7,7 +8,7 @@ import {Create} from "@/utility/APIHelper";
 import {Toaster} from "react-hot-toast";
 import Link from "next/link";
 
-const RegistetionComponents = () => {
+const ResetPasswonrd = () => {
     const router = useRouter();
     const [submit ,setSubmit] = useState(false);
     let fullNameRef, emailRef,mobileRef, passwordRef = useRef();
@@ -55,50 +56,24 @@ const RegistetionComponents = () => {
             <div className="container w-screen h-screen flex justify-center items-center">
                 <Toaster position="top-center" reverseOrder={false} />
                 <div className="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
-                    <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
-                        <div className="text-gray-700">
+                    <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3 py-16 max-w-[700px]">
+                        <div className="lg:col-span-2 text-gray-700">
                             <h1 className="text-2xl font-bold text-center mb-6 text-blue-500">
-                                Registetion Form
+                                Reset Your Password
                             </h1>
-                            <p className="text-lg  text-gray-700">
-                                Please Provide Your Details For Registetion
-                            </p>
                         </div>
-                        <div className="lg:col-span-2">
+                        <div className=" lg:col-span-2">
                             <div className="grid gap-4 gap-y-4 text-sm grid-cols-1 md:grid-cols-5">
-                                <div className="md:col-span-5">
-                                    <label >Full Name</label>
-                                    <input className="inputFiled capitalize"
-                                        placeholder="Null Name"
-                                        type="text"
-                                        ref={(input) => fullNameRef = input}
-                                    />
-                                </div>
-                                <div className="md:col-span-5">
-                                    <label>Email Address</label>
-                                    <input className="inputFiled"
-                                            placeholder="Your Email"
-                                            type="email"
-                                           ref={(input)=> emailRef = input}
 
-                                    />
-                                </div>
                                 <div className="md:col-span-5">
-                                    <label>Phone Number</label>
+                                    <label className="inputLabel !mb-2">Email Address</label>
                                     <input className="inputFiled"
-                                           placeholder="Your Number"
-                                           type="number"
-                                           ref={(input)=> mobileRef = input}
+                                           placeholder="Your Email"
+                                           type="email"
+                                           ref={(input)=> emailRef = input}
                                     />
                                 </div>
-                                <div className="md:col-span-5">
-                                    <label>Email Password</label>
-                                    <input className="inputFiled"
-                                           placeholder="your Password"
-                                           type="password"
-                                           ref={(input) => passwordRef  = input}
-                                    />
-                                </div>
+
                                 <div className="md:col-span-5">
                                     {/* eslint-disable-next-line react/no-unescaped-entities */}
                                     <p className="text-base text-gray-500 mb-2"> Allready have an account ?
@@ -124,4 +99,4 @@ const RegistetionComponents = () => {
         </section>
     );
 };
-export default RegistetionComponents;
+export default ResetPasswonrd;

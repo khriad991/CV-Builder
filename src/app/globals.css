@@ -98,6 +98,22 @@ body {
   top: 0;
 }
 
+/*  for cv style */
+.user{
+  transition: all 500ms ease-in-out;
+}
+.user .cvlink {
+  visibility:hidden ;
+  opacity: 0;
+  transition: all 500ms ease-in-out;
+}
+
+.user:hover .cvlink {
+  transition: all 500ms ease-in-out;
+  opacity: 1;
+  visibility: visible;
+}
+
 
 
 

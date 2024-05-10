@@ -1,5 +1,3 @@
-import {error} from "next/dist/build/output/log";
-
 export const revalidate =0;
 import {NextResponse} from "next/server";
 import {PrismaClient} from '@prisma/client'

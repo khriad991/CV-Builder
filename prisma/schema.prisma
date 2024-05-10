@@ -27,6 +27,7 @@ model User {
   twitter         String?           @db.VarChar(300)
   git             String?           @db.VarChar(300)
   linkdin         String?           @db.VarChar(300)
+  otp             Int               @default(0)
   createdAt       DateTime          @default(now()) @db.Timestamp(0)
   updatedAt       DateTime          @default(now()) @updatedAt @db.Timestamp(0)
   Project         Project[]
@@ -81,7 +82,7 @@ model Education {
 
 model Skill {
   id    Int        @id @default(autoincrement())
-  title String     @db.VarChar(10)
+  title String     @db.VarChar(50)
   range SkillRange @default(Beginner)
 
   UserId    Int

@@ -29,12 +29,13 @@ const WorkExperianceComponent = () => {
     },[])
 
     const workSubmit =async () => {
-        setHidden(true)
+        // setHidden(true)
+        setSubmit(true)
         const data= {
             company_name: cumpany_nameRef.value,
             designation: designationRef.value,
             start_date: start_dateRef.value,
-            end_date: endDate === true ? "Going On" : end_dateRef.value,
+            end_date: endDate ? "Going On" : end_dateRef.value,
         }
 
         if(IsEmpty(data.company_name)){
@@ -57,12 +58,14 @@ const WorkExperianceComponent = () => {
                     SuccessAlert("Created Success")
                     setSubmit(false);
                     setHidden(false)
-                    cumpany_nameRef.value = ""
-                    designationRef.value = ""
-                    start_dateRef.value = ""
-                    end_dateRef.value = ""
-                    setEndDate(false)
-                }})}
+                }})
+            cumpany_nameRef.value = ""
+            designationRef.value = ""
+            start_dateRef.value = ""
+            end_dateRef.value = ""
+
+
+        }
     }
 
 
@@ -146,19 +149,20 @@ const WorkExperianceComponent = () => {
                             <input
                                 type="checkbox"
                                 className="w-6 h-6 rounded"
-                                ref={(input)=> end_dateRef = input}
-                                onClick={()=> setEndDate(!endDate)}
+                                defaultChecked={endDate}
+                                onChange={()=> setEndDate(!endDate)}
                             />
                             <label  className={endDate?"ml-2 text-lg font-medium text-blue-500":"ml-2 text-lg font-medium text-gray-700"}>Going On </label>
                         </div>
 
-
-
-                        <div className={endDate ? "hidden":""}>
+                        <div >
                             <label className="inputLabel">end Data</label>
                             <input
-                                type="date"
-                                className={"inputFiled"}
+                                type={endDate ?"text":"date"}
+                                className={endDate ? "inputFiled cursor-not-allowed bg-red-100" :"inputFiled"}
+                                defaultValue={endDate ? "Going On" : end_dateRef.value}
+                                disabled={endDate}
+
                                 ref={(input)=> end_dateRef = input}
                             />
                         </div>

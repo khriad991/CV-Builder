@@ -80,11 +80,11 @@ const LoginComponents = () => {
                                 </div>
                                 <div className="md:col-span-5">
                                     {/* eslint-disable-next-line react/no-unescaped-entities */}
-                                    <p className="text-base text-gray-500"> Don't have an account ?
-                                        <Link href={"/user/login"} className="ml-2 text-blue-500 hover:text-blue-800 border-b-[1px] border-b-transparent hover:border-b-blue-400 my-transition capitalize">create an account</Link>
+                                    <p className="text-base text-gray-500 mb-2"> Don't have an account ?
+                                        <Link href={"/user/registetion"} className="ml-2 text-blue-500 hover:text-blue-800 border-b-[1px] border-b-transparent hover:border-b-blue-400 my-transition capitalize">create an account</Link>
                                     </p>
 
-                                    <Link href={"/user/registetion"} className="text-lg text-blue-500 hover:text-blue-800 my-transition block capitalize ">reset password </Link>
+                                    <Link href={"/user/reset/:id"} className="text-lg text-blue-500 hover:text-blue-800 my-transition block capitalize ">reset password </Link>
 
                                 </div>
                                 <div className="">

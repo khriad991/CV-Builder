@@ -5,9 +5,10 @@ import {Get} from "@/utility/APIHelper";
 import Link from "next/link";
 import {useRouter} from "next/navigation";
 import jsPDF from "jspdf";
-import {MdFullscreen} from "react-icons/md";
+import {MdDelete, MdFullscreen} from "react-icons/md";
 import {IoMdDownload} from "react-icons/io";
 import { ErrToast } from '@/utility/FromHelper';
+import {RiEdit2Fill} from "react-icons/ri";
 
 
 
@@ -372,40 +373,46 @@ const MyCvComponent = () => {
                     <button type="submit" className="btnBG flex justify-center items-center gap-x-4" onClick={generateViewPdf}><MdFullscreen size={25}/> View CV</button>
                 </div>
                 <div className="cv px-6 py-1 mx-auto bg-gray-300 rounded ">
-                    <div className="bg-white flex flex-col gap-y-4 mt-10 p-10 w-[800px] h-[1125px]  rounded-lg">
-                       <div className={"user flex flex-col"}>
-                           <h1 className="cv-title font-bold mb-2 ">{user?.full_name}</h1>
+                    <div className="bg-white flex flex-col gap-y-4 mt-10 p-7 w-[800px] h-[1125px]  rounded-lg">
+                        <div className={"user py-3 relative flex flex-col border-[1px] border-transparent hover:border-blue-200 rounded-lg"}>
+                                <h1 className="cv-title font-bold mb-2 ">{user?.full_name}</h1>
+                                <div className="flex items-center gap-2">
+                                    <span className="cv-subTitle">Email :</span>
+                                    <p className="text-sm"> {user?.email}</p>
+                                </div>
 
-                               <div className="flex items-center gap-2">
-                                   <span className="cv-subTitle">Email :</span>
-                                   <p className="text-sm"> {user?.email}</p>
-                               </div>
-                               <div className="flex items-center gap-2">
-                                   <span className="cv-subTitle">Phone :</span>
-                                   <p className="text-sm"> {user?.mobile}</p>
-                               </div>
+                                <div className="flex items-center gap-2">
+                                    <span className="cv-subTitle">Phone :</span>
+                                    <p className="text-sm"> {user?.mobile}</p>
+                                </div>
 
-                           <div className="flex gap-x-4">
-                               <Link className="cursor-pointer underline capitalize text-black text-sm" target="_blank" href={`${user?.linkdin}`}> Linkdin </Link>
-                               <Link className="cursor-pointer underline capitalize text-black text-sm" target="_blank" href={`${user?.git}`}> github </Link>
-                           </div>
-                       </div>
-                        <div className={"skill"}>
-                            <div className="py-1.5 w-full border-b-[.5px] border-b-gray-300">
+                                <div className="flex gap-x-4">
+                                    <Link className="cursor-pointer underline capitalize text-black text-sm" target="_blank" href={`${user?.linkdin}`}> Linkdin </Link>
+                                    <Link className="cursor-pointer underline capitalize text-black text-sm" target="_blank" href={`${user?.git}`}> github </Link>
+                                </div>
+                                <Link className="cvlink btn w-fit absolute top-[35%] !right-4 " href={"/my-cv/profile"}><RiEdit2Fill /> </Link>
+                            </div>
+                        <div className={"skill py-3 "}>
+                            <div className="py-1 w-full border-b-[.5px] border-b-gray-300">
                                 <h1 className="cv-title">skill</h1>
                             </div>
-                            <div className="flex flex-col gap-y-1 mt-2">
+                            <div className=" flex flex-col gap-y-1 mt-2">
                                 {
                                     skill?.map((item)=>(
-                                        <div className="flex gap-x-4 justify-between max-w-[350px]" key={item?.id}>
-                                            <h1 className="cv-subTitle">{item?.title}</h1>
-                                            <h1>{item?.range}</h1>
+                                        <div className="flex items-center gap-x-4 justify-between  " key={item?.id}>
+                                            <h1 className="basis-[40%] cv-subTitle" >{item?.title}</h1>
+                                            <h1 className="basis-[30%]">{item?.range}</h1>
+                                            <div className="basis-[20%] flex gap-x-4 mr-6">
+                                                <Link className=" cvlink"  href={`/my-cv/skill/update?id=${item?.id}`}><RiEdit2Fill className="text-blue-500" size={15} /> </Link>
+                                                <Link className=" cvlink"  href={`/my-cv/skill/update?id=${item?.id}`}><MdDelete  className="text-red-500" size={15} /> </Link>
+                                            </div>
+
                                         </div>
                                     ))
                                 }
                             </div>
                         </div>
-                        <div className={"work"}>
+                        <div className={"work py-3"}>
                             <div className="py-1.5 w-full border-b-[.5px] border-b-gray-300">
                                 <h1 className="cv-title">work</h1>
                             </div>
@@ -430,7 +437,7 @@ const MyCvComponent = () => {
                                 }
                             </div>
                         </div>
-                        <div className={"project"}>
+                        <div className={"project py-3"}>
                             <div className="py-1.5 w-full border-b-[.5px] border-b-gray-300">
                                 <h1 className="cv-title">project</h1>
                             </div>
@@ -449,7 +456,7 @@ const MyCvComponent = () => {
                                 }
                             </div>
                         </div>
-                        <div className={"project"}>
+                        <div className={"project py-3"}>
                             <div className="py-1.5 w-full border-b-[.5px] border-b-gray-300">
                                 <h1 className="cv-title">education</h1>
                             </div>
