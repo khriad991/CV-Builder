@@ -18,15 +18,15 @@ const EducationComponent = () => {
     const [endDate ,setEndDate] = useState(false)
     let  school_nameRef, degreeRef, start_dateRef,end_dateRef = useRef(null);
 
-    const getData =async () => {
+    const getData =  () => {
         Get("/api/my-cv/education/read-all").then((res)=>{
             if(res?.status === true){
                 setData(res?.data );
             }})
     }
 
-    useEffect( ()=>{
-         getData()
+    useEffect(  ()=>{
+          getData()
     },[])
 
 
@@ -59,7 +59,7 @@ const EducationComponent = () => {
                     getData();
                     setSubmit(false)
                     setHidden(false)
-                }}).catch((e)=>{
+                }}).catch(()=>{
                     setSubmit(false)
                 return ErrToast("Something went wrong")
             })
@@ -77,9 +77,7 @@ const EducationComponent = () => {
             SweetAlert(`/api/my-cv/education/delete?id=${id}`)
                 .then(async (res)=>{
                     if(res){
-                    await getData()
-                            .then((res)=>{
-                                console.log("my res is ------>>>",res)
+                     getData().then((res)=>{
                                if(res?.status === true){
                                    Successtoast("Delete Success")
                                    setData(res?.data)
@@ -87,14 +85,14 @@ const EducationComponent = () => {
                     }})
     }
     return (
-        <section className="py-10 px-6 bg-gray-50">
-            <div className="container flex justify-center items-center w-full flex-col gap-y-10">
+        <section className={hidden ? "py-10 px-6 bg-gray-200 -z-10" :"py-10 px-6 bg-gray-50"}>
+            <div className="container flex justify-center items-center w-full flex-col gap-y-10 relative">
                 <Toaster position="top-center" reverseOrder={false} />
                 <h1 className="text-2xl md:text-3xl border-b-2 border-b-blue-200 rounded-b-xl w-full pb-5 font-medium text-black capitalize text-center block">Your All educations </h1>
                 <div className={"flex w-full flex-col gap-y-4"}>
                     {
                         data?.map((item,id)=>(
-                            <div key={id} className="flex flex-col gap-y-2 p-2 sm:p-4 md:p-6 w-full  bg-gray-100 rounded-lg shadow py-3.5 border-[.2px] border-sky-200">
+                            <div key={id} className="flex flex-col gap-y-2 p-2 sm:p-4 md:p-6 w-full rounded-lg shadow py-3.5 border-[.2px] border-sky-200  hover:bg-gray-200 my-transition group relative">
                                 <h1 className="text-xl font-medium capitalize">{item?.school_name} </h1>
                                 <h1 className="text-lg  font-medium capitalize">{item?.degree} </h1>
                                 <div className="flex items-center gap-x-4 flex-wrap gap-y-4">
@@ -115,17 +113,18 @@ const EducationComponent = () => {
                                         <FaRegEdit size={15}  />
                                     </Link>
                                 </div>
+                                <div className={ "invisible group-hover:visible opacity-0 group-hover:opacity-100 my-transition absolute bottom-4 left-1/2 -translate-x-1/2 flex-col mt-2"}>
+                                    <button className="btnBG mx-auto flex px-16 justify-center items-center "
+                                            type="submit"
+                                            onClick={()=> setHidden(true)}>
+                                            <MdAdd size={25} className="mr-2"/> Add New Education
+                                    </button>
+                                </div>
                             </div>
                         ))
                     }
-                    <div className={hidden ?"hidden ":"flex flex-col mt-2"}>
-                        <button className="btnBG mx-auto flex px-16 justify-center items-center " type="submit" onClick={()=> setHidden(true)}>
-                            <MdAdd size={25} className="mr-2"/>
-                            add new education
-                        </button>
-                    </div>
                 </div>
-                <div className={hidden ?" flex justify-center items-center flex-col gap-y-3.5 bg-white shadow  px-2 sm:px-6 md:px-8 py-8 w-full md:min-w-[800px] border-[.1px] border-sky-200 rounded-lg":"hidden "}>
+                <div className={hidden ?"z-10 flex justify-center items-center flex-col gap-y-3.5 bg-white shadow  px-2 sm:px-6 md:px-8 pt-6 pb-16 w-full md:min-w-[450px] border-[.1px] border-sky-200 rounded-lg absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 cursor-auto ":"hidden "}>
                     <h1 className={"mt-3 capitalize text-black text-2xl md:text-3xl mb-6 font-bold"}>Add new education</h1>
                     <div className="w-full">
                         <label className="inputLabel ">School Name</label>
@@ -182,7 +181,6 @@ const EducationComponent = () => {
                         <button className={"btnBG px-5 md:px-10 "} onClick={()=> setHidden(false)}>Cancel</button>
                     </div>
                 </div>
-
             </div>
             <NextStep  href="/my-cv/skill" value="go to add skill" />
         </section>

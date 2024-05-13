@@ -2,14 +2,13 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {Create, Get} from "@/utility/APIHelper";
 import {ErrToast, IsEmpty, Successtoast, SuccSweetAlert} from "@/utility/FromHelper";
-import {SuccessAlert, SweetAlert} from "@/utility/SweetAlert";
+import {SweetAlert} from "@/utility/SweetAlert";
 import {Toaster} from "react-hot-toast";
 import {MdAdd, MdDelete} from "react-icons/md";
 import Link from "next/link";
 import {FaRegEdit} from "react-icons/fa";
 import SubmitButton from "@/components/ChildComponents/SubmitButton";
 import NextStep from "@/components/ChildComponents/NextStep";
-import {log} from "next/dist/server/typescript/utils";
 
 const SkillComponent = () => {
     const [data,setData] = useState([])
@@ -25,7 +24,7 @@ const SkillComponent = () => {
     }
 
     useEffect( ()=>{
-        getData()
+        getData().then(res => res)
     },[])
 
 
