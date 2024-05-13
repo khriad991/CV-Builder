@@ -48,7 +48,7 @@ const WorkExperianceUpdateComponent = ({id}) => {
         }else{
             Update(`/api/my-cv/work/update?id=${id}`,data).then((res)=>{
                 if(res?.status === true){
-                   router.replace("/my-cv/work")
+                   router.back();
                     SuccessAlert("Update Success")
                     setSubmit(false);
                 }

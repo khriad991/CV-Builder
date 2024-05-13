@@ -8,13 +8,8 @@ export async function POST(req, res) {
         const headerList = headers();
         const UserId = parseInt(headerList.get("id"));
 
-        // Error handling for missing or invalid "userId" header
-
         const reqBody = await req.json();
             reqBody.UserId = UserId
-        // Error handling for missing or invalid "userId" in request body
-
-        // Ensure UserId is included in request body
 
         const createdCV = await prisma.my_cv.create({
             data: reqBody,

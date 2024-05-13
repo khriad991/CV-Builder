@@ -1,21 +1,18 @@
 "use client"
 import React, {useEffect, useRef, useState} from 'react';
 import SubmitButton from "@/components/ChildComponents/SubmitButton";
-import {useRouter} from "next/navigation";
-import {ErrToast, IsEmpty, SuccSweetAlert,} from "@/utility/FromHelper";
+import {ErrToast, IsEmpty, Successtoast, SuccSweetAlert,} from "@/utility/FromHelper";
 import {MdAdd, MdDelete, MdOutlineDevices} from "react-icons/md";
 import {Create, Get, Update} from "@/utility/APIHelper";
 import Link from "next/link";
 import {FaCheckDouble, FaGithub, FaRegEdit} from "react-icons/fa";
 import {Toaster} from "react-hot-toast";
-import {SweetAlert,} from "@/utility/SweetAlert";
+import {SuccessAlert, SweetAlert,} from "@/utility/SweetAlert";
 import NextStep from "@/components/ChildComponents/NextStep";
 
 
 
-const ProjectComponents = ({project}) => {
-    const router = useRouter();
-
+const ProjectComponents = () => {
     const [hidden,setHidden] = useState(false)
     const [submit,setSubmit] = useState(false);
     const [data,setData] = useState([])
@@ -32,7 +29,7 @@ const ProjectComponents = ({project}) => {
  }
 
     useEffect(   ()=>{
-        getData();
+         getData().then(res => res)
 
     },[])
 
@@ -46,14 +43,17 @@ const ProjectComponents = ({project}) => {
             }
 
         if(IsEmpty(data.name)){
-            ErrToast("Project name is required");
             setSubmit(false)
-        }else if(IsEmpty(data.link)){
-            ErrToast("Website link is required");
+            return ErrToast("Project name is required");
+        }else if(IsEmpty(data.live_link)){
             setSubmit(false)
+            return ErrToast("Website link is required");
+        }else if(IsEmpty(data.github_link)){
+            setSubmit(false)
+            return ErrToast("Github link is required");
         }else if(IsEmpty(data.des)){
-            ErrToast("Project description is required");
             setSubmit(false)
+            return ErrToast("description is required");
         }else {
             Create("/api/my-cv/project/create",data).then((res)=>{
                 if(res?.status === true){
@@ -82,11 +82,16 @@ const ProjectComponents = ({project}) => {
         })
     }
 
-    const selectSubmit = (id,value) => {
+    const ApprovedProject = async (id,value,name) => {
         Update('/api/my-cv/project/update?id='+id,{approve:value}).then((res)=>{
             if(res?.status === true){
                 getData();
-                SuccSweetAlert("Project Approve Success");
+                if(value === true){
+                    Successtoast(`${name} approved`);
+                }else {
+                    Successtoast(`${name} Approved Denied `);
+                }
+
             }
         }).catch(()=>{
             ErrToast("Something went wrong");
@@ -110,7 +115,7 @@ const ProjectComponents = ({project}) => {
                                 <div className={"flex gap-x-4"}>
                                     <label className="text-center text-blue-500 text-base"> {item?.append ? "Approve" : "Not Approve"} </label>
                                     <input type={"checkbox"}
-                                           onChange={()=>selectSubmit(item?.id, !item?.approve)}
+                                           onChange={()=>ApprovedProject(item?.id, !item?.approve, item?.name)}
                                            defaultChecked={item?.approve} className="w-6 h-6 p-2 rounded-full outline-none border-none "  />
                                 </div>
 

@@ -7,7 +7,7 @@ import {FaRegEdit} from "react-icons/fa";
 import SubmitButton from "@/components/ChildComponents/SubmitButton";
 import {Create, Get} from "@/utility/APIHelper";
 import { SuccessAlert, SweetAlert} from "@/utility/SweetAlert";
-import {ErrToast, IsEmpty} from "@/utility/FromHelper";
+import {ErrToast, IsEmpty, Successtoast} from "@/utility/FromHelper";
 import NextStep from "@/components/ChildComponents/NextStep";
 
 
@@ -16,7 +16,7 @@ const WorkExperianceComponent = () => {
     const [hidden,setHidden] = useState(false)
     const [submit,setSubmit] = useState(false);
     const [endDate ,setEndDate] = useState(false)
-    let  cumpany_nameRef, designationRef, start_dateRef,end_dateRef = useRef();
+    let  cumpany_nameRef, designationRef, start_dateRef,end_dateRef = useRef(null);
 
     const getData =async () => {
         Get('/api/my-cv/work/read-all').then((res)=>{
@@ -28,7 +28,7 @@ const WorkExperianceComponent = () => {
         getData()
     },[])
 
-    const workSubmit =async () => {
+const workSubmit =async () => {
         // setHidden(true)
         setSubmit(true)
         const data= {
@@ -50,23 +50,23 @@ const WorkExperianceComponent = () => {
         }else if(IsEmpty(data.end_date)){
             ErrToast("End date is required");
             setSubmit(false);
-
-        }else{
-            Create("/api/my-cv/work/create",data).then((res)=>{
-                if(res?.status === true){
+        } else {
+            Create("/api/my-cv/work/create", data).then((res) => {
+                if (res?.status === true) {
                     getData();
-                    SuccessAlert("Created Success")
+                    SuccessAlert("Created Success");
                     setSubmit(false);
-                    setHidden(false)
-                }})
-            cumpany_nameRef.value = ""
-            designationRef.value = ""
-            start_dateRef.value = ""
-            end_dateRef.value = ""
-
-
+                    setHidden(false);
+                    setEndDate(false);
+                }
+            });
+            cumpany_nameRef.value = "";
+            designationRef.value = "";
+            start_dateRef.value = "";
+            end_dateRef.value = "";
         }
     }
+
 
 
 
@@ -76,7 +76,7 @@ const WorkExperianceComponent = () => {
                 await Get('/api/my-cv/project/read-all').then((res)=>{
                     if(res?.status === true){
                         getData();
-                        SuccessAlert("Project Delete Success");
+                        Successtoast("Deleted Success");
                     }
                 })
             }
@@ -150,7 +150,8 @@ const WorkExperianceComponent = () => {
                                 type="checkbox"
                                 className="w-6 h-6 rounded"
                                 defaultChecked={endDate}
-                                onChange={()=> setEndDate(!endDate)}
+                                onClick={()=> setEndDate(!endDate)}
+                                // ref={() =>  endDate ? end_dateRef.value = "Going On": end_dateRef.value}
                             />
                             <label  className={endDate?"ml-2 text-lg font-medium text-blue-500":"ml-2 text-lg font-medium text-gray-700"}>Going On </label>
                         </div>
@@ -159,7 +160,7 @@ const WorkExperianceComponent = () => {
                             <label className="inputLabel">end Data</label>
                             <input
                                 type={endDate ?"text":"date"}
-                                className={endDate ? "inputFiled cursor-not-allowed bg-red-100" :"inputFiled"}
+                                className={endDate ? "inputFiled cursor-not-allowed border-red-300" :"inputFiled"}
                                 defaultValue={endDate ? "Going On" : end_dateRef.value}
                                 disabled={endDate}
 

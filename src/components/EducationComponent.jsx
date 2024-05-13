@@ -6,8 +6,8 @@ import {MdAdd, MdDelete} from "react-icons/md";
 import Link from "next/link";
 import {FaRegEdit} from "react-icons/fa";
 import SubmitButton from "@/components/ChildComponents/SubmitButton";
-import {ErrToast, IsEmpty, Successtoast} from "@/utility/FromHelper";
-import {ErrAlert, SuccessAlert, SweetAlert} from "@/utility/SweetAlert";
+import { ErrToast, IsEmpty, Successtoast, SuccSweetAlert} from "@/utility/FromHelper";
+import { SweetAlert} from "@/utility/SweetAlert";
 import NextStep from "@/components/ChildComponents/NextStep";
 
 
@@ -16,7 +16,7 @@ const EducationComponent = () => {
     const [hidden,setHidden] = useState(false)
     const [submit,setSubmit] = useState(false);
     const [endDate ,setEndDate] = useState(false)
-    let  school_nameRef, degreeRef, start_dateRef,end_dateRef = useRef();
+    let  school_nameRef, degreeRef, start_dateRef,end_dateRef = useRef(null);
 
     const getData =async () => {
         Get("/api/my-cv/education/read-all").then((res)=>{
@@ -32,43 +32,45 @@ const EducationComponent = () => {
 
     const educationSubmit =async () => {
         setSubmit(true)
-        const data= {
-            school_name: school_nameRef.value,
-            degree: degreeRef.value,
-            start_date: start_dateRef.value,
-            end_date: end_dateRef.value
+
+        let data ={
+            school_name : school_nameRef.value,
+            degree : degreeRef.value,
+            start_date : start_dateRef.value,
+            end_date : endDate ? "Going On" : end_dateRef.value
         }
+
         if(IsEmpty(data.school_name)){
-            ErrToast("Company name is required");
-            setSubmit(false);
+            setSubmit(false)
+            return ErrToast("School names required!!");
         }else if(IsEmpty(data.degree)){
-            ErrToast("Designation is required");
-            setSubmit(false);
+            setSubmit(false)
+            return ErrToast("Degree is Required!!");
         }else if(IsEmpty(data.start_date)){
-            ErrToast("Start date is required");
-            setSubmit(false);
+            setSubmit(false)
+            return ErrToast("Sart date is Required!!");
         }else if(IsEmpty(data.end_date)){
-            ErrToast("End date is required");
-            setSubmit(false);
-        }else{
-            Create("/api/my-cv/education/create",data)
-                .then((res)=>{
-                    if(res?.status === true){
-                        getData();
-                        SuccessAlert("Created Success")
-                        setSubmit(false);
-                        setHidden(false);
-                        school_nameRef.value = "";
-                        degreeRef.value = "";
-                        start_dateRef.value = "";
-                        end_dateRef.value = "";
-                        endDate === true ? setEndDate(false) :setEndDate(false);
-                    }})
-                .catch((e)=>{
-                    ErrAlert("Please try again");
+            setSubmit(false)
+            return ErrToast("End Date is required!!");
+        }else {
+            Create("/api/my-cv/education/create",data).then((res)=>{
+                if(res?.status === true){
+                    SuccSweetAlert("Project created success")
+                    getData();
                     setSubmit(false)
-                })}
-    }
+                    setHidden(false)
+                }}).catch((e)=>{
+                    setSubmit(false)
+                return ErrToast("Something went wrong")
+            })
+            school_nameRef.value = "";
+            degreeRef.value = "";
+            start_dateRef.value = "";
+            end_dateRef.value = "";
+            setEndDate(false)
+        }}
+
+
 
 
     const DeleteEducation = (id) => {
@@ -77,8 +79,9 @@ const EducationComponent = () => {
                     if(res){
                     await getData()
                             .then((res)=>{
+                                console.log("my res is ------>>>",res)
                                if(res?.status === true){
-                                   SuccessAlert("Delete Success")
+                                   Successtoast("Delete Success")
                                    setData(res?.data)
                            }})
                     }})
@@ -154,7 +157,7 @@ const EducationComponent = () => {
                                 type="checkbox"
                                 checked={endDate}
                                 className="w-6 h-6 rounded"
-                                onClick={()=> setEndDate(!endDate)}
+                                onChange={()=> setEndDate(!endDate)}
                             />
                             <label  className={endDate?"ml-2 text-lg font-medium text-blue-500":"ml-2 text-lg font-medium text-gray-700"}>Going On </label>
                         </div>

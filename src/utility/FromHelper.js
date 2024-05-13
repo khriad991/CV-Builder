@@ -11,10 +11,10 @@ class FromHelper {
         return !EmailRegx.test(v);
     }
     ErrToast(msg){
-        toast.error(msg);
+        return toast.error(msg);
     }
     Successtoast(msg){
-        toast.success(msg);
+       return toast.success(msg);
     }
    async ErrorSweet (msg){
         return Swal.fire({
@@ -34,7 +34,7 @@ class FromHelper {
             icon: "success",
             title: msg,
             showConfirmButton: false,
-            timer:1500,
+            timer:1300,
            timerProgressBar:true
         });
     }

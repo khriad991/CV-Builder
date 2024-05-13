@@ -1,14 +1,15 @@
 'use client'
 import React, {useEffect, useRef, useState} from 'react';
 import {Create, Get} from "@/utility/APIHelper";
-import {ErrToast, IsEmpty, SuccSweetAlert} from "@/utility/FromHelper";
-import { SweetAlert} from "@/utility/SweetAlert";
+import {ErrToast, IsEmpty, Successtoast, SuccSweetAlert} from "@/utility/FromHelper";
+import {SuccessAlert, SweetAlert} from "@/utility/SweetAlert";
 import {Toaster} from "react-hot-toast";
 import {MdAdd, MdDelete} from "react-icons/md";
 import Link from "next/link";
 import {FaRegEdit} from "react-icons/fa";
 import SubmitButton from "@/components/ChildComponents/SubmitButton";
 import NextStep from "@/components/ChildComponents/NextStep";
+import {log} from "next/dist/server/typescript/utils";
 
 const SkillComponent = () => {
     const [data,setData] = useState([])
@@ -35,11 +36,11 @@ const SkillComponent = () => {
             range: rangeRef.value,
         }
         if(IsEmpty(data.title)){
-            ErrToast("Title is required");
             setSubmit(false);
+            return ErrToast("Title is required!!");
         }else if(IsEmpty(data.range)){
-            ErrToast("Range is required");
             setSubmit(false);
+            return ErrToast("Range is required!!");
         }else{
             Create("/api/my-cv/skill/create",data)
                 .then((res)=>{
@@ -48,18 +49,15 @@ const SkillComponent = () => {
                         SuccSweetAlert("Created Success")
                         setSubmit(false);
                         setHidden(false);
-                        titleRef.value = "";
-                        rangeRef.value = "";
-                    }}
-                ).catch((e)=>{
-                    ErrToast("Something went wrong");
+                    }}).catch((e)=>{
                     setSubmit(false);
                     setHidden(false);
+                    return ErrToast("Something went wrong");
             })
+            titleRef.value = "";
+            rangeRef.value = "";
 
-
-              }
-    }
+        }}
 
 
     const DeleteSkill = (id) => {
@@ -68,7 +66,7 @@ const SkillComponent = () => {
                 if(res){
                     await Get("/api/my-cv/skill/read-all").then((res)=>{
                             if(res?.status === true){
-                                SuccSweetAlert("Delete Success")
+                                Successtoast("Delete Success")
                                 setData(res?.data)
                             }})
                 }})
@@ -78,20 +76,19 @@ const SkillComponent = () => {
             <div className="container flex justify-center items-center flex-col gap-y-10 relative -z-0">
                 <Toaster position="top-center" reverseOrder={false} />
                 <div className={"flex flex-col gap-y-4 "}>
-                    <div className="flex flex-col gap-y-8 gap-x-8 md:flex-row md:flex-wrap">
+                    <div className="flex 8 md:flex-row md:flex-wrap">
                         {
                             data?.map((item,id)=>(
-                                <div key={id} className="flex flex-col w-[400px] gap-y-2 p-2 sm:p-4 md:p-6 rounded-lg shadow py-3.5 border-[.2px] bg-sky-50 bg-opacity-35">
+                                <div key={id} className="w-full flex flex-row justify-start gap-x-4 items-center py-2 px-4 rounded odd:bg-gray-200  odd:hover:bg-gray-100 even:hover:bg-gray-100 my-transition group ">
                                     <h1 className="text-xl font-medium capitalize">{item?.title} </h1>
-                                    <h1 className="text-lg  font-medium capitalize">{item?.range} </h1>
+                                    <h1 className="text-base capitalize">{item?.range} </h1>
 
-                                    <div className="flex gap-x-2 mt-3">
-                                        <button className="btn w-fit h-fit bg-red-500 hover:text-red-500 border-red-500 hover:bg-transparent  flex justify-center items-center"
-                                                onClick={()=> DeleteSkill(item?.id)} >
-                                            <MdDelete size={18} />
+                                    <div className=" ml-20 md:ml-32 flex gap-x-8  invisible opacity-0 group-hover:visible group-hover:opacity-100 my-transition">
+                                        <button className="text-red-500 hover:text-red-700 my-transition" onClick={()=> DeleteSkill(item?.id)} >
+                                            <MdDelete size={22} />
                                         </button>
-                                        <Link href={`/my-cv/skill/update?id=${item?.id}`} className="btn w-fit h-fit p-3.5 flex justify-center items-center ml-8">
-                                            <FaRegEdit size={15}  />
+                                        <Link href={`/my-cv/skill/update?id=${item?.id}`} className="text-blue-500 hover:text-blue-700 my-transition">
+                                            <FaRegEdit size={22}  />
                                         </Link>
                                     </div>
                                 </div>
@@ -119,9 +116,10 @@ const SkillComponent = () => {
                         />
                     </div>
                     <div className="w-full">
-                        <select className="capitalize text-xl font-medium py-3 px-4 outline-none border-[1.3px] rounded-xl focus:border-blue-400 my-transition"
+                        <select className="range-option focus:border-blue-300 focus:text-blue-500 text-black outline-none border-gray-400 border-[1.3px] text-lg font-medium py-3 pl-4 pr-16 rounded-xl my-transition"
                                 ref={(select)=> rangeRef = select}>
-                            <option value="Beginner" selected>Beginner</option>
+                            <option value=""  selected>Select Range</option>
+                            <option value="Beginner">Beginner</option>
                             <option value="Intermediate">Intermediate</option>
                             <option value="Advanced">Advanced</option>
                             <option value="Expert">Expert</option>

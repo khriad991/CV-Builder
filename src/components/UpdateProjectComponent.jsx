@@ -2,7 +2,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import SubmitButton from "@/components/ChildComponents/SubmitButton";
 import Link from "next/link";
-import {ErrToast, IsEmpty, Successtoast} from "@/utility/FromHelper";
+import {ErrToast, IsEmpty} from "@/utility/FromHelper";
 import {Get, Update} from "@/utility/APIHelper";
 import {useRouter} from "next/navigation";
 import {Toaster} from "react-hot-toast";
@@ -33,29 +33,29 @@ const UpdateProjectComponent = ({id}) => {
         }
 
         if(IsEmpty(data.name)){
-            ErrToast("Project name is required");
             setSubmit(false)
+           return ErrToast("Project name is required");
         }else if(IsEmpty(data.live_link)){
-            ErrToast("Website link is required");
             setSubmit(false)
+           return ErrToast("Website link is required");
         }else if(IsEmpty(data.github_link)){
-            ErrToast("Github is required");
             setSubmit(false)
+            return ErrToast("Github is required");
         }else if(IsEmpty(data.des)){
-            ErrToast("Project description is required");
             setSubmit(false)
+            return ErrToast("Project description is required");
         }else {
             Update(`/api/my-cv/project/update?id=${id}`,data)
                 .then((res)=>{
                     if(res?.status === true){
                         SuccessAlert("Project Updated success")
+                        router.back()
                         setSubmit(false)
-                        router.replace("/my-cv/project" )
                     }})
-                .catch((e)=>{
-                    ErrAlert("Something Went Wrong")
+                .catch(()=>{
                     setSubmit(false)
-            })
+                    return ErrAlert("Something Went Wrong")
+                })
         }}
     return (
         <section className="bg-gray-50">
@@ -101,7 +101,7 @@ const UpdateProjectComponent = ({id}) => {
                     </div>
                     <div className="w-full mt-4 flex justify-between ">
                         <SubmitButton text={"Update project"} submit={submit} onClick={ProjectUpdateSubmit} />
-                        <Link href="/my-cv/project" className={"btnBG px-10 "} >Cancel</Link>
+                        <Link href={"/my-cv/project"} className={"btnBG px-10 "} >Cancel</Link>
                     </div>
                 </div>
             </div>

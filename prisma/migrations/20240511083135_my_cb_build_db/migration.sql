@@ -13,6 +13,7 @@ CREATE TABLE `User` (
     `twitter` VARCHAR(300) NULL,
     `git` VARCHAR(300) NULL,
     `linkdin` VARCHAR(300) NULL,
+    `otp` INTEGER NOT NULL DEFAULT 0,
     `createdAt` TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
     `updatedAt` TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
 
@@ -66,7 +67,7 @@ CREATE TABLE `Education` (
 -- CreateTable
 CREATE TABLE `Skill` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `title` VARCHAR(10) NOT NULL,
+    `title` VARCHAR(50) NOT NULL,
     `range` ENUM('Beginner', 'Intermediate', 'Advanced', 'Expert', 'Masterful') NOT NULL DEFAULT 'Beginner',
     `UserId` INTEGER NOT NULL,
     `createdAt` TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),

@@ -19,10 +19,10 @@ export const SweetAlert = (api)=>{
     })
 }
 
-export const SuccessAlert = (msg)=>{
+export const SuccessAlert = (msg ,icon="success")=>{
     return Swal.fire({
             position: "center",
-            icon: "success",
+            icon: icon,
             title: msg,
             showConfirmButton: false,
             timer:1500,

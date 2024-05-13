@@ -34,7 +34,7 @@ const LoginComponents = () => {
                 if(res?.status === true){
                     setSubmit(false);
                     SuccSweetAlert("Login Success")
-                    window.location.href="/my-cv/project";
+                    window.location.href="/my-cv";
                 }else if(res?.user === null ){
                     setSubmit(false);
                     ErrorSweet(res?.message ?? "User Not Found")

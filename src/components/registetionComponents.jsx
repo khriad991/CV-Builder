@@ -41,7 +41,7 @@ const RegistetionComponents = () => {
             Create("/api/user/registetion",data).then((res)=>{
                 if(res?.status === true){
                     Successtoast("Registetion Success")
-                    router.replace("/user/login")
+                    router.replace("/my-cv")
                     setSubmit(false);
                 }else {
                     ErrToast("Something went wrong")

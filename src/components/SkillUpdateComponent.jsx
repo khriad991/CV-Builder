@@ -44,7 +44,7 @@ const SkillUpdateComponent = ({id}) => {
                 .then((res)=>{
                     if(res?.status === true){
                         SuccessAlert("Created Success")
-                        router.push('/my-cv/skill');
+                        router.back()
                         setSubmit(false);
                     }}
                 ).catch((e)=>{

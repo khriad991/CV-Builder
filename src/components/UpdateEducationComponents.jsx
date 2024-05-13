@@ -14,13 +14,15 @@ const UpdateEducationComponents = ({id}) => {
     const [endDate ,setEndDate] = useState(false)
     let  school_nameRef, degreeRef, start_dateRef,end_dateRef = useRef();
 
-
-
     useEffect( ()=>{
         Get(`/api/my-cv/education/read?id=${id}`).then((res)=>{
             if(res?.status){
                 setData(res?.data)
-                res?.data.end_date === "Going On" ? setEndDate(true) : setEndDate(false)
+                if(res?.data.end_date === "Going On"){
+                    setEndDate(true)
+                }else {
+                    setEndDate(false)
+                }
             }
         })
 
@@ -34,26 +36,26 @@ const UpdateEducationComponents = ({id}) => {
             school_name: school_nameRef.value,
             degree: degreeRef.value,
             start_date: start_dateRef.value,
-            end_date: end_dateRef.value
+            end_date:end_dateRef.value
         }
         if(IsEmpty(data.school_name)){
-            ErrToast("Company name is required");
             setSubmit(false);
+            return ErrToast("Company name is required");
         }else if(IsEmpty(data.degree)){
-            ErrToast("Designation is required");
             setSubmit(false);
+            return ErrToast("Designation is required");
         }else if(IsEmpty(data.start_date)){
-            ErrToast("Start date is required");
             setSubmit(false);
+            return ErrToast("Start date is required");
         }else if(IsEmpty(data.end_date)){
-            ErrToast("End date is required");
             setSubmit(false);
+            return ErrToast("End date is required");
         }else{
             Update(`/api/my-cv/education/update?id=${id}`,data).then((res)=>{
                 if(res?.status === true){
-                    SuccessAlert("Created Success")
+                    SuccessAlert("Update Success")
                     setSubmit(false);
-                    router.replace("/my-cv/education")
+                    router.back()
                 }
 
             }).catch((e)=>{
@@ -63,6 +65,10 @@ const UpdateEducationComponents = ({id}) => {
             })
         }
     }
+
+
+
+
 
 
     return (
@@ -101,9 +107,9 @@ const UpdateEducationComponents = ({id}) => {
                         <div className="flex justify-start mt-4 sm:mt-9 ">
                             <input
                                 type="checkbox"
-                                checked={endDate}
+                                defaultChecked={endDate}
                                 className="w-6 h-6 rounded"
-                                onClick={()=> setEndDate(!endDate)}
+                                onChange={()=> setEndDate(!endDate)}
                             />
                             <label  className={endDate?"ml-2 text-lg font-medium text-blue-500":"ml-2 text-lg font-medium text-gray-700"}>Going On </label>
                         </div>
@@ -113,7 +119,7 @@ const UpdateEducationComponents = ({id}) => {
                             <input
                                 type={endDate ? "text":"date"}
                                 defaultValue={endDate ? "Going On":data?.end_date}
-                                disabled={endDate ? true : false}
+                                disabled={endDate}
                                 className={endDate ? " inputFiled border-blue-300 outline-none cursor-not-allowed rounded-lg":"inputFiled rounded-lg capitalize"}
                                 ref={(input)=> end_dateRef = input}
                             />
