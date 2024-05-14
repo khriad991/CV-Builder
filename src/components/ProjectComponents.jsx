@@ -7,7 +7,7 @@ import {Create, Get, Update} from "@/utility/APIHelper";
 import Link from "next/link";
 import {FaCheckDouble, FaGithub, FaRegEdit} from "react-icons/fa";
 import {Toaster} from "react-hot-toast";
-import {SuccessAlert, SweetAlert,} from "@/utility/SweetAlert";
+import {SweetAlert,} from "@/utility/SweetAlert";
 import NextStep from "@/components/ChildComponents/NextStep";
 
 

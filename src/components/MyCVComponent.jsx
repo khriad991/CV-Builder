@@ -65,23 +65,26 @@ const MyCvComponent = () => {
 
     },[])
 
+    /// all vriable for jsPDF ---------------
+
+    const doc = new JsPDF();
+
+    // Fetch user data for PDF content
+    const { full_name, email, mobile,git,linkdin,country } = user;
+
+
+    let Yspace = 10;
+    let Xspace =  15;
+    // set font fontSize
+    let title =16; // 18
+    let subTitle = 14; // 16
+    let normal = 12  // 13
+
+    // for font color
+    let black = "#000"
+    let gray = "#454545"
+    let link = "#333333"
     const generateCvPdf = () => {
-        const doc = new JsPDF();
-
-        // Fetch user data for PDF content
-        const { full_name, email, mobile,git,linkdin,country } = user;
-
-        let Yspace = 10;
-        let Xspace =  15;
-        // set font fontSize
-        let title =16; // 18
-        let subTitle = 14; // 16
-        let normal = 12  // 13
-
-        // for font color
-        let black = "#000"
-        let gray = "#454545"
-        let link = "#333333"
 
         // Add User Information Section
         doc.setFont("helvetica", "normal")
@@ -220,11 +223,9 @@ const MyCvComponent = () => {
 
     const generateViewPdf = () => {
 
-        const doc = new JsPDF();
-
         // Fetch user data for PDF content
-        const { full_name, email, mobile,git,linkdin,country } = user;
-
+        // const { full_name, email, mobile,git,linkdin,country } = user;
+/*
         let Yspace = 10;
         let Xspace =  15;
         // set font fontSize
@@ -235,7 +236,7 @@ const MyCvComponent = () => {
         // for font color
         let black = "#000"
         let gray = "#454545"
-        let link = "#333333"
+        let link = "#333333"*/
 
         // Add User Information Section
         doc.setFont("helvetica", "normal")

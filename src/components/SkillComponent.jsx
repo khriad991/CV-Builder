@@ -48,7 +48,7 @@ const SkillComponent = () => {
                         SuccSweetAlert("Created Success")
                         setSubmit(false);
                         setHidden(false);
-                    }}).catch((e)=>{
+                    }}).catch(()=>{
                     setSubmit(false);
                     setHidden(false);
                     return ErrToast("Something went wrong");
