@@ -1,7 +1,6 @@
 'use client'
 import React, {useEffect, useRef, useState} from 'react';
 import SubmitButton from "@/components/ChildComponents/SubmitButton";
-import {router} from "next/client";
 import {useRouter} from "next/navigation";
 import {ErrToast, IsEmpty} from "@/utility/FromHelper";
 import {ErrAlert, SuccessAlert} from "@/utility/SweetAlert";
@@ -34,17 +33,17 @@ const WorkExperianceUpdateComponent = ({id}) => {
             end_date: end_dateRef.value
         }
         if(IsEmpty(data.company_name)){
-            ErrToast("Company name is required");
             setSubmit(false);
+            return ErrToast("Company name is required");
         }else if(IsEmpty(data.designation)){
-            ErrToast("Designation is required");
             setSubmit(false);
+            return ErrToast("Designation is required");
         }else if(IsEmpty(data.start_date)){
-            ErrToast("Start date is required");
             setSubmit(false);
+            return ErrToast("Start date is required");
         }else if( IsEmpty(data.end_date)){
-            ErrToast("End date is required");
             setSubmit(false);
+            return ErrToast("End date is required");
         }else{
             Update(`/api/my-cv/work/update?id=${id}`,data).then((res)=>{
                 if(res?.status === true){
@@ -52,7 +51,7 @@ const WorkExperianceUpdateComponent = ({id}) => {
                     SuccessAlert("Update Success")
                     setSubmit(false);
                 }
-            }).catch(()=>{
+            }).catch((e)=>{
                 ErrAlert("Please try again");
                 setSubmit(false)
             })

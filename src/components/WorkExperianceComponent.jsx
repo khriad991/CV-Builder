@@ -39,17 +39,17 @@ const workSubmit =async () => {
         }
 
         if(IsEmpty(data.company_name)){
-            ErrToast("Company name is required");
             setSubmit(false);
+            return ErrToast("Company name is required");
         }else if(IsEmpty(data.designation)){
-            ErrToast("Designation is required");
             setSubmit(false);
+            return ErrToast("Designation is required");
         }else if(IsEmpty(data.start_date)){
-            ErrToast("Start date is required");
             setSubmit(false);
+            return ErrToast("Start date is required");
         }else if(IsEmpty(data.end_date)){
-            ErrToast("End date is required");
             setSubmit(false);
+            return ErrToast("End date is required");
         } else {
             Create("/api/my-cv/work/create", data).then((res) => {
                 if (res?.status === true) {

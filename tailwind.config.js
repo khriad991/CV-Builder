@@ -28,7 +28,7 @@ module.exports = {
     },
     extend: {
       animation:{
-        spin:"spin 1s linear infinite;"
+        animation: "spin 1,5s linear infinite"
       }
     },
   },

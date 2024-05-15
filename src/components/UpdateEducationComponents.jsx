@@ -2,7 +2,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import SubmitButton from "@/components/ChildComponents/SubmitButton";
 import {ErrToast, IsEmpty} from "@/utility/FromHelper";
-import {Create, Get, Update} from "@/utility/APIHelper";
+import {Get, Update} from "@/utility/APIHelper";
 import {ErrAlert, SuccessAlert} from "@/utility/SweetAlert";
 import {useRouter} from "next/navigation";
 import Link from "next/link";
@@ -129,7 +129,7 @@ const UpdateEducationComponents = ({id}) => {
 
                     <div className="w-full mt-4 flex justify-between ">
                         <SubmitButton text={"Add Education"} submit={submit} onClick={educationUpdateSubmit} />
-                        <Link href="/my-cv/education"  className={"btnBG px-5 md:px-10 "}>Cancel</Link>
+                        <Link href={"/my-cv/education"}  className={"btnBG px-5 md:px-10 "}>Cancel</Link>
                     </div>
                 </div>
 

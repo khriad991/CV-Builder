@@ -24,7 +24,7 @@ const SkillComponent = () => {
     }
 
     useEffect( ()=>{
-        getData().then(res => res)
+        getData()
     },[])
 
 
@@ -48,7 +48,7 @@ const SkillComponent = () => {
                         SuccSweetAlert("Created Success")
                         setSubmit(false);
                         setHidden(false);
-                    }}).catch(()=>{
+                    }}).catch((e)=>{
                     setSubmit(false);
                     setHidden(false);
                     return ErrToast("Something went wrong");

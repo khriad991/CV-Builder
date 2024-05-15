@@ -34,7 +34,7 @@ const MyCvComponent = () => {
                     setProject(res?.data[0]?.project)
                 }else {
                     router.push("/my-cv/project")
-                    ErrToast("Add some Project")
+                   return  ErrToast("Add some Project")
                 }
                     
                 // for Skill data set
@@ -42,7 +42,7 @@ const MyCvComponent = () => {
                     setSkill(res?.data[0]?.skill)
                 }else {
                     router.push("/my-cv/skill")
-                    ErrToast("Add some Skill")
+                    return ErrToast("Add some Skill");
                 }
 
                 // for work_experiance data set
@@ -50,7 +50,7 @@ const MyCvComponent = () => {
                     setWork(res?.data[0]?.work)
                 }else {
                     router.push("/my-cv/work")
-                    ErrToast("add some Wrok Expreriance")
+                    return ErrToast("add some Wrok Expreriance");
                 }
 
                 // for education data set
@@ -58,10 +58,12 @@ const MyCvComponent = () => {
                     setEducation(res?.data[0]?.education)
                 }else {
                     router.push("/my-cv/education")
-                    ErrToast("add some Wrok Education")
+                    return ErrToast("add some Wrok Education");
                 }
             }
         })
+
+
 
     },[])
 
@@ -371,8 +373,6 @@ const MyCvComponent = () => {
         window.open(doc.output('bloburl'), '_blank');
 
     }
-
-
 
     return (
         <section className={hidden ? "bg-sky-50 bg-opacity-25 py-8":"hidden"}>

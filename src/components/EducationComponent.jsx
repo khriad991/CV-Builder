@@ -59,7 +59,7 @@ const EducationComponent = () => {
                     getData();
                     setSubmit(false)
                     setHidden(false)
-                }}).catch(()=>{
+                }}).catch((e)=>{
                     setSubmit(false)
                 return ErrToast("Something went wrong")
             })

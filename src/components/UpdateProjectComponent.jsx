@@ -52,7 +52,7 @@ const UpdateProjectComponent = ({id}) => {
                         router.back()
                         setSubmit(false)
                     }})
-                .catch(()=>{
+                .catch((e)=>{
                     setSubmit(false)
                     return ErrAlert("Something Went Wrong")
                 })

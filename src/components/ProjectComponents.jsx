@@ -93,7 +93,7 @@ const ProjectComponents = () => {
                 }
 
             }
-        }).catch(()=>{
+        }).catch((e)=>{
             ErrToast("Something went wrong");
         })
 
