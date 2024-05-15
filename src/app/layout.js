@@ -6,7 +6,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body >
       {children}
-      <NextTopLoader color="#0284c7" showSpinner={true}  height={3}  />
+      <NextTopLoader color="#0284c7" height={4}  />
       </body>
     </html>
   );

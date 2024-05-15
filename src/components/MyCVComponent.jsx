@@ -10,6 +10,7 @@ import {IoIosAddCircle, IoMdDownload} from "react-icons/io";
 import {ErrToast } from '@/utility/FromHelper';
 import {RiEdit2Fill} from "react-icons/ri";
 import {FaRegEdit } from "react-icons/fa";
+import {SuccessAlert} from "@/utility/SweetAlert";
 
 
 
@@ -34,7 +35,7 @@ const MyCvComponent = () => {
                     setProject(res?.data[0]?.project)
                 }else {
                     router.push("/my-cv/project")
-                   return  ErrToast("Add some Project")
+                   return  SuccessAlert("Add some Project" , "info")
                 }
                     
                 // for Skill data set
