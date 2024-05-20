@@ -24,7 +24,7 @@ const MyCvComponent = () => {
     const [education ,setEducation] = useState([])
     
     useEffect(()=>{
-        Get("/api/my-cv/cv").then((res)=>{
+       Get("/api/my-cv/cv").then((res)=>{
             if(res?.status === true){
                 // user data set
                 setUser(res?.data[0]?.user)
@@ -37,7 +37,7 @@ const MyCvComponent = () => {
                     router.push("/my-cv/project")
                    return  SuccessAlert("Add some Project" , "info")
                 }
-                    
+
                 // for Skill data set
                 if(res?.data[0]?.skill.length >= 1){
                     setSkill(res?.data[0]?.skill)
@@ -66,28 +66,32 @@ const MyCvComponent = () => {
 
 
 
+
     },[])
 
     /// all vriable for jsPDF ---------------
 
-    const doc = new JsPDF();
-
-    // Fetch user data for PDF content
-    const { full_name, email, mobile,git,linkdin,country } = user;
-
-
-    let Yspace = 10;
-    let Xspace =  15;
-    // set font fontSize
-    let title =16; // 18
-    let subTitle = 14; // 16
-    let normal = 12  // 13
-
-    // for font color
-    let black = "#000"
-    let gray = "#454545"
-    let link = "#333333"
     const generateCvPdf = () => {
+
+
+
+        const doc = new JsPDF();
+
+        // Fetch user data for PDF content
+        const { full_name, email, mobile,git,linkdin,country } = user;
+
+
+        let Yspace = 10;
+        let Xspace =  15;
+        // set font fontSize
+        let title =16; // 18
+        let subTitle = 14; // 16
+        let normal = 12  // 13
+
+        // for font color
+        let black = "#000"
+        let gray = "#454545"
+        let link = "#333333"
 
         // Add User Information Section
         doc.setFont("helvetica", "normal")
@@ -225,6 +229,25 @@ const MyCvComponent = () => {
     };
 
     const generateViewPdf = () => {
+
+
+        const doc = new JsPDF();
+
+        // Fetch user data for PDF content
+        const { full_name, email, mobile,git,linkdin,country } = user;
+
+
+        let Yspace = 10;
+        let Xspace =  15;
+        // set font fontSize
+        let title =16; // 18
+        let subTitle = 14; // 16
+        let normal = 12  // 13
+
+        // for font color
+        let black = "#000"
+        let gray = "#454545"
+        let link = "#333333"
 
         // Fetch user data for PDF content
         // const { full_name, email, mobile,git,linkdin,country } = user;
