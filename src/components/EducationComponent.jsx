@@ -6,7 +6,7 @@ import {MdAdd, MdDelete} from "react-icons/md";
 import Link from "next/link";
 import {FaRegEdit} from "react-icons/fa";
 import SubmitButton from "@/components/ChildComponents/SubmitButton";
-import { ErrToast, IsEmpty, SuccSweetAlert} from "@/utility/FromHelper";
+import {ErrToast, IsEmpty, Successtoast} from "@/utility/FromHelper";
 import { SweetAlert} from "@/utility/SweetAlert";
 import NextStep from "@/components/ChildComponents/NextStep";
 import {BiSolidMessageSquareAdd} from "react-icons/bi";
@@ -19,12 +19,7 @@ const EducationComponent = () => {
     const [endDate ,setEndDate] = useState(false)
     let  school_nameRef, degreeRef, start_dateRef,end_dateRef = useRef(null);
 
-    // const getData =  () => {
-    //     Get("/api/my-cv/education/read-all").then((res)=>{
-    //         if(res?.status === true){
-    //             setData(res?.data );
-    //         }})
-    // }
+
 
     useEffect(  ()=>{
         const getData = async () => {
@@ -32,8 +27,6 @@ const EducationComponent = () => {
                 const response = await Get('/api/my-cv/education/read-all'); // Replace with your actual API endpoint
                 if (response.status === true) {
                     setData(response.data);
-                } else {
-                    console.error('Error fetching data:', response.message); // Handle errors
                 }
             } catch (error) {
                 console.error('Error fetching data:', error); // Handle errors
@@ -69,7 +62,7 @@ const EducationComponent = () => {
         }else {
             Create("/api/my-cv/education/create",data).then((res)=>{
                 if(res?.status === true){
-                    SuccSweetAlert("Project created success")
+                    Successtoast("Project created success")
                    Get('/api/my-cv/education/read-all')
                        .then((res)=>{
                            if(res?.status === true){
@@ -98,7 +91,7 @@ const EducationComponent = () => {
                     if(res){
                         Get("/api/my-cv/education/read-all").then((res)=>{
                                if(res?.status === true){
-                                   SuccSweetAlert("Delete Success")
+                                   Successtoast("Delete Success")
                                    setData(res?.data)
                            }})
                     }})

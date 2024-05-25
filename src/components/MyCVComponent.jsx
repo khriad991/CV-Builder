@@ -1,4 +1,3 @@
-
 'use client'
 import React, {useEffect, useState} from 'react';
 import {Get} from "@/utility/APIHelper";
@@ -22,9 +21,9 @@ const MyCvComponent = () => {
     const [work ,setWork] = useState([])
     const [project ,setProject] = useState([])
     const [education ,setEducation] = useState([])
-    
+
     useEffect(()=>{
-       Get("/api/my-cv/cv").then((res)=>{
+        Get("/api/my-cv/cv").then((res)=>{
             if(res?.status === true){
                 // user data set
                 setUser(res?.data[0]?.user)
@@ -35,7 +34,7 @@ const MyCvComponent = () => {
                     setProject(res?.data[0]?.project)
                 }else {
                     router.push("/my-cv/project")
-                   return  SuccessAlert("Add some Project" , "info")
+                    return  SuccessAlert("Add some Project" , "info")
                 }
 
                 // for Skill data set
@@ -251,18 +250,18 @@ const MyCvComponent = () => {
 
         // Fetch user data for PDF content
         // const { full_name, email, mobile,git,linkdin,country } = user;
-/*
-        let Yspace = 10;
-        let Xspace =  15;
-        // set font fontSize
-        let title =16; // 18
-        let subTitle = 14; // 16
-        let normal = 12  // 13
+        /*
+                let Yspace = 10;
+                let Xspace =  15;
+                // set font fontSize
+                let title =16; // 18
+                let subTitle = 14; // 16
+                let normal = 12  // 13
 
-        // for font color
-        let black = "#000"
-        let gray = "#454545"
-        let link = "#333333"*/
+                // for font color
+                let black = "#000"
+                let gray = "#454545"
+                let link = "#333333"*/
 
         // Add User Information Section
         doc.setFont("helvetica", "normal")
@@ -358,7 +357,7 @@ const MyCvComponent = () => {
             doc.setLineWidth(0.1);
             doc.line(Xspace, Yspace  + .7, Xspace + SourceCode, Yspace+.7);
             // Add start date and end date
-        Xspace -=25
+            Xspace -=25
             // doc.text(item?.des, Xspace, Yspace +=6)
             let lines = doc.splitTextToSize(item?.des, 185)
 

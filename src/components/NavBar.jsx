@@ -25,7 +25,7 @@ const NavBar = () => {
         setSidebar(!sidebar);
     };
     return (
-        <section className="fixed top-0 left-0 w-screen">
+        <section className="fixed top-0 left-0 w-screen z-[9999] bg-red-500">
             <header className="relative z-[999] bg-gray-100  ">
                 <div className="container">
                     <div className={sidebar ? "flex justify-between rounded-[10px] bg-card py-5": "flex justify-between rounded-[10px] bg-gray-100 py-5"}>
