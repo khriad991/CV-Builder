@@ -16,8 +16,6 @@ const SkillUpdateComponent = ({id}) => {
     const [data,setData] = useState([]);
     let  titleRef, rangeRef  = useRef();
 
-
-
     useEffect( ()=>{
         Get(`/api/my-cv/skill/read?id=${id}`)
             .then((res)=>{
@@ -25,7 +23,6 @@ const SkillUpdateComponent = ({id}) => {
                     setData(res?.data);
                 }})
     },[])
-
 
     const skillSubmit =async ()=> {
         setSubmit(true)
@@ -57,7 +54,6 @@ const SkillUpdateComponent = ({id}) => {
 
     return (
         <section className={"py-10 h-screen w-screen bg-gray-50 z-0 bg-opacity-25"}>
-
             <div className="container flex justify-center items-center flex-col gap-y-10">
                 <Toaster position="top-center" reverseOrder={false} />
                 <div className={"flex justify-center items-center flex-col gap-y-3.5 bg-white shadow px-2 sm:px-6 md:px-8 py-8 w-full md:max-w-[500px] border-[.1px] border-sky-200 rounded-lg"}>

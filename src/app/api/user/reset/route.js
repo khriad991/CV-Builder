@@ -1,3 +1,4 @@
+/*
 import MailHelper from "@/utility/MailHelper";
 
 export const revalidate =0;
@@ -11,22 +12,22 @@ export  async function POST(req,res){
         const user = await prisma.user.findUnique({
             where: {email:reqBody.email},
             select:{
-                id: true,
+                id: false,
                 full_name: true,
                 email: true,
-                password: false, // for not select
                 country: true,
-                mobile: true,
-                img: true,
-                summary: true,
-                designation: true,
-                facebook: true,
-                twitter: true,
-                git: true,
-                linkdin: true,
                 otp: true,
-                createdAt: true,
-                updatedAt: true,
+                password: false, // false for not select
+                mobile: false,
+                img: false,
+                summary: false,
+                designation: true,
+                facebook: false,
+                twitter: false,
+                git: false,
+                linkdin: false,
+                createdAt: false,
+                updatedAt: false,
             }
         })
 
@@ -34,7 +35,7 @@ export  async function POST(req,res){
             let otp = Math.floor(Math.random() * 123456) ;
                 reqBody.otp = otp
 
-                // await MailHelper(user?.email,`your CV-Builder OTP is ${otp}`, `send otp for reset password from <strong>CV-Builder</strong>` )
+                await MailHelper(user?.email,`your CV-Builder OTP is ${otp}`, `send otp for reset password from <strong>CV-Builder</strong>` )
 
             const updateOtp = await prisma.user.update({
                 where:{id:user.id},
@@ -51,3 +52,57 @@ export  async function POST(req,res){
     }
 }
 
+*/
+
+
+
+
+import { NextResponse } from "next/server";
+import { PrismaClient } from "@prisma/client";
+import MailHelper from "@/utility/MailHelper";
+
+export const revalidate = 0;
+
+export async function POST(req, res) {
+    try {
+        const prisma = new PrismaClient();
+        const reqBody = await req.json();
+
+        const user = await prisma.user.findUnique({
+            where: { email: reqBody.email },
+            select: {
+                id: true,
+                full_name: true,
+                email: true,
+                designation: true,
+                otp: true,
+            },
+        });
+
+        if (user) {
+            // Generate a random OTP
+            let otp = Math.floor(100000 + Math.random() * 900000); // Generates 6-digit OTP
+
+            // Send OTP email
+            await MailHelper(user.email, `<h1>Your OTP is: ${otp} </h1>`);
+
+            // Update OTP in the database
+            await prisma.user.update({
+                where: { id: user.id },
+                data: { otp: otp },
+            });
+
+            return NextResponse.json({
+                status: true,
+                message: "OTP sent successfully",
+                otp: otp,
+                data: { ...user },
+                email:user.email
+            });
+        } else {
+            return NextResponse.json({ status: false, message: "User not found" });
+        }
+    } catch (error) {
+        return NextResponse.json({ status: false, message: error.message });
+    }
+}

@@ -25,7 +25,7 @@ export const SuccessAlert = (msg ,icon="success")=>{
             icon: icon,
             title: msg,
             showConfirmButton: false,
-            timer:1500,
+            timer:1300,
         customClass:{
                 content:"container"
         }

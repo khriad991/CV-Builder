@@ -6,10 +6,11 @@ import {useRouter} from "next/navigation";
 import JsPDF from "jspdf";
 import {MdDelete, MdFullscreen} from "react-icons/md";
 import {IoIosAddCircle, IoMdDownload} from "react-icons/io";
-import {ErrToast } from '@/utility/FromHelper';
+import {ErrToast, Successtoast} from '@/utility/FromHelper';
 import {RiEdit2Fill} from "react-icons/ri";
 import {FaRegEdit } from "react-icons/fa";
-import {SuccessAlert} from "@/utility/SweetAlert";
+import {SuccessAlert, SweetAlert} from "@/utility/SweetAlert";
+
 
 
 
@@ -22,6 +23,50 @@ const MyCvComponent = () => {
     const [project ,setProject] = useState([])
     const [education ,setEducation] = useState([])
 
+    /*
+    useEffect(() => {
+
+        const fetchData = async () => {
+            try {
+                const res = await Get("/api/my-cv/cv");
+
+                if (res?.status === true) {
+                    const data = res?.data[0];
+
+                    setUser(data?.user);
+                    setHidden(!hidden);
+
+                    // Data checks and routing
+                    checkAndSetData("project", data?.project, setProject, "/my-cv/project", "Add some Project", "info");
+                    checkAndSetData("skill", data?.skill, setSkill, "/my-cv/skill", "Add some Skill");
+                    checkAndSetData("work experience", data?.work, setWork, "/my-cv/work", "Add some Work Experience");
+                    checkAndSetData("education", data?.education, setEducation, "/my-cv/education", "Add some Education");
+                }
+            } catch (error) {
+                console.error("Failed to fetch data:", error);
+                ErrToast("Error fetching data. Please try again.");
+            }
+        };
+
+        // Helper function to set data and handle errors
+        const checkAndSetData = (label, data, setState, redirectPath, message, alertType = "error") => {
+            if (data && data.length >= 1) {
+                setState(data);
+            } else {
+                router.push(redirectPath);
+                if (alertType === "info") {
+                    SuccessAlert(message, alertType)
+                } else {
+                    ErrToast(message);
+                }
+            }
+        };
+
+        fetchData().then((res)=> res)
+    }, []);
+
+    */
+
     useEffect(()=>{
         Get("/api/my-cv/cv").then((res)=>{
             if(res?.status === true){
@@ -30,11 +75,11 @@ const MyCvComponent = () => {
                 setHidden(!hidden)
 
                 // for Project data set
-                if(res?.data[0]?.project.length >= 1){
+                if(res?.data[0]?.project.length >= 3){
                     setProject(res?.data[0]?.project)
                 }else {
                     router.push("/my-cv/project")
-                    return  SuccessAlert("Add some Project" , "info")
+                    return  SuccessAlert("Add Yoru Project" ,"info"  )
                 }
 
                 // for Skill data set
@@ -42,7 +87,7 @@ const MyCvComponent = () => {
                     setSkill(res?.data[0]?.skill)
                 }else {
                     router.push("/my-cv/skill")
-                    return ErrToast("Add some Skill");
+                    return ErrToast("Add Your Skill");
                 }
 
                 // for work_experiance data set
@@ -50,7 +95,7 @@ const MyCvComponent = () => {
                     setWork(res?.data[0]?.work)
                 }else {
                     router.push("/my-cv/work")
-                    return ErrToast("add some Wrok Expreriance");
+                    return ErrToast("A Your Wrok Expreriance");
                 }
 
                 // for education data set
@@ -58,7 +103,7 @@ const MyCvComponent = () => {
                     setEducation(res?.data[0]?.education)
                 }else {
                     router.push("/my-cv/education")
-                    return ErrToast("add some Wrok Education");
+                    return ErrToast("Add Your Qualification ");
                 }
             }
         })
@@ -68,29 +113,27 @@ const MyCvComponent = () => {
 
     },[])
 
+
     /// all vriable for jsPDF ---------------
 
-    const generateCvPdf = () => {
-
-
+    const generateCvPdf = (type) => {
 
         const doc = new JsPDF();
-
         // Fetch user data for PDF content
         const { full_name, email, mobile,git,linkdin,country } = user;
 
-
         let Yspace = 10;
         let Xspace =  15;
-        // set font fontSize
-        let title =16; // 18
-        let subTitle = 14; // 16
-        let normal = 12  // 13
+
+        // set font fontSize  1pt === 1.33px
+        let title =15; // 18
+        let subTitle = 13.5; // 16
+        let normal = 11.30  // 13
 
         // for font color
         let black = "#000"
-        let gray = "#454545"
-        let link = "#333333"
+        let gray = "#323030"
+        let link = "#199aec"
 
         // Add User Information Section
         doc.setFont("helvetica", "normal")
@@ -121,10 +164,11 @@ const MyCvComponent = () => {
         doc.setFontSize(title)
         doc.setTextColor(black)
         doc.text("work experience", Xspace -=20, Yspace +=9 );
-        doc.setLineWidth(0.05);
-        doc.line(Xspace, Yspace +=3 , width  , Yspace); // full width draw line
+        doc.setDrawColor(0, 0, 0, 0.35);
+        doc.setLineWidth(.01);
+        doc.line(Xspace, Yspace +=1 , width  , Yspace); // full width draw line
 
-        work.forEach(function(workItem) {
+        work.forEach((workItem)=> {
 
             doc.setFontSize(title)
             doc.setTextColor(black)
@@ -143,21 +187,26 @@ const MyCvComponent = () => {
 
         });
 
+
+
         // for Skil information data set -------------------------->>>
+
+
         doc.setFontSize(title)
         doc.setTextColor(black)
         doc.text("Skill", Xspace , Yspace +=9 );
-        doc.setLineWidth(.1);
-        doc.line(Xspace, Yspace +=3 , width  , Yspace); // full width draw line
+        doc.setDrawColor(0, 0, 0, 0.35);
+        doc.setLineWidth(.01);
+        doc.line(Xspace, Yspace +=1 , width  , Yspace); // full width draw line----------------
 
         // Yspace +=2
-        skill?.forEach(function(item) {
+        skill?.forEach((item)=> {
             doc.setTextColor(black)
             doc.setFontSize(subTitle)
             doc.text(item?.title, Xspace, Yspace +=5.5  );
-            doc.setTextColor(gray)
-            doc.setFontSize(normal)
-            doc.text(item?.range, Xspace + 50, Yspace);
+            // doc.setTextColor(gray)
+            // doc.setFontSize(normal)
+            // doc.text(item?.range, Xspace + 50, Yspace);
 
         });
 
@@ -165,11 +214,12 @@ const MyCvComponent = () => {
         doc.setFontSize(title)
         doc.setTextColor(black)
         doc.text("Project", Xspace , Yspace +=9 );
-        doc.setLineWidth(.1);
-        doc.line(Xspace, Yspace +=3 , width  , Yspace); // full width draw line ---------------
+        doc.setDrawColor(0, 0, 0, 0.35);
+        doc.setLineWidth(.01);
+        doc.line(Xspace, Yspace +=1 , width  , Yspace); // full width draw line----------------
 
 
-        project?.forEach(function(item) {
+        project?.forEach((item)=> {
 
             doc.setFontSize(subTitle)
             doc.setTextColor(black)
@@ -202,8 +252,9 @@ const MyCvComponent = () => {
         doc.setFontSize(title)
         doc.setTextColor(black)
         doc.text("Education", Xspace , Yspace +=9 );
-        doc.setLineWidth(.09);
-        doc.line(Xspace, Yspace +=3 , width  , Yspace); // full width draw line ---------------
+        doc.setDrawColor(0, 0, 0, 0.35);
+        doc.setLineWidth(.01);
+        doc.line(Xspace, Yspace +=1 , width  , Yspace); // full width draw line----------------
 
 
         education?.forEach((item)=>{
@@ -221,191 +272,42 @@ const MyCvComponent = () => {
 
         })
 
-
-        doc.save(full_name +".pdf");
+        if(type === "download"){
+            doc.save(full_name +".pdf");
+        }else if(type === "view"){
+            window.open(doc.output('bloburl'), '_blank');
+        }
 
         // doc.save(`${full_name}.pdf`); // Set the filename for download
     };
 
-    const generateViewPdf = () => {
-
-
-        const doc = new JsPDF();
-
-        // Fetch user data for PDF content
-        const { full_name, email, mobile,git,linkdin,country } = user;
-
-
-        let Yspace = 10;
-        let Xspace =  15;
-        // set font fontSize
-        let title =16; // 18
-        let subTitle = 14; // 16
-        let normal = 12  // 13
-
-        // for font color
-        let black = "#000"
-        let gray = "#454545"
-        let link = "#333333"
-
-        // Fetch user data for PDF content
-        // const { full_name, email, mobile,git,linkdin,country } = user;
-        /*
-                let Yspace = 10;
-                let Xspace =  15;
-                // set font fontSize
-                let title =16; // 18
-                let subTitle = 14; // 16
-                let normal = 12  // 13
-
-                // for font color
-                let black = "#000"
-                let gray = "#454545"
-                let link = "#333333"*/
-
-        // Add User Information Section
-        doc.setFont("helvetica", "normal")
-        doc.setFontSize(title)
-        doc.setTextColor(black)
-        doc.text(`${full_name}`, Xspace, Yspace );
-
-        doc.setFont("times")
-        doc.setFontSize(normal)
-        doc.setTextColor(gray)
-        doc.text(`Country: ${country}`, Xspace, Yspace += 7);
-        doc.text(email, Xspace, Yspace += 6);
-        doc.text(`|| ${mobile}`, Xspace + 44, Yspace);
-
-        doc.setTextColor(link)
-        doc.setDrawColor(link)
-        doc.setLineWidth(.2);
-        let linkdinLet = doc.textWithLink(`Linkedin`, Xspace, Yspace += 6, { url: linkdin});
-        doc.line(Xspace, Yspace + .7, Xspace + linkdinLet, Yspace +.7  );
-
-        let gitHubLet =  doc.textWithLink(`GitHub`, Xspace+= 20, Yspace, { url: git });
-        doc.setLineWidth(0.2);
-        doc.line(Xspace, Yspace +.7, Xspace + gitHubLet, Yspace +.7);
-
-        // set work experience information
-        let width = doc.internal.pageSize.getWidth();
-
-        doc.setFontSize(title)
-        doc.setTextColor(black)
-        doc.text("work experience", Xspace -=20, Yspace +=9 );
-        doc.setLineWidth(0.05);
-        doc.line(Xspace, Yspace +=3 , width  , Yspace); // full width draw line
-
-        work.forEach(function(workItem) {
-
-            doc.setFontSize(title)
-            doc.setTextColor(black)
-            doc.text(workItem.company_name, Xspace, Yspace +=8  );
-
-            doc.setFont("times", "medium")
-            doc.setFontSize(subTitle)
-            doc.text(workItem?.designation, Xspace, Yspace +=5 );
-            // Add start date and end date
-            doc.setTextColor(gray)
-            doc.setFontSize(normal)
-            doc.text("Start Date: " , Xspace, Yspace +=6)
-            doc.text(workItem?.start_date, Xspace + 20, Yspace );
-            doc.text("End Date: " , Xspace + 50, Yspace)
-            doc.text( workItem?.end_date, Xspace + 70, Yspace );
-
-        });
-
-        // for Skil information data set -------------------------->>>
-        doc.setFontSize(title)
-        doc.setTextColor(black)
-        doc.text("Skill", Xspace , Yspace +=9 );
-        doc.setLineWidth(.1);
-        doc.line(Xspace, Yspace +=3 , width  , Yspace); // full width draw line
-
-        // Yspace +=2
-        skill?.forEach(function(item) {
-            doc.setTextColor(black)
-            doc.setFontSize(subTitle)
-            doc.text(item?.title, Xspace, Yspace +=5.5  );
-            doc.setTextColor(gray)
-            doc.setFontSize(normal)
-            doc.text(item?.range, Xspace + 50, Yspace);
-
-        });
-
-        // set for Project informetino data
-        doc.setFontSize(title)
-        doc.setTextColor(black)
-        doc.text("Project", Xspace , Yspace +=9 );
-        doc.setLineWidth(.1);
-        doc.line(Xspace, Yspace +=3 , width  , Yspace); // full width draw line ---------------
-
-
-        project?.forEach(function(item) {
-
-            doc.setFontSize(subTitle)
-            doc.setTextColor(black)
-            doc.text(item?.name, Xspace, Yspace +=9  );
-
-            doc.setFontSize(normal)
-            doc.setTextColor(link)
-            doc.setDrawColor(link)
-            doc.setLineWidth(.1);
-            let LiveLink = doc.textWithLink(`Live Link`, Xspace, Yspace += 6, { url: item?.live_link});
-            doc.line(Xspace, Yspace + .7, Xspace + LiveLink, Yspace +.7  );
-
-            let SourceCode =  doc.textWithLink(`Source Code `, Xspace+= 25, Yspace, { url: item?.github_link });
-            doc.setLineWidth(0.1);
-            doc.line(Xspace, Yspace  + .7, Xspace + SourceCode, Yspace+.7);
-            // Add start date and end date
-            Xspace -=25
-            // doc.text(item?.des, Xspace, Yspace +=6)
-            let lines = doc.splitTextToSize(item?.des, 185)
-
-            lines.forEach((line, index) =>{
-                Yspace +=2
-                doc.setFontSize(normal)
-                doc.setTextColor(gray)
-                doc.text(line, Xspace, Yspace +=(index + 4.5)); // Increase Yspace by the desired line height (here, 6)
-                Yspace -=2
-            });
-
-        });
-        doc.setFontSize(title)
-        doc.setTextColor(black)
-        doc.text("Education", Xspace , Yspace +=9 );
-        doc.setLineWidth(.09);
-        doc.line(Xspace, Yspace +=3 , width  , Yspace); // full width draw line ---------------
-
-
-        education?.forEach((item)=>{
-
-            doc.setFontSize(subTitle)
-            doc.setTextColor(black)
-            doc.text(item?.school_name, Xspace, Yspace +=8  );
-            doc.text(item?.degree, Xspace, Yspace +=7 );
-            doc.setTextColor(gray)
-            doc.setFontSize(normal)
-            doc.text("start Date: " , Xspace, Yspace +=6)
-            doc.text(item?.start_date, Xspace + 20, Yspace );
-            doc.text("end Date: " , Xspace + 50, Yspace)
-            doc.text( item?.end_date, Xspace + 70, Yspace );
-
-        })
-
-
-        window.open(doc.output('bloburl'), '_blank');
-
+    const DeleteItem = (DeleteURL, getURL, setState) => {
+        SweetAlert(DeleteURL)
+            .then(async (res)=>{
+                if(res){
+                    Get(getURL).then((res)=>{
+                        if(res?.status === true){
+                            SuccessAlert("Delete Success");
+                            setState(res?.data);
+                        }})
+                }})
     }
 
     return (
         <section className={hidden ? "bg-sky-50 bg-opacity-25 py-8":"hidden"}>
             <div className="container bg-gray-300 p-3 ">
-                <div className="flex justify-between py-2 my-3">
-                    <button type="submit" className="btn flex justify-center items-center gap-x-4" onClick={generateCvPdf}><IoMdDownload size={25} /> Download CV</button>
-                    <button type="submit" className="btnBG flex justify-center items-center gap-x-4" onClick={generateViewPdf}><MdFullscreen size={25}/> View CV</button>
+                <div className="flex justify-between py-2 mt-4 w-full">
+                    <button type="submit" className="btn flex justify-center items-center gap-x-4"
+                            onClick={() => generateCvPdf("download")}><IoMdDownload size={25}/> Download CV
+                    </button>
+                    <button type="submit" className="btnBG flex justify-center items-center gap-x-4"
+                            onClick={() => generateCvPdf("view")}><MdFullscreen size={25}/> view cv
+                        </button>
                 </div>
-                <div className=" flex flex-col p-6 w-[850px] bg-white  ">
 
+                <div id={"cvContainer"} className=" flex flex-col p-6 w-[850px] bg-white">
+
+                    {/*user section --*/}
                     <div className={"hover:bg-gray-100 my-transition p-3 relative flex flex-col border-[1px] border-transparent hover:border-blue-200 rounded-lg"}>
                         <h1 className="cv-title font-bold mb-2 ">{user?.full_name}</h1>
                         <div className="flex items-center gap-2">
@@ -422,35 +324,44 @@ const MyCvComponent = () => {
                             <Link className="cursor-pointer underline capitalize text-black text-sm" target="_blank" href={`${user?.linkdin}`}> Linkdin </Link>
                             <Link className="cursor-pointer underline capitalize text-black text-sm" target="_blank" href={`${user?.git}`}> github </Link>
                         </div>
-                        <Link className="cvlink btn w-fit absolute top-[35%] !right-4 " href={"/my-cv/profile"}><RiEdit2Fill /> </Link>
+                        <Link className="cvlink btn w-fit absolute top-[35%] !right-4 " href={`/profile`}><RiEdit2Fill /> </Link>
                     </div>
+
+                    {/* skill section */}
                     <div className={"p-3 "}>
-                        <div className="py-1 w-full border-b-[.5px] border-b-gray-300">
+                        <div className="py-1 w-full border-b-[.5px] border-b-gray-300 group flex justify-between ">
                             <h1 className="cv-title">skill</h1>
+
+                            <Link className={`block w-fit text-sm bg-blue-500 hover:bg-transparent border border-blue-500 hover:text-blue-500 capitalize cursor-pointer my-transition text-white font-semibold py-1 px-3 -translate-y-2 rounded-md`}  href={`/my-cv/skill`}>
+                                add new skill
+                            </Link>
                         </div>
                         <div className=" flex flex-col  gap-y-1 mt-2">
                             {
-                                skill?.map((item)=>(
-                                    <div className="flex justify-start gap-x-1.5 group relative hover:bg-gray-200 py-2 px-3 -mx-3 rounded  " key={item?.id}>
-                                        <h1 className="cv-subTitle mr-2.5 -my-2" >{item?.title}</h1>
-                                        <p className="-my-2">{item?.range}</p>
+                               skill && (
+                                    skill?.map((item) => (
+                                        <div
+                                            className="flex justify-start gap-x-1.5 group relative hover:bg-gray-200 py-2 px-3 -mx-3 rounded  "
+                                            key={item?.id}>
+                                            <h1 className="cv-subTitle mr-2.5 -my-2">{item?.title}</h1>
+                                            {/*<p className="-my-2">{item?.range}</p>*/}
 
-                                        <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-300 ease-in-out flex flex-row  gap-y-5 group-my-transtion gap-x-2 absolute right-3 top-1/2 -translate-y-1/2">
-                                            <button className="text-red-500 cursor-pointer" >
-                                                <title>Delete Skill</title>
-                                                <MdDelete size={20} />
-                                            </button>
-                                            <Link href={`/my-cv/skill`} className=" text-green-400">
-                                                <IoIosAddCircle   size={20}  />
-                                            </Link>
-                                            <Link href={`/my-cv/skill/update?id=${item?.id}`} className="text-blue-500 ">
-                                                <FaRegEdit size={20}  />
-                                            </Link>
+                                            <div
+                                                className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-300 ease-in-out flex flex-row  gap-y-5 group-my-transtion gap-x-2 absolute right-3 top-1/2 -translate-y-1/2">
+                                                <button onClick={()=> DeleteItem(`/api/my-cv/skill/delete?id=${item.id}`, `/api/my-cv/skill/read-all`, setSkill)} className="text-red-500 cursor-pointer">
+                                                    <title>Delete Skill</title>
+                                                    <MdDelete size={20}/>
+                                                </button>
+                                                <Link href={`/my-cv/skill/update?id=${item?.id}`}
+                                                      className="text-blue-500 ">
+                                                    <FaRegEdit size={20}/>
+                                                </Link>
+
+                                            </div>
 
                                         </div>
-
-                                    </div>
-                                ))
+                                    ))
+                                )
                             }
                         </div>
                     </div>
@@ -462,19 +373,23 @@ const MyCvComponent = () => {
                         </div>
                         <div className="flex flex-col gap-y-2">
                             {
-                                work?.map((item)=>(
-                                    <div className="flex flex-col group relative px-3 hover:bg-gray-100 hover:shadow my-transition rounded py-1.5 last:-mt-2" key={item?.id}>
+                                work?.map((item) => (
+                                    <div
+                                        className="flex flex-col group relative px-3 hover:bg-gray-100 hover:shadow my-transition rounded py-1.5 last:-mt-2"
+                                        key={item?.id}>
                                         <h1 className="cv-subTitle">{item?.company_name}</h1>
                                         <h1 className="text-black font-medium mr-2">{item?.designation}</h1>
                                         <div className="flex flex-row gap-x-3">
                                             <p className="text-sm">Start At : {item?.start_date}</p>
                                             <p className="text-sm">End : {item?.end_date}</p>
                                         </div>
-                                        <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-300 ease-in-out flex flex-col gap-y-auto  group-my-transtion gap-x-2 absolute right-3 top-1/2 -translate-y-1/2">
+                                        <div
+                                            className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-300 ease-in-out flex flex-col gap-y-auto  group-my-transtion gap-x-2 absolute right-3 top-1/2 -translate-y-1/2">
                                             <button className="text-red-500 cursor-pointer hover:text-red-700">
-                                                <MdDelete size={20} />
+                                                <MdDelete size={20}/>
                                             </button>
-                                            <Link href={`/my-cv/work`} className="text-sky-500 cursor-pointer hover:text-sky-700 my-transition ">
+                                            <Link href={`/my-cv/work`}
+                                                  className="text-sky-500 cursor-pointer hover:text-sky-700 my-transition ">
                                                 <IoIosAddCircle   size={20}  />
                                             </Link>
                                             <Link href={`/my-cv/work/update?id=${item?.id}`} className="text-blue-400 cursor-pointer hover:text-blue-700 my-transition ">

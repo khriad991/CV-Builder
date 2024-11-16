@@ -1,19 +1,17 @@
 export const revalidate = 0 ;
-
 import { NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import { headers } from 'next/headers';
 
 export async function GET(req, res) {
-    const prisma = new PrismaClient()
     try {
         const prisma = new PrismaClient();
         const headerList = headers();
-        const userId = parseInt(headerList.get('id'));
+        const userId = parseInt(headerList.get("id"));
 
-        if (!userId || isNaN(userId)) {
+        /*if (!userId || isNaN(userId)) {
             throw new Error('Missing or invalid "id" header');
-        }
+        }*/
 
         const data = await prisma.user.findUnique({
             where: { id: userId },
@@ -25,8 +23,8 @@ export async function GET(req, res) {
             },
         });
 
-        return NextResponse.json({ status: true, data });
+        return NextResponse.json({ status: true,messsage:"data get Success", data});
     } catch (e) {
-        return NextResponse.json({ status: false, message: e.toString() });
+        return NextResponse.json({ status: false, message: `${e.toString()} , Please Sing up first`   });
     }
 }

@@ -2,7 +2,7 @@ export const revalidate =0;
 import {headers} from "next/headers";
 import {NextResponse} from "next/server";
 import {PrismaClient} from '@prisma/client'
-export async function PUT(req,res){
+export async function POST(req,res){
     try {
         const prisma  = new PrismaClient();
         const headerList = headers()

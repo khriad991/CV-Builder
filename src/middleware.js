@@ -19,7 +19,7 @@ export async function middleware(req,res){
 
     }catch (e) {
         if(req.nextUrl.pathname.startsWith('/api')){
-            return NextResponse.json({status:"fail", data:"Unauthorized"}, {status:401})
+            return NextResponse.json({status:"fail",message:"Please sing up first", data:"Unauthorized"}, {status:401})
         } else{
             return NextResponse.redirect(new URL("/user/login", req.url));
         }
