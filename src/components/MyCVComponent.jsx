@@ -75,7 +75,7 @@ const MyCvComponent = () => {
                 setHidden(!hidden)
 
                 // for Project data set
-                if(res?.data[0]?.project.length >= 3){
+                if(res?.data[0]?.project.length >= 1){
                     setProject(res?.data[0]?.project)
                 }else {
                     router.push("/my-cv/project")
@@ -294,18 +294,18 @@ const MyCvComponent = () => {
     }
 
     return (
-        <section className={hidden ? "bg-sky-50 bg-opacity-25 py-8":"hidden"}>
-            <div className="container bg-gray-300 p-3 ">
-                <div className="flex justify-between py-2 mt-4 w-full">
+        <section className={hidden ? "bg-sky-50 bg-opacity-25 py-20":"hidden"}>
+            <div className="container bg-gray-300  py-6 ">
+                <div className="flex gap-6 py-2 mt-4 w-full my-5">
                     <button type="submit" className="btn flex justify-center items-center gap-x-4"
                             onClick={() => generateCvPdf("download")}><IoMdDownload size={25}/> Download CV
                     </button>
                     <button type="submit" className="btnBG flex justify-center items-center gap-x-4"
-                            onClick={() => generateCvPdf("view")}><MdFullscreen size={25}/> view cv
+                            onClick={() => generateCvPdf("view")}><MdFullscreen size={25}/> view CV
                         </button>
                 </div>
 
-                <div id={"cvContainer"} className=" flex flex-col p-6 w-[850px] bg-white">
+                <div className=" flex flex-col p-6 w-[850px] bg-white">
 
                     {/*user section --*/}
                     <div className={"hover:bg-gray-100 my-transition p-3 relative flex flex-col border-[1px] border-transparent hover:border-blue-200 rounded-lg"}>
@@ -321,8 +321,8 @@ const MyCvComponent = () => {
                         </div>
 
                         <div className="flex gap-x-4">
-                            <Link className="cursor-pointer underline capitalize text-black text-sm" target="_blank" href={`${user?.linkdin}`}> Linkdin </Link>
-                            <Link className="cursor-pointer underline capitalize text-black text-sm" target="_blank" href={`${user?.git}`}> github </Link>
+                            <Link className="cursor-pointer underline capitalize text-[#199aec] text-sm" target="_blank" href={`${user?.linkdin}`}> Linkdin </Link>
+                            <Link className="cursor-pointer underline capitalize text-[#199aec] text-sm" target="_blank" href={`${user?.git}`}> github </Link>
                         </div>
                         <Link className="cvlink btn w-fit absolute top-[35%] !right-4 " href={`/profile`}><RiEdit2Fill /> </Link>
                     </div>
@@ -365,8 +365,7 @@ const MyCvComponent = () => {
                             }
                         </div>
                     </div>
-
-
+                    {/*work secton -------*/}
                     <div className="work">
                         <div className="py-1.5 w-full border-b-[.5px] border-b-gray-300">
                             <h1 className="cv-title px-3">Work Experiance</h1>
@@ -402,6 +401,9 @@ const MyCvComponent = () => {
                             }
                         </div>
                     </div>
+
+                    {/*Project secton -------*/}
+
                     <div className={"project"}>
                         <div className="py-1.5 w-full border-b-[.5px] border-b-gray-300">
                             <h1 className="cv-title px-3">project</h1>
@@ -412,8 +414,8 @@ const MyCvComponent = () => {
                                     <div className="flex flex-col px-3 relative group " key={item?.id}>
                                         <h1 className="cv-subTitle">{item?.name}</h1>
                                         <div className="flex gap-x-4">
-                                            <Link className="text-base cursor-pointer underline capitalize text-black" target="_blank" href={`${user?.live_link}`}> live Link </Link>
-                                            <Link className="text-base cursor-pointer underline capitalize text-black" target="_blank" href={`${user?.github_link}`}> Source Code </Link>
+                                            <Link className="text-base cursor-pointer underline capitalize text-[#199aec]" target="_blank" href={`${user?.live_link}`}> live Link </Link>
+                                            <Link className="text-base cursor-pointer underline capitalize text-[#199aec]" target="_blank" href={`${user?.github_link}`}> Source Code </Link>
                                         </div>
                                         <p className="text-sm pr-6 text-justify mt-1 md:pr-12">{item?.des}</p>
                                         <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-300 ease-in-out flex flex-col gap-y-5 group-my-transtion gap-x-2 absolute right-3 top-1/2 -translate-y-1/2">
@@ -430,6 +432,7 @@ const MyCvComponent = () => {
                             }
                         </div>
                     </div>
+
                     {/* education section*/}
                     <div className={"education "} >
                         <div className="py-1.5 w-full border-b-[.5px] border-b-gray-300 mb-1.5">
@@ -442,11 +445,11 @@ const MyCvComponent = () => {
                                         <h1 className="cv-subTitle">{item?.school_name}</h1>
                                         <h1 className="cv-subTitle uppercase">{item?.degree}</h1>
                                         <div className="flex gap-x-6">
-                                            <div className="flex gap-x-4 ">
+                                            <div className="flex gap-x-2 ">
                                                 <p className="text-sm">Start Date</p>
                                                 <p className="text-sm" >{item?.start_date}</p>
                                             </div>
-                                            <div className="flex gap-x-4 ">
+                                            <div className="flex gap-x-2 ">
                                                 <p  className="text-sm">End Date</p>
                                                 <p  className="text-sm">{item?.end_date}</p>
                                             </div>

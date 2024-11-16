@@ -1,51 +1,70 @@
 'use client'
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import SubmitButton from "@/components/ChildComponents/SubmitButton";
-import {useRouter} from "next/navigation";
-import {ErrorSweet, ErrToast, IsEmail, IsEmpty, SuccSweetAlert} from "@/utility/FromHelper";
-import {Create} from "@/utility/APIHelper";
-import {Toaster} from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { ErrorSweet, ErrToast, IsEmail, IsEmpty, SuccSweetAlert } from "@/utility/FromHelper";
+import { Create } from "@/utility/APIHelper";
+import { Toaster } from "react-hot-toast";
 import Link from "next/link";
-
+import cookies from "js-cookie";
 
 const LoginComponents = () => {
     const router = useRouter();
-    const [submit ,setSubmit] = useState(false);
-    let  emailRef,passwordRef = useRef();
+    const [submit, setSubmit] = useState(false);
+    let emailRef, passwordRef = useRef();
 
-    const handelSubmit =async () => {
-        setSubmit(true);
-        const data = {
-            email:emailRef.value,
-            password:passwordRef.value
+    useEffect(() => {
+        const checkIfLoggedIn =async () => {
+            const token = cookies.get("token"); // Adjust based on your cookies library
+            if (token) {
+                 await ErrorSweet("You are already logged in.")
+                router.replace("/my-cv"); // Use replace to avoid adding a new history entry
+            }
         };
 
-        if(IsEmpty(data.email)){
+        checkIfLoggedIn();
+    }, [router]); // Dependency to avoid stale closure issues
+
+    const handelSubmit = async () => {
+        setSubmit(true);
+        const data = {
+            email: emailRef.value,
+            password: passwordRef.value
+        };
+
+        if (IsEmpty(data.email)) {
             ErrToast("Email is Required!!");
             setSubmit(false);
-        }else if(IsEmail(data.email)){
-            ErrToast("Password is Required!!");
+        } else if (IsEmail(data.email)) {
+            ErrToast("Invalid Email Format!!");
             setSubmit(false);
-        } else if(IsEmpty(data.password)){
+        } else if (IsEmpty(data.password)) {
             ErrToast("Password is Required!!");
             setSubmit(false);
         } else {
-            Create("/api/user/login",data).then((res)=>{
-                if(res?.status === true){
+            Create("/api/user/login", data).then((res) => {
+                if (res?.status === true) {
                     setSubmit(false);
                     SuccSweetAlert("Login Success")
-                    window.location.href="/my-cv";
-                }else if(res?.user === null ){
+                    window.location.href = "/my-cv";
+                } else if (res?.status === false && res?.message === "User does not exist") {
                     setSubmit(false);
-                    ErrorSweet(res?.message ?? "User Not Found")
+                    ErrorSweet(res.message || "User does not exist");
                     router.replace("/user/registetion")
-                }else {
+                } else {
                     setSubmit(false);
-                    ErrorSweet("Something went wrong")
+                    ErrorSweet(res.message || "something went wrong")
                 }
             })
         }
     }
+
+    const handleTestUserLogin = async () => {
+        emailRef.value = "992khriad@gmail.com"; // Predefined test email
+        passwordRef.value = "1111"; // Predefined test password
+        await  handelSubmit(); // Call the submit handler
+    }
+
     return (
         <section className="min-h-screen p-6 bg-gray-200 flex items-center justify-center">
             <div className="container h-screen w-screen flex items-center justify-center">
@@ -67,15 +86,15 @@ const LoginComponents = () => {
                                     <input className="inputFiled"
                                            placeholder="Your Email"
                                            type="email"
-                                           ref={(input)=> emailRef = input}
+                                           ref={(input) => emailRef = input}
                                     />
                                 </div>
                                 <div className="md:col-span-5">
-                                    <label>Email Password</label>
+                                    <label>Password</label>
                                     <input className="inputFiled"
-                                           placeholder="your Password"
+                                           placeholder="Password"
                                            type="password"
-                                           ref={(input) => passwordRef  = input}
+                                           ref={(input) => passwordRef = input}
                                     />
                                 </div>
                                 <div className="md:col-span-5">
@@ -84,8 +103,15 @@ const LoginComponents = () => {
                                         <Link href={"/user/registetion"} className="ml-2 text-blue-500 hover:text-blue-800 border-b-[1px] border-b-transparent hover:border-b-blue-400 my-transition capitalize">create an account</Link>
                                     </p>
 
-                                    <Link href={"/user/reset/:id"} className="text-lg text-blue-500 hover:text-blue-800 my-transition block capitalize ">reset password </Link>
-
+                                    <Link href={"/user/reset"} className="text-lg text-blue-500 hover:text-blue-800 my-transition block capitalize ">reset password </Link>
+                                </div>
+                                <div className="md:col-span-5">
+                                    <button
+                                        type="button"
+                                        onClick={handleTestUserLogin}
+                                        className="w-full bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-all">
+                                        Login as Test User
+                                    </button>
                                 </div>
                                 <div className="">
                                     <SubmitButton
@@ -97,7 +123,6 @@ const LoginComponents = () => {
                         </div>
                     </div>
                 </div>
-
             </div>
         </section>
     );

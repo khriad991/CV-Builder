@@ -1,4 +1,3 @@
-'use client'
 import React from 'react';
 import MainLayout from "@/components/MainLayout";
 import LoginComponents from "@/components/loginComponents";

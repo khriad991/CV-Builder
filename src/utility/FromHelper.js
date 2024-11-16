@@ -34,7 +34,7 @@ class FromHelper {
             icon: "success",
             title: msg,
             showConfirmButton: false,
-            timer:1300,
+            timer:1500,
            timerProgressBar:true
         });
     }
