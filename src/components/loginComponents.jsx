@@ -14,10 +14,10 @@ const LoginComponents = () => {
     let emailRef, passwordRef = useRef();
 
     useEffect(() => {
-        const checkIfLoggedIn =async () => {
+        const checkIfLoggedIn =() => {
             const token = cookies.get("token"); // Adjust based on your cookies library
             if (token) {
-                 await ErrorSweet("You are already logged in.")
+                  ErrorSweet("You are already logged in.")
                 router.replace("/my-cv"); // Use replace to avoid adding a new history entry
             }
         };
@@ -59,10 +59,10 @@ const LoginComponents = () => {
         }
     }
 
-    const handleTestUserLogin = async () => {
+    const handleTestUserLogin = () => {
         emailRef.value = "992khriad@gmail.com"; // Predefined test email
         passwordRef.value = "1111"; // Predefined test password
-        await  handelSubmit(); // Call the submit handler
+        handelSubmit(); // Call the submit handler
     }
 
     return (
