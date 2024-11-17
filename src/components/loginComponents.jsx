@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import SubmitButton from "@/components/ChildComponents/SubmitButton";
 import { useRouter } from "next/navigation";
-import { ErrorSweet, ErrToast, IsEmail, IsEmpty, SuccSweetAlert } from "@/utility/FromHelper";
+import { ErrorSweet, ErrToast, IsEmail, IsEmpty } from "@/utility/FromHelper";
 import { Create } from "@/utility/APIHelper";
 import { Toaster } from "react-hot-toast";
 import Link from "next/link";
@@ -19,8 +19,8 @@ const LoginComponents = () => {
         const checkIfLoggedIn = () => {
             const token = cookies.get("token");
             if (token) {
-                ErrorSweet("You are already logged in.");
-                router.replace("/my-cv");
+                SuccessAlert("You are already logged in.", "info");
+                router.replace("/profile");
             }
         };
 
@@ -58,11 +58,7 @@ const LoginComponents = () => {
         }
     };
 
-    const handleTestUserLogin = () => {
-        setEmail("testuser@example.com"); // Predefined test email
-        setPassword("testpassword"); // Predefined test password
-        handleSubmit(); // Trigger login
-    };
+
 
     return (
         <section className="min-h-screen p-6 bg-gray-200 flex items-center justify-center">
@@ -83,7 +79,7 @@ const LoginComponents = () => {
                                 <div className="md:col-span-5">
                                     <label>Email Address</label>
                                     <input
-                                        className="inputFiled"
+                                        className="inputFiled lowercase"
                                         placeholder="Your Email"
                                         type="email"
                                         value={email}
@@ -102,6 +98,7 @@ const LoginComponents = () => {
                                 </div>
                                 <div className="md:col-span-5">
                                     <p className="text-base text-gray-500 mb-2">
+                                        {/* eslint-disable-next-line react/no-unescaped-entities */}
                                         Don't have an account?
                                         <Link
                                             href={"/user/registetion"}
@@ -114,14 +111,6 @@ const LoginComponents = () => {
                                         className="text-lg text-blue-500 hover:text-blue-800 my-transition block capitalize">
                                         Reset Password
                                     </Link>
-                                </div>
-                                <div className="md:col-span-5">
-                                    <button
-                                        type="button"
-                                        onClick={handleTestUserLogin}
-                                        className="w-full bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-all">
-                                        Login as Test User
-                                    </button>
                                 </div>
                                 <div>
                                     <SubmitButton

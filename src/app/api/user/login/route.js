@@ -20,7 +20,6 @@ export async function POST(req, res) {
             });
         }
 
-        // Validate password
         if (user.password !== reqBody.password) {
             return NextResponse.json({
                 status: false,
@@ -28,12 +27,12 @@ export async function POST(req, res) {
             });
         }
 
-        // Generate a token
+
         const token = await CreateToken(user.email, user.id);
         const expirationDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 days
         const cookieString = `token=${token}; expires=${expirationDate.toUTCString()}; path=/`;
 
-        // Return success response with token
+
         return NextResponse.json(
             {
                 status: true,
