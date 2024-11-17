@@ -7,6 +7,7 @@ import { Create } from "@/utility/APIHelper";
 import { Toaster } from "react-hot-toast";
 import Link from "next/link";
 import cookies from "js-cookie";
+import {SuccessAlert} from "@/utility/SweetAlert";
 
 const LoginComponents = () => {
     const router = useRouter();
@@ -43,11 +44,11 @@ const LoginComponents = () => {
             Create("/api/user/login", data).then((res) => {
                 if (res?.status === true) {
                     setSubmit(false);
-                    SuccSweetAlert("Login Success");
+                    SuccessAlert("Login Success");
                     window.location.href = "/my-cv";
                 } else if (res?.status === false && res?.message === "User does not exist") {
                     setSubmit(false);
-                    ErrorSweet(res.message || "User does not exist");
+                    ErrorSweet("User does not exist");
                     router.replace("/user/registetion");
                 } else {
                     setSubmit(false);

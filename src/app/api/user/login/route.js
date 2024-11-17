@@ -53,7 +53,5 @@ export async function POST(req, res) {
             message: "something went wrong",
             error: e.toString(),
         });
-    } finally {
-        await prisma.$disconnect(); // Disconnect Prisma client
-    }
+    } 
 }
