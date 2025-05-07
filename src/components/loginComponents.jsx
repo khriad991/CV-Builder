@@ -27,14 +27,15 @@ const LoginComponents = () => {
         checkIfLoggedIn();
     }, [router]);
 
-    const handleSubmit = async () => {
+   const handleSubmit = async () => {
         setSubmit(true);
         const data = { email, password };
+        console.log(data )
 
         if (IsEmpty(data.email)) {
             ErrToast("Email is Required!!");
             setSubmit(false);
-        } else if (IsEmail(data.email)) {
+        } else if (!IsEmail(data.email)) {
             ErrToast("Invalid Email Format!!");
             setSubmit(false);
         } else if (IsEmpty(data.password)) {
@@ -56,8 +57,7 @@ const LoginComponents = () => {
                 }
             });
         }
-    };
-
+    }
 
 
     return (

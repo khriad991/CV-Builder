@@ -20,6 +20,7 @@ const SkillComponent = () => {
         Get("/api/my-cv/skill/read-all").then((res)=>{
             if(res?.status === true){
                 setData(res?.data );
+                res.data.length > 0 ? setHidden(false) : setHidden(true);
             }})
     }
 

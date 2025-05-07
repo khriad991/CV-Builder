@@ -5,10 +5,12 @@ let EmailRegx = /\S+@\S+\.\S+/;
 
 class FromHelper {
     IsEmpty(v){
-        return v?.length === 0
+        // return v?.length === 0
+        return !v || v.length === 0;
     }
     IsEmail(v){
-        return !EmailRegx.test(v);
+        // return !EmailRegx.test(v);
+        return EmailRegx.test(v);
     }
     ErrToast(msg){
         return toast.error(msg);

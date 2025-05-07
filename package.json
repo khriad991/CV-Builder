@@ -17,7 +17,7 @@
     "html2pdf.js": "^0.10.2",
     "jose": "^5.2.3",
     "js-cookie": "^3.0.5",
-    "jspdf": "^2.5.1",
+    "jspdf": "^2.5.2",
     "keep-react": "^1.2.0",
     "next": "14.2.10",
     "nextjs-toploader": "^1.6.11",
@@ -43,5 +43,6 @@
   "main": "postcss.config.js",
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "packageManager": "pnpm@10.8.0+sha512.0e82714d1b5b43c74610193cb20734897c1d00de89d0e18420aebc5977fa13d780a9cb05734624e81ebd81cc876cd464794850641c48b9544326b5622ca29971"
 }

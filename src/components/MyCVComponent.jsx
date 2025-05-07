@@ -23,49 +23,6 @@ const MyCvComponent = () => {
     const [project ,setProject] = useState([])
     const [education ,setEducation] = useState([])
 
-    /*
-    useEffect(() => {
-
-        const fetchData = async () => {
-            try {
-                const res = await Get("/api/my-cv/cv");
-
-                if (res?.status === true) {
-                    const data = res?.data[0];
-
-                    setUser(data?.user);
-                    setHidden(!hidden);
-
-                    // Data checks and routing
-                    checkAndSetData("project", data?.project, setProject, "/my-cv/project", "Add some Project", "info");
-                    checkAndSetData("skill", data?.skill, setSkill, "/my-cv/skill", "Add some Skill");
-                    checkAndSetData("work experience", data?.work, setWork, "/my-cv/work", "Add some Work Experience");
-                    checkAndSetData("education", data?.education, setEducation, "/my-cv/education", "Add some Education");
-                }
-            } catch (error) {
-                console.error("Failed to fetch data:", error);
-                ErrToast("Error fetching data. Please try again.");
-            }
-        };
-
-        // Helper function to set data and handle errors
-        const checkAndSetData = (label, data, setState, redirectPath, message, alertType = "error") => {
-            if (data && data.length >= 1) {
-                setState(data);
-            } else {
-                router.push(redirectPath);
-                if (alertType === "info") {
-                    SuccessAlert(message, alertType)
-                } else {
-                    ErrToast(message);
-                }
-            }
-        };
-
-        fetchData().then((res)=> res)
-    }, []);
-
-    */
 
     useEffect(()=>{
         Get("/api/my-cv/cv").then((res)=>{
@@ -117,7 +74,7 @@ const MyCvComponent = () => {
 
         const doc = new JsPDF();
         // Fetch user data for PDF content
-        const { full_name, email, mobile,git,linkdin,country } = user;
+        const { full_name, email, mobile,git,linkdin,country,summary } = user;
 
         let Yspace = 10;
         let Xspace =  15;
@@ -142,7 +99,7 @@ const MyCvComponent = () => {
         doc.setFontSize(normal)
         doc.setTextColor(gray)
         doc.text(`Country: ${country}`, Xspace, Yspace += 7);
-        doc.text(email, Xspace, Yspace += 6);
+        doc.text(`Email: ${email} `, Xspace, Yspace += 6);
         doc.text(`|| ${mobile}`, Xspace + 44, Yspace);
 
         doc.setTextColor(link)
@@ -155,12 +112,15 @@ const MyCvComponent = () => {
         doc.setLineWidth(0.2);
         doc.line(Xspace, Yspace +.7, Xspace + gitHubLet, Yspace +.7);
 
+        doc.setTextColor(gray)
+        doc.text( doc.splitTextToSize(summary, 190), Xspace -= 20 , Yspace += 6);
+
         // set work experience information
         let width = doc.internal.pageSize.getWidth();
 
         doc.setFontSize(title)
         doc.setTextColor(black)
-        doc.text("work experience", Xspace -=20, Yspace +=9 );
+        doc.text("Work experience", Xspace , Yspace +=24 );
         doc.setDrawColor(0, 0, 0, 0.35);
         doc.setLineWidth(.01);
         doc.line(Xspace, Yspace +=1 , width  , Yspace); // full width draw line
@@ -187,8 +147,6 @@ const MyCvComponent = () => {
 
 
         // for Skil information data set -------------------------->>>
-
-
         doc.setFontSize(title)
         doc.setTextColor(black)
         doc.text("Skill", Xspace , Yspace +=9 );
@@ -196,16 +154,13 @@ const MyCvComponent = () => {
         doc.setLineWidth(.01);
         doc.line(Xspace, Yspace +=1 , width  , Yspace); // full width draw line----------------
 
-        // Yspace +=2
+        Yspace +=2
         skill?.forEach((item)=> {
             doc.setTextColor(black)
-            doc.setFontSize(subTitle)
+            doc.setFontSize(subTitle - 1)
             doc.text(item?.title, Xspace, Yspace +=5.5  );
-            // doc.setTextColor(gray)
-            // doc.setFontSize(normal)
-            // doc.text(item?.range, Xspace + 50, Yspace);
-
         });
+
 
         // set for Project informetino data
         doc.setFontSize(title)
@@ -230,12 +185,12 @@ const MyCvComponent = () => {
             doc.line(Xspace, Yspace + .7, Xspace + LiveLink, Yspace +.7  );
 
             let SourceCode =  doc.textWithLink(`Source Code `, Xspace+= 25, Yspace, { url: item?.github_link });
-            doc.setLineWidth(0.1);
+            doc.setLineWidth(.1);
             doc.line(Xspace, Yspace  + .7, Xspace + SourceCode, Yspace+.7);
             // Add start date and end date
             Xspace -=25
             // doc.text(item?.des, Xspace, Yspace +=6)
-            let lines = doc.splitTextToSize(item?.des, 185)
+            let lines = doc.splitTextToSize(item?.des, 190)
 
             lines.forEach((line, index) =>{
                 Yspace +=2
@@ -258,11 +213,11 @@ const MyCvComponent = () => {
 
             doc.setFontSize(subTitle)
             doc.setTextColor(black)
-            doc.text(item?.school_name, Xspace, Yspace +=8  );
+            doc.text(item?.school_name, Xspace, Yspace +=7  );
             doc.text(item?.degree, Xspace, Yspace +=7 );
             doc.setTextColor(gray)
             doc.setFontSize(normal)
-            doc.text("start Date: " , Xspace, Yspace +=6)
+            doc.text("start Date: " , Xspace, Yspace +=5)
             doc.text(item?.start_date, Xspace + 20, Yspace );
             doc.text("end Date: " , Xspace + 50, Yspace)
             doc.text( item?.end_date, Xspace + 70, Yspace );
@@ -324,44 +279,6 @@ const MyCvComponent = () => {
                         <Link className="cvlink btn w-fit absolute top-[35%] !right-4 " href={`/profile`}><RiEdit2Fill /> </Link>
                     </div>
 
-                    {/* skill section */}
-                    <div className={"p-3 "}>
-                        <div className="py-1 w-full border-b-[.5px] border-b-gray-300 group flex justify-between ">
-                            <h1 className="cv-title">skill</h1>
-
-                            <Link className={`block w-fit text-sm bg-blue-500 hover:bg-transparent border border-blue-500 hover:text-blue-500 capitalize cursor-pointer my-transition text-white font-semibold py-1 px-3 -translate-y-2 rounded-md`}  href={`/my-cv/skill`}>
-                                add new skill
-                            </Link>
-                        </div>
-                        <div className=" flex flex-col  gap-y-1 mt-2">
-                            {
-                               skill && (
-                                    skill?.map((item) => (
-                                        <div
-                                            className="flex justify-start gap-x-1.5 group relative hover:bg-gray-200 py-2 px-3 -mx-3 rounded  "
-                                            key={item?.id}>
-                                            <h1 className="cv-subTitle mr-2.5 -my-2">{item?.title}</h1>
-                                            {/*<p className="-my-2">{item?.range}</p>*/}
-
-                                            <div
-                                                className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-300 ease-in-out flex flex-row  gap-y-5 group-my-transtion gap-x-2 absolute right-3 top-1/2 -translate-y-1/2">
-                                                <button onClick={()=> DeleteItem(`/api/my-cv/skill/delete?id=${item.id}`, `/api/my-cv/skill/read-all`, setSkill)} className="text-red-500 cursor-pointer">
-                                                    <title>Delete Skill</title>
-                                                    <MdDelete size={20}/>
-                                                </button>
-                                                <Link href={`/my-cv/skill/update?id=${item?.id}`}
-                                                      className="text-blue-500 ">
-                                                    <FaRegEdit size={20}/>
-                                                </Link>
-
-                                            </div>
-
-                                        </div>
-                                    ))
-                                )
-                            }
-                        </div>
-                    </div>
                     {/*work secton -------*/}
                     <div className="work">
                         <div className="py-1.5 w-full border-b-[.5px] border-b-gray-300">
@@ -395,6 +312,45 @@ const MyCvComponent = () => {
                                         </div>
                                     </div>
                                 ))
+                            }
+                        </div>
+                    </div>
+
+                    {/* skill section */}
+                    <div className={"p-3 "}>
+                        <div className="py-1 w-full border-b-[.5px] border-b-gray-300 group flex justify-between ">
+                            <h1 className="cv-title">skill</h1>
+
+                            <Link className={`block w-fit text-sm bg-blue-500 hover:bg-transparent border border-blue-500 hover:text-blue-500 capitalize cursor-pointer my-transition text-white font-semibold py-1 px-3 -translate-y-2 rounded-md`}  href={`/my-cv/skill`}>
+                                add new skill
+                            </Link>
+                        </div>
+                        <div className=" flex flex-col  gap-y-1 mt-2">
+                            {
+                                skill && (
+                                    skill?.map((item) => (
+                                        <div
+                                            className="flex justify-start gap-x-1.5 group relative hover:bg-gray-200 py-2 px-3 -mx-3 rounded  "
+                                            key={item?.id}>
+                                            <h1 className="cv-subTitle mr-2.5 -my-2">{item?.title}</h1>
+                                            {/*<p className="-my-2">{item?.range}</p>*/}
+
+                                            <div
+                                                className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-300 ease-in-out flex flex-row  gap-y-5 group-my-transtion gap-x-2 absolute right-3 top-1/2 -translate-y-1/2">
+                                                <button onClick={()=> DeleteItem(`/api/my-cv/skill/delete?id=${item.id}`, `/api/my-cv/skill/read-all`, setSkill)} className="text-red-500 cursor-pointer">
+                                                    <title>Delete Skill</title>
+                                                    <MdDelete size={20}/>
+                                                </button>
+                                                <Link href={`/my-cv/skill/update?id=${item?.id}`}
+                                                      className="text-blue-500 ">
+                                                    <FaRegEdit size={20}/>
+                                                </Link>
+
+                                            </div>
+
+                                        </div>
+                                    ))
+                                )
                             }
                         </div>
                     </div>

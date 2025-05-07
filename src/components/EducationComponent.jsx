@@ -27,6 +27,7 @@ const EducationComponent = () => {
                 const response = await Get('/api/my-cv/education/read-all'); // Replace with your actual API endpoint
                 if (response.status === true) {
                     setData(response.data);
+                    response.data.length > 0 ? setHidden(false) : setHidden(true);
                 }
             } catch (error) {
                 console.error('Error fetching data:', error); // Handle errors
@@ -34,7 +35,7 @@ const EducationComponent = () => {
         };
 
         getData();
-    },[data])
+    },[])
 
 
     const educationSubmit =async () => {
@@ -105,45 +106,53 @@ const EducationComponent = () => {
                     <div className={"flex w-full flex-col gap-y-4"}>
                         {
                             data?.map((item,id)=>(
-                                <div key={id} className="flex flex-col gap-y-2 p-2 sm:p-4 md:p-6 w-full rounded-lg shadow py-3.5 border-[.2px] border-sky-200  hover:bg-gray-200 my-transition group relative">
+                                <div key={id}
+                                     className="flex flex-col gap-y-2 p-2 sm:p-4 md:p-6 w-full rounded-lg shadow py-3.5 border-[.2px] border-sky-200  hover:bg-gray-200 my-transition group relative">
                                     <h1 className="text-xl font-medium capitalize">{item?.school_name} </h1>
                                     <h1 className="text-lg  font-medium capitalize">{item?.degree} </h1>
                                     <div className="flex items-center gap-x-4 flex-wrap gap-y-4">
                                         <p className="text-base text-gray-800">
-                                            <span className="font-medium capitalize text-gray-900">start</span> : {item?.start_date}
+                                            <span
+                                                className="font-medium capitalize text-gray-900">start</span> : {item?.start_date}
                                         </p>
                                         <p className="text-base text-gray-800">
-                                            <span className="font-medium capitalize text-gray-900">end</span> : {item?.end_date}
+                                            <span
+                                                className="font-medium capitalize text-gray-900">end</span> : {item?.end_date}
                                         </p>
                                     </div>
                                     <p className="text-base text-gray-600  text-blac">{item?.des}</p>
                                     <div className="flex gap-x-2.5 mt-3">
                                         <button className="btn w-fit h-fit flex md:hidden justify-center items-center"
                                                 type="submit"
-                                                onClick={()=> setHidden(true)}>
-                                            <BiSolidMessageSquareAdd  size={17} />
+                                                onClick={() => setHidden(true)}>
+                                            <BiSolidMessageSquareAdd size={17}/>
                                         </button>
                                         <Link href={`/my-cv/education/update?id=${item?.id}`} className="btnBG ">
-                                            <FaRegEdit size={17}  />
+                                            <FaRegEdit size={17}/>
                                         </Link>
-                                        <button className="btn w-fit h-fit bg-red-500 hover:text-red-500 border-red-500 hover:bg-transparent flex justify-center items-center"
-                                                onClick={()=> DeleteEducation(item?.id)} >
-                                            <MdDelete size={18} />
+                                        <button
+                                            className="btn w-fit h-fit bg-red-500 hover:text-red-500 border-red-500 hover:bg-transparent flex justify-center items-center"
+                                            onClick={() => DeleteEducation(item?.id)}>
+                                            <MdDelete size={18}/>
                                         </button>
                                     </div>
-                                    <div className={ "hidden md:block absolute bottom-4 left-1/2 -translate-x-1/2 flex-col mt-2"}>
+                                    <div
+                                        className={"hidden md:block absolute bottom-4 left-1/2 -translate-x-1/2 flex-col mt-2"}>
                                         <button className="btnBG mx-auto flex px-16 justify-center items-center "
                                                 type="submit"
-                                                onClick={()=> setHidden(true)}>
+                                                onClick={() => setHidden(true)}>
                                             <MdAdd size={17} className="mr-2"/> Add New Education
                                         </button>
                                     </div>
+
                                 </div>
+
                             ))
                         }
                     </div>
-                    <div className={hidden ? "block":" hidden"}>
-                        <div className={hidden ?"z-20 flex justify-center items-center flex-col gap-y-3.5 shadow px-2 sm:px-6 md:px-8 pt-6 pb-16 w-full md:min-w-[450px] max-w-[650px] border-[.1px] border-sky-200 rounded-lg absolute top-20 left-1/2 -translate-x-1/2 cursor-auto visible bg-white bg-opacity-100":"invisible top-0 "}>
+                    <div className={hidden ? "block" : " hidden"}>
+                        <div
+                            className={hidden ? "z-20 flex justify-center items-center flex-col gap-y-3.5 shadow px-2 sm:px-6 md:px-8 pt-6 pb-16 w-full md:min-w-[450px] max-w-[650px] border-[.1px] border-sky-200 rounded-lg absolute top-20 left-1/2 -translate-x-1/2 cursor-auto visible bg-white bg-opacity-100" : "invisible top-0 "}>
                             <h1 className={"mt-3 capitalize text-black text-2xl md:text-3xl mb-6 font-bold"}>Add new education</h1>
                             <div className="w-full">
                                 <label className="inputLabel ">School Name</label>

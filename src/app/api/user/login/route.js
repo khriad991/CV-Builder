@@ -26,6 +26,7 @@ export async function POST(req, res) {
                 message: "Incorrect email or password",
             });
         }
+        console.log("my user data --------->>>",user)
 
 
         const token = await CreateToken(user.email, user.id);
