@@ -7,13 +7,6 @@
     <list default="true" id="6abf905c-9097-4fc3-bc30-acfa4a15ebff" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/HomePageComponents.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HomePageComponents.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/NavBar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavBar.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/user/ProfileForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user/ProfileForm.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/user/loginComponents.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user/loginComponents.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/user/registetionComponents.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user/registetionComponents.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +79,7 @@
       <option name="presentableId" value="Default" />
       <updated>1746852593673</updated>
       <workItem from="1746852595885" duration="9333000" />
-      <workItem from="1746883536751" duration="9466000" />
+      <workItem from="1746883536751" duration="10756000" />
     </task>
     <servers />
   </component>
