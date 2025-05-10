@@ -90,11 +90,11 @@ const NavBar = () => {
                                                 <Link href={`/profile`} >
                                                     <RxAvatar className="text-3xl text-sky-500 flex justify-center items-center"/>
                                                 </Link>
-                                                <ul className={"absolute top-7 -right-12 bg-[#F4F4F4] w-[220px] rounded-md hidden group-hover:flex flex-col gap-y-4 p-4 my-transition border border-gray-300 "}>
-                                                    <li className={"capitalize text-xl font-semibold text-[#FF8C00] px-4 py-2 text-center"}>
+                                                <ul className={"absolute top-7 -right-12 bg-[#F4F4F4] w-[220px] rounded-md hidden group-hover:flex flex-col gap-y-2  p-4 my-transition border border-gray-300 "}>
+                                                    <li className={"capitalize hover:bg-gray-300 my-transition py-2 text-xl font-semibold text-[#FF8C00] text-center"}>
                                                         <Link href={"/profile"} >{data?.full_name}</Link>
                                                     </li>
-                                                    <li className={pathname === "/my-cv" ? "navActive text-center !bg-red-600 " : "navNotActive text-center bg-blue-600"}>
+                                                    <li className={pathname === "/my-cv" ? "navActive " : "py-2 navNotActive " +"text-center py-2 hover:bg-gray-300 my-transition -mt-2"}>
                                                         <Link href={"/my-cv"} className={"!text-center"}>My Resume</Link>
                                                     </li>
                                                     <li onClick={handleLogOUt}
