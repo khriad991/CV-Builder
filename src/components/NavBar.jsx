@@ -94,7 +94,7 @@ const NavBar = () => {
                                                     <li className={"capitalize hover:bg-gray-300 my-transition py-2 text-xl font-semibold text-[#FF8C00] text-center"}>
                                                         <Link href={"/profile"} >{data?.full_name}</Link>
                                                     </li>
-                                                    <li className={pathname === "/my-cv" ? "navActive " : "py-2 navNotActive " +"text-center py-2 hover:bg-gray-300 my-transition -mt-2"}>
+                                                    <li className={` ${pathname === "/my-cv" ? "navActive !text-center " : "navNotActive !text-center " }  py-2 hover:bg-gray-300 my-transition -mt-2`}>
                                                         <Link href={"/my-cv"} className={"!text-center"}>My Resume</Link>
                                                     </li>
                                                     <li onClick={handleLogOUt}
