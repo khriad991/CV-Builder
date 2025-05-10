@@ -27,7 +27,7 @@ const RegistetionComponents = () => {
             ErrToast("Email is Required!!");
             setSubmit(false);
         }
-        else if(IsEmail(data.email)){
+        else if(!IsEmail(data.email)){
             ErrToast("Provide a valid Email!!");
             setSubmit(false);
         }else if(IsEmpty(data.mobile)){
