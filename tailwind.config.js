@@ -14,7 +14,6 @@ module.exports = {
         md:"2rem",
         lg:"2rem",
         xl:"2rem",
-        "2xl":"2rem"
       },
     },
     screens:{
@@ -22,7 +21,6 @@ module.exports = {
       md:"768px",
       lg:"1024px",
       xl:"1280",
-      "2xl":"1536"
     },
     extend: {
       animation:{

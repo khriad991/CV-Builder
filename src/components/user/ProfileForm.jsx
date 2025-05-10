@@ -10,6 +10,7 @@ const ProfileForm = () => {
     const [profile, setProfile] = useState([]); // Use null initially
     const [isLoading, setIsLoading] = useState(true);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [updateData, setUpdateData] = useState(false);
 
     // Fetch profile data from the API
     useEffect(() => {
@@ -26,7 +27,6 @@ const ProfileForm = () => {
                 setIsLoading(false);
             }
         };
-
         fetchProfile();
     }, []);
 
@@ -58,53 +58,66 @@ const ProfileForm = () => {
     }
 
     return (
-        <div className="container mx-auto p-6 bg-white shadow-md rounded-lg py-44">
+        <div className="container mx-auto p-6 bg-white shadow-md rounded-lg mt-20">
             <h1 className="text-2xl font-bold mb-6 text-gray-700">User Profile</h1>
-            <form onSubmit={handleSubmit} className="space-y-4 max-lg">
-                {/* Full Name */}
-                <div className="flex flex-col">
-                    <label className="text-sm font-semibold text-gray-600">Full Name</label>
-                    <input
-                        type="text"
-                        name="full_name"
-                        defaultValue={profile.full_name}
-                        className="border rounded-lg p-2 text-gray-700 focus:outline-blue-500"
-                        required
-                    />
-                </div>
+            <form onSubmit={handleSubmit} className="flex flex-col gap-5 ">
+                <div className="flex flex-col md:flex-row gap-4 justify-between">
+                    {/* Full Name */}
+                    <div className="flex flex-col flex-1">
+                        <label className="text-sm font-semibold text-gray-600">Full Name</label>
+                        <input
+                            type="text"
+                            name="full_name"
+                            defaultValue={profile.full_name}
+                            className="border rounded-lg p-2 text-gray-700 focus:outline-blue-500"
+                            required
+                        />
+                    </div>
 
-                {/* Email */}
-                <div className="flex flex-col">
-                    <label className="text-sm font-semibold text-gray-600">Email</label>
-                    <input
-                        type="email"
-                        name="email"
-                        defaultValue={profile.email}
-                        className="border rounded-lg p-2 text-gray-700 focus:outline-blue-500"
-                        required
-                    />
-                </div>
+                    {/* Email */}
+                    <div className="flex flex-col flex-1">
+                        <label className="text-sm font-semibold text-gray-600">Email</label>
+                        <input
+                            type="email"
+                            name="email"
+                            defaultValue={profile.email}
+                            className="border rounded-lg p-2 text-gray-700 focus:outline-blue-500"
+                            required
+                        />
+                    </div>
 
-                {/* Country */}
-                <div className="flex flex-col">
-                    <label className="text-sm font-semibold text-gray-600">Country</label>
-                    <input
-                        type="text"
-                        name="country"
-                        defaultValue={profile.country}
-                        className="border rounded-lg p-2 text-gray-700 focus:outline-blue-500"
-                    />
+                    {/* Country */}
+                    <div className="flex flex-col flex-1">
+                        <label className="text-sm font-semibold text-gray-600">Country</label>
+                        <input
+                            type="text"
+                            name="country"
+                            defaultValue={profile.country}
+                            className="border rounded-lg p-2 text-gray-700 focus:outline-blue-500"
+                        />
+                    </div>
                 </div>
-
-                {/* Mobile */}
-                <div className="flex flex-col">
-                    <label className="text-sm font-semibold text-gray-600">Mobile</label>
-                    <input
-                        type="text"
-                        name="mobile"
-                        defaultValue={profile.mobile}
-                        className="border rounded-lg p-2 text-gray-700 focus:outline-blue-500"
-                    />
+                <div className="flex flex-col md:flex-row gap-4 justify-between">
+                    {/* Mobile */}
+                    <div className="flex flex-col flex-1">
+                        <label className="text-sm font-semibold text-gray-600">Mobile</label>
+                        <input
+                            type="text"
+                            name="mobile"
+                            defaultValue={profile.mobile}
+                            className="border rounded-lg p-2 text-gray-700 focus:outline-blue-500"
+                        />
+                    </div>
+                    {/* Designation */}
+                    <div className="flex flex-col flex-1">
+                        <label className="text-sm font-semibold text-gray-600">Designation</label>
+                        <input
+                            type="text"
+                            name="designation"
+                            defaultValue={profile.designation}
+                            className="border rounded-lg p-2 text-gray-700 focus:outline-blue-500"
+                        />
+                    </div>
                 </div>
 
                 {/* Summary */}
@@ -112,43 +125,35 @@ const ProfileForm = () => {
                     <label className="text-sm font-semibold text-gray-600">Summary</label>
                     <textarea
                         name="summary"
+                        rows={6}
                         defaultValue={profile.summary}
-                        className="border rounded-lg p-2 text-gray-700 focus:outline-blue-500"
+                        className="border resize-y rounded-lg p-2 text-gray-700 focus:outline-blue-500"
                     />
                 </div>
 
-                {/* Designation */}
-                <div className="flex flex-col">
-                    <label className="text-sm font-semibold text-gray-600">Designation</label>
-                    <input
-                        type="text"
-                        name="designation"
-                        defaultValue={profile.designation}
-                        className="border rounded-lg p-2 text-gray-700 focus:outline-blue-500"
-                    />
+                <div className="flex flex-col md:flex-row md:flex-wrap gap-4 justify-between">
+                    {/* Social Links */}
+                    {["facebook", "twitter", "git", "linkdin"].map((field) => (
+                        <div className="flex flex-col basis-[40%]  flex-1 " key={field}>
+                            <label className="text-sm font-semibold text-gray-600">
+                                {field.charAt(0).toUpperCase() + field.slice(1)}
+                            </label>
+                            <input
+                                type="text"
+                                name={field}
+                                defaultValue={profile[field]}
+                                className="border rounded-lg p-2 text-gray-700 focus:outline-blue-500"
+                            />
+                        </div>
+                    ))}
                 </div>
-
-                {/* Social Links */}
-                {["facebook", "twitter", "git", "linkdin"].map((field) => (
-                    <div className="flex flex-col" key={field}>
-                        <label className="text-sm font-semibold text-gray-600">
-                            {field.charAt(0).toUpperCase() + field.slice(1)}
-                        </label>
-                        <input
-                            type="text"
-                            name={field}
-                            defaultValue={profile[field]}
-                            className="border rounded-lg p-2 text-gray-700 focus:outline-blue-500"
-                        />
-                    </div>
-                ))}
 
                 {/* Submit Button */}
                 <button
                     type="submit"
                     disabled={isSubmitting}
-                    className={` py-2 text-white rounded-lg w-fit px-8  ${
-                        isSubmitting ? "bg-gray-400" : "bg-blue-500 hover:bg-blue-600"
+                    className={` py-3 text-white rounded-lg w-fit px-12 font-bold  ${
+                        isSubmitting ? "bg-gray-400" : "bg-blue-700 hover:bg-blue-600"
                     }`}
                 >
                     {isSubmitting ? "Updating..." : "Update Profile"}

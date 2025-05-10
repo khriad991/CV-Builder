@@ -6,22 +6,48 @@ import {usePathname, useRouter} from "next/navigation";
 import {FaXmark} from "react-icons/fa6";
 import cookies from "js-cookie";
 import {RxAvatar} from "react-icons/rx";
+import {Get} from "@/utility/APIHelper";
+import {ErrToast} from "@/utility/FromHelper";
 
 const NavBar = () => {
     const pathname = usePathname();
     const router = useRouter()
     const [sidebar, setSidebar] = useState(false);
     const [token,setToken] = useState(null);
+    const [data,setData] = useState(null);
 
-    useEffect( () => {
+    useEffect(() => {
+        // Check and set token from cookies
         const myToken = cookies.get("token");
-
-        if(myToken){
+        if (myToken) {
             setToken(myToken);
-        }else{
+        } else {
             setToken(null);
         }
-    },[])
+    }, []);
+
+    useEffect(() => {
+        // Fetch profile data if token exists
+        const fetchProfile = async () => {
+            try {
+                const response = await Get("/api/my-cv/profile/read");
+                if (response?.status) {
+                    setData(response.data);
+                    console.log("my user data",response.data)
+                } else {
+                    throw new Error("Failed to fetch profile");
+                }
+            } catch (error) {
+                setData(null); // Reset data on error
+                ErrToast("Failed to load profile data.");
+            }
+        };
+
+        if (token) {
+            fetchProfile();
+        }
+    }, [token]);
+
 
     const handleLogOUt = () => {
         cookies.remove("token");
@@ -64,13 +90,12 @@ const NavBar = () => {
                                                 <Link href={`/profile`} >
                                                     <RxAvatar className="text-3xl text-sky-500 flex justify-center items-center"/>
                                                 </Link>
-                                                <ul className={"absolute top-7 -right-12 bg-[#F4F4F4] w-[200px] hidden group-hover:flex flex-col gap-y-4 p-4 my-transition border border-gray-400 "}>
-                                                    <li className={"capitalize text-xl font-semibold text-sky-600 hover:bg-gray-200 px-4 py-2 my-transition text-center"}>jone
-                                                        due
+                                                <ul className={"absolute top-7 -right-12 bg-[#F4F4F4] w-[220px] rounded-md hidden group-hover:flex flex-col gap-y-4 p-4 my-transition border border-gray-300 "}>
+                                                    <li className={"capitalize text-xl font-semibold text-[#FF8C00] px-4 py-2 text-center"}>
+                                                        <Link href={"/profile"} >{data?.full_name}</Link>
                                                     </li>
-                                                    <li className={pathname === "/my-cv" ? "navActive text-center" : "navNotActive text-center"}>
-                                                        <Link href={"/my-cv"} className={"!text-center"}>My
-                                                            Resume</Link>
+                                                    <li className={pathname === "/my-cv" ? "navActive text-center !bg-red-600 " : "navNotActive text-center bg-blue-600"}>
+                                                        <Link href={"/my-cv"} className={"!text-center"}>My Resume</Link>
                                                     </li>
                                                     <li onClick={handleLogOUt}
                                                         className="capitalize bg-red-500 hover:bg-red-600 text-white font-bold px-4 py-2 my-transition w-full text-center">
@@ -96,7 +121,7 @@ const NavBar = () => {
                             </ul>
                         </nav>
                         <div className="block lg:hidden">
-                            <div className="flex items-center gap-4	 px-[10px]">
+                            <div className={`items-center gap-4 px-[10px] ${sidebar ? "hidden": "flex"} `}>
                                 <span
                                     onClick={sidebarControl}
                                     className="rounded-full border border-[#919295] p-[10px] text-[25px] "
@@ -108,33 +133,53 @@ const NavBar = () => {
                     </div>
                 </div>
             </header>
-            <div
-                className={`sidebar fixed ${
-                    sidebar ? "left-0" : "left-[100%]"
-                }  top-0 z-[9999] bg-transparent h-full w-full bg-btn/60 transition-all `}
-            >
-                <div className="ml-auto w-[300px] py-5 pl-6 lg:hidden relative z-0  ">
-                    <div className="relative flex justify-center text-blue-600 ">
-                        <span onClick={sidebarControl} className="group z-20 absolute -top-3 right-2 rounded-full bg-card  p-[12px]  text-[26px] border-[1px] border-gray-500 hover:border-blue-500 ">
-                          <FaXmark className="text-gray-700 transition-all duration-500 group-hover:rotate-90 group-hover:text-theme" />
-                        </span>
-                    </div>
-                    <menu className=" items-center absolute top-0 pt-14 pb-20 rounded-l-lg px-4 bg-white w-full z-10 duration-500 shadow-xl">
-                        <ul className="grid  gap-[20px]">
-                            <li className={pathname === "/" ? "navActive text-[20px]" : "navNotActive text-[20px]"}>
-                                <Link href={"/"}>Home</Link>
-                            </li>
+            <div className={`sidebar fixed ${sidebar ? "bg-opacity-75 left-0 " : "left-[100%] bg-opacity-0 "} my-transition bg-gray-700 top-0 z-[9999] h-full w-full`} onClick={() => setSidebar(false)}>
+                <div className="ml-auto w-[300px] py-5 pl-6 lg:hidden relative z-0   ">
+                    <menu
+                        className="items-center absolute top-4 py-10 rounded-l-lg px-4 bg-white w-full z-10 my-transition  shadow-xl">
+                        <div className="relative flex justify-center text-blue-600 ">
+                            <span onClick={sidebarControl}
+                                  className="group z-20 absolute -top-9 right-3 rounded-full bg-card  p-[8px]  text-[26px] border-[1px] border-gray-500 hover:border-blue-500 ">
+                              <FaXmark
+                                  className="text-gray-700 my-transition group-hover:rotate-90 group-hover:text-theme"/>
+                            </span>
+                        </div>
 
-                            <li className={pathname === "/about" ? "navActive text-[20px]" : "navNotActive text-[20px]"}>
-                                <Link href={"/about"}>About us</Link>
-                            </li>
-                            <li
-                                className={pathname === "/blog" ? "navActive text-[20px]" : "navNotActive text-[20px]"}>
-                                <Link href={"/user/login"}>login</Link>
-                            </li>
-                            <li className={pathname === "/registration" ? "navActive text-[20px]" : "navNotActive text-[20px]"}>
-                                <Link href={`/user/registration`}>registration </Link>
-                            </li>
+                        <ul className="grid gap-[20px] text-center" >
+                            {token ? (
+                                <>
+                                    <li className={pathname === "/profile" ? "navActive text-[20px]" : "navNotActive text-[20px]"}>
+                                        <Link href={"/profile"} className={"text-[#FF8C00]"}>{data?.full_name}</Link>
+                                    </li>
+
+                                    <li className={pathname === "/my-cv" ? "navActive text-[20px]" : "navNotActive text-[20px]"}>
+                                        <Link href={"/my-cv"}>My Resume</Link>
+                                    </li>
+
+                                    <li onClick={handleLogOUt}
+                                        className="capitalize bg-red-500 hover:bg-red-600 text-white font-bold px-4 py-2 my-transition w-full text-center">
+                                        log out
+                                    </li>
+
+                                </>
+                            ) : (
+                                <>
+                                    <li className={pathname === "/" ? "navActive text-[20px]" : "navNotActive text-[20px]"}>
+                                        <Link href={"/"}>Home</Link>
+                                    </li>
+
+                                    <li className={pathname === "/about" ? "navActive text-[20px]" : "navNotActive text-[20px]"}>
+                                        <Link href={"/about"}>About us</Link>
+                                    </li>
+                                    <li
+                                        className={pathname === "/blog" ? "navActive text-[20px]" : "navNotActive text-[20px]"}>
+                                        <Link href={"/user/login"}>login</Link>
+                                    </li>
+                                    <li className={pathname === "/registration" ? "navActive text-[20px]" : "navNotActive text-[20px]"}>
+                                        <Link href={`/user/registration`}>registration </Link>
+                                    </li>
+                                </>
+                            )}
                         </ul>
                     </menu>
                 </div>

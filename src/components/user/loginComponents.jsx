@@ -30,7 +30,6 @@ const LoginComponents = () => {
    const handleSubmit = async () => {
         setSubmit(true);
         const data = { email, password };
-
         if (IsEmpty(data.email)) {
             ErrToast("Email is Required!!");
             setSubmit(false);
@@ -41,20 +40,23 @@ const LoginComponents = () => {
             ErrToast("Password is Required!!");
             setSubmit(false);
         } else {
-            Create("/api/user/login", data).then((res) => {
-                if (res?.status === true) {
-                    setSubmit(false);
-                    SuccessAlert("Login Success");
-                    window.location.href = "/my-cv";
-                } else if (res?.status === false && res?.message === "User does not exist") {
-                    setSubmit(false);
-                    ErrorSweet("User does not exist");
-                    router.replace("/user/registetion");
+            try {
+                const res = await Create("/api/user/login", data)
+
+                if(res.status === true){
+                    setSubmit(false)
+                    SuccessAlert("Login Success")
+                    window.location.href = "/my-cv"
                 } else {
                     setSubmit(false);
                     ErrorSweet(res.message || "Something went wrong");
                 }
-            });
+
+
+            }catch (e) {
+                setSubmit(false)
+                ErrorSweet(e.message || "Something went wrong");
+            }
         }
     }
 

@@ -43,6 +43,9 @@ const RegistetionComponents = () => {
                     Successtoast("Registetion Success")
                     router.replace("/my-cv")
                     setSubmit(false);
+                }else if(res.status === false && res.message === "User Already Exist!!"){
+                    ErrToast(res.message)
+                    router.replace("/user/login")
                 }else {
                     ErrToast("Something went wrong")
                     setSubmit(false);
