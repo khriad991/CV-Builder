@@ -54,9 +54,6 @@ export  async function POST(req,res){
 
 */
 
-
-
-
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import MailHelper from "@/utility/MailHelper";

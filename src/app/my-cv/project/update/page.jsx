@@ -1,7 +1,7 @@
 export const revalidate = 0;
 import {main} from "prisma/preinstall";
 import MainLayout from "@/components/MainLayout";
-import UpdateProjectComponent from "@/components/UpdateProjectComponent";
+import UpdateProjectComponent from "@/components/project/UpdateProjectComponent";
 
 
 export default async function Page({searchParams}){

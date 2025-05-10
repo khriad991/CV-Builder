@@ -276,6 +276,7 @@ const MyCvComponent = () => {
                             <Link className="cursor-pointer underline capitalize text-[#199aec] text-sm" target="_blank" href={`${user?.linkdin}`}> Linkdin </Link>
                             <Link className="cursor-pointer underline capitalize text-[#199aec] text-sm" target="_blank" href={`${user?.git}`}> github </Link>
                         </div>
+                        <p className={"text-sm mt-1"}>{user?.summary}</p>
                         <Link className="cvlink btn w-fit absolute top-[35%] !right-4 " href={`/profile`}><RiEdit2Fill /> </Link>
                     </div>
 

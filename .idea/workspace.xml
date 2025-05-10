@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="6abf905c-9097-4fc3-bc30-acfa4a15ebff" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/postcss.config.mjs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/fonts/GeistMonoVF.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/fonts/GeistVF.woff" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.eslintrc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/GrepConsole.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/postcss.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/qodana.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/api/user/login/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/user/login/route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/api/user/reset/route.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/user/reset/route.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/my-cv/education/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/my-cv/education/page.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/my-cv/education/update/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/my-cv/education/update/page.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/my-cv/project/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/my-cv/project/page.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/my-cv/project/update/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/my-cv/project/update/page.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/my-cv/skill/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/my-cv/skill/page.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/my-cv/skill/update/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/my-cv/skill/update/page.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/my-cv/work/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/my-cv/work/page.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/my-cv/work/update/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/my-cv/work/update/page.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/user/login/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/user/login/page.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/user/registetion/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/user/registetion/page.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/user/reset/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/user/reset/page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ChildComponents/SubmitButton.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ChildComponents/SubmitButton.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/EducationComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/education/EducationComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MyCVComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MyCVComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NavBar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavBar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ProjectComponents.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/project/ProjectComponents.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ResetPasswonrd.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user/ResetPasswonrd.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SkillComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/skill/SkillComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SkillUpdateComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/skill/SkillUpdateComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UpdateEducationComponents.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/education/UpdateEducationComponents.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UpdateProjectComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/project/UpdateProjectComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/WorkExperianceComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/workExperiance/WorkExperianceComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/WorkExperianceUpdateComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/workExperiance/WorkExperianceUpdateComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/loginComponents.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user/loginComponents.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/registetionComponents.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user/registetionComponents.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utility/MailHelper.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utility/MailHelper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.config.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "khriad991"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/khriad991/CV-Builder.git",
+    "accountId": "2fadf974-5b57-437e-a5a0-b1b1de76de12"
+  }
+}]]></component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 2
+}]]></component>
+  <component name="ProjectId" id="2wtEhuNFxjDyN0v6AvxyOtzlSkn" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "com.codeium.enabled": "true",
+    "git-widget-placeholder": "main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2024.2.4\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\app\cv-builder\src\components\user" />
+      <recent name="E:\app\cv-builder\src\components\project" />
+      <recent name="E:\app\cv-builder\src\components\education" />
+      <recent name="E:\app\cv-builder\src\components\workExperiance" />
+      <recent name="E:\app\cv-builder\src\components\skill" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-WS-242.23726.96" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6abf905c-9097-4fc3-bc30-acfa4a15ebff" name="Changes" comment="" />
+      <created>1746852593673</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1746852593673</updated>
+      <workItem from="1746852595885" duration="7738000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/components/ChildComponents/SubmitButton.jsx</url>
+          <line>2</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

@@ -1,4 +1,4 @@
-import SkillUpdateComponent from "@/components/SkillUpdateComponent";
+import SkillUpdateComponent from "@/components/skill/SkillUpdateComponent";
 
 export const revalidate = 0;
 import MainLayout from "@/components/MainLayout";

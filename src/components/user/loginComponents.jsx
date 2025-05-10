@@ -30,7 +30,6 @@ const LoginComponents = () => {
    const handleSubmit = async () => {
         setSubmit(true);
         const data = { email, password };
-        console.log(data )
 
         if (IsEmpty(data.email)) {
             ErrToast("Email is Required!!");

@@ -22,7 +22,6 @@ export async function MailHelper({ to, text }) {
 
         // Send the email
         const info = await transporter.sendMail(mailOptions);
-        console.log('Email sent:', info.response);
         return { success: true, message: 'Email sent successfully' };
     } catch (error) {
         console.error('Error sending email:', error);

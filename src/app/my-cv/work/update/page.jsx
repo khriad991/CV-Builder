@@ -1,5 +1,5 @@
 import MainLayout from "@/components/MainLayout";
-import WorkExperianceUpdateComponent from "@/components/WorkExperianceUpdateComponent";
+import WorkExperianceUpdateComponent from "@/components/workExperiance/WorkExperianceUpdateComponent";
 import {searchParamsToUrlQuery} from "next/dist/shared/lib/router/utils/querystring";
 
 export default async function Page({searchParams}){

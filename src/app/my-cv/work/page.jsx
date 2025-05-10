@@ -1,4 +1,4 @@
-import WorkExperianceComponent from "@/components/WorkExperianceComponent";
+import WorkExperianceComponent from "@/components/workExperiance/WorkExperianceComponent";
 
 export const revalidate =0;
 import MainLayout from "@/components/MainLayout";

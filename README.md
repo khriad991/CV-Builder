@@ -1,36 +1,109 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# CV Builder
 
-## Getting Started
+## Project Overview
 
-First, run the development server:
+The **CV Builder** is a Next.js-based web application designed to create and export professional CVs. This application allows users to input personal, educational, and professional details and generate a PDF of their CV. The app also supports email functionalities and dynamic data visualization.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### Live Demo
+
+Visit the live version of the application here: [CV Builder](https://cv-builder-assinment.vercel.app/)
+
+### GitHub Repository
+
+Explore the codebase on GitHub: [CV Builder Repository](https://github.com/khriad991/CV-Builder)
+
+## Features
+
+* Generate customizable CVs.
+* Export CVs as PDFs.
+* Responsive design for better user experience.
+* Loading indicators and user feedback with **react-hot-toast**.
+* Visual loading animations with **react-loading-skeleton**.
+
+  [//]: # (* Email CV directly via the application.)
+
+## Tech Stack
+
+* **Frontend:** Next.js, TailwindCSS
+* **Backend:** Prisma, Next.js API Routes
+* **PDF Generation:** with jsPDF
+* **Email Service:** emailjs-com, nodemailer
+* **Data Management:** SWR, js-cookie
+* **Icons and UI Enhancements:** phosphor-react, react-icons, sweetalert2
+
+## Installation and Setup
+
+To get started with the project locally, follow these steps:
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/khriad991/CV-Builder
+   cd CV-Builder
+   ```
+
+2. Install dependencies using PNPM:
+
+   ```bash
+   pnpm install
+   ```
+
+3. Set up the environment variables:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+4. Run the development server:
+
+   ```bash
+   pnpm dev
+   ```
+
+5. Open the application in your browser at:
+
+   ```
+   ```
+
+[http://localhost:3000](http://localhost:3000)
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Building for Production
+To build the application for production:
+```
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+pnpm build
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```
+Start the production server:
+```
 
-## Learn More
+pnpm start
 
-To learn more about Next.js, take a look at the following resources:
+````
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Prisma Usage
+- Run migrations:
+  ```bash
+  npx prisma migrate dev --name init
+````
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+* Open Prisma Studio:
 
-## Deploy on Vercel
+  ```bash
+  npx prisma studio
+  ```
+* Generate Prisma Client:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+  ```bash
+  npx prisma generate
+  ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Contributing
+
+Feel free to submit pull requests to improve the project. Open issues for any bugs or feature requests.
+
+## License
+
+This project is licensed under the MIT License.

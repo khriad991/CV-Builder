@@ -40,7 +40,7 @@ const NavBar = () => {
                     <div className={sidebar ? "flex justify-between rounded-[10px] bg-card py-5": "flex justify-between rounded-[10px] bg-gray-100 py-5"}>
                         <div className="logo flex items-center ">
                             <Link href={"/"}>
-                                <strong className='font-bold text-sky-500 text-3xl'>resume</strong>
+                                <strong className='font-bold text-sky-500 text-3xl capitalize'>resume</strong>
                             </Link>
                         </div>
 
@@ -58,23 +58,25 @@ const NavBar = () => {
                                     token ?(
                                         <>
                                             <li className={pathname === "/my-cv" ? "navActive " : "navNotActive "}>
-                                                <Link href={"/my-cv"}>My CV</Link>
+                                                <Link href={"/my-cv"}>My Resume</Link>
                                             </li>
                                             <li className={` ${pathname === "/profile" ? "navActive  " : "navNotActive "} relative group `}>
                                                 <Link href={`/profile`} >
-                                                    <RxAvatar className="text-2xl text-sky-500 flex justify-center items-center"/>
+                                                    <RxAvatar className="text-3xl text-sky-500 flex justify-center items-center"/>
                                                 </Link>
-                                                <ul className={"absolute top-8 -right-1/2 bg-[#F4F4F4] w-[200px] hidden group-hover:flex flex-col gap-y-4 p-4 my-transition border border-gray-400 "}>
-                                                    <li className={"capitalize text-xl font-semibold text-sky-600 hover:bg-gray-200 px-4 py-2 my-transition"}>jone
+                                                <ul className={"absolute top-7 -right-12 bg-[#F4F4F4] w-[200px] hidden group-hover:flex flex-col gap-y-4 p-4 my-transition border border-gray-400 "}>
+                                                    <li className={"capitalize text-xl font-semibold text-sky-600 hover:bg-gray-200 px-4 py-2 my-transition text-center"}>jone
                                                         due
                                                     </li>
+                                                    <li className={pathname === "/my-cv" ? "navActive text-center" : "navNotActive text-center"}>
+                                                        <Link href={"/my-cv"} className={"!text-center"}>My
+                                                            Resume</Link>
+                                                    </li>
                                                     <li onClick={handleLogOUt}
-                                                        className="bg-red-500 hover:bg-red-600 text-white font-bold px-4 py-2 my-transition w-full text-center">
-                                                        logout
+                                                        className="capitalize bg-red-500 hover:bg-red-600 text-white font-bold px-4 py-2 my-transition w-full text-center">
+                                                        log out
                                                     </li>
-                                                    <li className={pathname === "/service" ? "navActive !uppercase" : "navNotActive !uppercase"}>
-                                                        <Link href={"/my-cv"}>my-cv</Link>
-                                                    </li>
+
                                                 </ul>
                                             </li>
 

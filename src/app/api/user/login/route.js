@@ -26,8 +26,6 @@ export async function POST(req, res) {
                 message: "Incorrect email or password",
             });
         }
-        console.log("my user data --------->>>",user)
-
 
         const token = await CreateToken(user.email, user.id);
         const expirationDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 days

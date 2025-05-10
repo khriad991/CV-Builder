@@ -1,4 +1,4 @@
-/*@import "keep-react/css";*/
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -20,19 +20,19 @@ body {
 
 @layer components {
   .navNotActive {
-    @apply font-medium text-black transition-all duration-300 hover:text-sky-400 capitalize
+    @apply font-medium text-black transition-all duration-300 hover:text-blue-500 capitalize;
   }
   .navActive {
-    @apply font-medium text-sky-400 capitalize
+    @apply font-medium text-blue-500 capitalize;
   }
   .inputFiled{
-    @apply mt-1 rounded px-4 py-1.5 w-full md:w-[80%] block bg-gray-50 outline-0 border-2 focus:border-sky-300 transition-all duration-300 ease-in-out
+    @apply mt-1 rounded px-4 py-1.5 w-full md:w-[80%] block bg-gray-50 outline-0 border-2 focus:border-sky-300 transition-all duration-300 ease-in-out;
   }
   .my-transition{
     @apply transition-all duration-300 ease-in-out;
   }
   .btn{
-    @apply text-center bg-blue-600 text-white py-3 px-4 outline-0 rounded-lg capitalize text-base font-bold hover:bg-transparent hover:text-blue-600 border-[1px] border-transparent hover:border-blue-600 transition-all duration-300 ease-in-out
+    @apply text-center bg-blue-600 text-white py-3 px-4 outline-0 rounded-lg capitalize text-base font-bold hover:bg-transparent hover:text-blue-600 border-[1px] border-transparent hover:border-blue-600 my-transition;
   }
   .btnBG{
     @apply text-center hover:bg-blue-600 hover:text-white py-3 px-4 outline-0 rounded-lg capitalize text-base font-bold bg-transparent text-blue-600 border-[1px] hover:border-transparent border-blue-600 transition-all duration-300 ease-in-out
