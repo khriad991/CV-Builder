@@ -32,7 +32,7 @@ const SubmitButton = (props) => {
         return (
             <button
                 type="submit"
-                className="px-5 md:px-10 max-w-fit py-3 hover:bg-white hover:text-blue-700 border border-gray-500 text-gray-700 text-base hover:border-blue-700 capitalize font-bold rounded-lg my-transition"
+                className="px-5 md:px-10 max-w-fit py-3 bg-blue-500 hover:bg-transparent text-white hover:text-blue-500 border border-gray-500 text-gray-700 text-base hover:border-blue-700 capitalize font-bold rounded-lg my-transition"
                 onClick={props?.onClick}
             >
                 {props?.text}

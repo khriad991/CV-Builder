@@ -6,10 +6,17 @@
   <component name="ChangeListManager">
     <list default="true" id="6abf905c-9097-4fc3-bc30-acfa4a15ebff" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/next.config.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/about/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/about/page.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MainLayout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MainLayout.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/layout.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/user/login/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/user/login/page.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ChildComponents/SubmitButton.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ChildComponents/SubmitButton.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MyCVComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MyCVComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NavBar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavBar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/education/EducationComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/education/EducationComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/education/UpdateEducationComponents.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/education/UpdateEducationComponents.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/skill/SkillComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/skill/SkillComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/user/ProfileForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user/ProfileForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/user/loginComponents.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user/loginComponents.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,31 +56,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "JavaScript Debug.localhost:3000.executor": "Debug",
-    "JavaScript Debug.localhost:3001.executor": "Debug",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "com.codeium.enabled": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "js.debugger.nextJs.config.created.client": "true",
-    "js.debugger.nextJs.config.created.server": "true",
-    "junie.onboarding.icon.badge.shown": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "preferences.general",
-    "to.speed.mode.migration.done": "true",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2025.2\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;JavaScript Debug.localhost:3000.executor&quot;: &quot;Debug&quot;,
+    &quot;JavaScript Debug.localhost:3001.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;com.codeium.enabled&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;js.debugger.nextJs.config.created.client&quot;: &quot;true&quot;,
+    &quot;js.debugger.nextJs.config.created.server&quot;: &quot;true&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.Next.js: server-side.executor&quot;: &quot;Run&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.EditorConfig&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\WebStorm 2025.2\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\app\cv-builder\src\components\user" />
@@ -83,16 +91,7 @@
       <recent name="E:\app\cv-builder\src\components\skill" />
     </key>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.localhost:3000">
-    <configuration name="Next.js: debug client-side" type="JavascriptDebugType" uri="http://localhost:3000/">
-      <method v="2" />
-    </configuration>
-    <configuration name="localhost:3000" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:3000">
-      <method v="2" />
-    </configuration>
-    <configuration name="localhost:3001" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:3001">
-      <method v="2" />
-    </configuration>
+  <component name="RunManager">
     <configuration name="Next.js: server-side" type="js.build_tools.npm">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -103,17 +102,11 @@
       <envs />
       <method v="2" />
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="JavaScript Debug.localhost:3000" />
-        <item itemvalue="JavaScript Debug.localhost:3001" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-e03c56caf84a-JavaScript-WS-252.23892.411" />
+        <option value="bundled-js-predefined-d6986cc7102b-9c94529fcfe0-JavaScript-WS-252.26199.162" />
       </set>
     </attachedChunks>
   </component>
@@ -136,6 +129,13 @@
       <workItem from="1758722536297" duration="29000" />
       <workItem from="1758722794046" duration="314000" />
       <workItem from="1758723413053" duration="201000" />
+      <workItem from="1758874521680" duration="832000" />
+      <workItem from="1758880225701" duration="754000" />
+      <workItem from="1758881763627" duration="376000" />
+      <workItem from="1758882159994" duration="2202000" />
+      <workItem from="1758980687777" duration="3351000" />
+      <workItem from="1758984269386" duration="71000" />
+      <workItem from="1758984370182" duration="8672000" />
     </task>
     <servers />
   </component>
@@ -152,13 +152,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/components/NavBar.jsx</url>
-          <line>122</line>
+          <line>125</line>
           <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/components/user/ProfileForm.jsx</url>
-          <line>65</line>
-          <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/components/MainLayout.jsx</url>
@@ -172,9 +167,19 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/app/about/page.js</url>
-          <line>3</line>
-          <properties lambdaOrdinal="-1" />
+          <line>1</line>
           <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/components/education/EducationComponent.jsx</url>
+          <line>36</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/components/education/EducationComponent.jsx</url>
+          <line>109</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

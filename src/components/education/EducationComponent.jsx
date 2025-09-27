@@ -7,7 +7,7 @@ import Link from "next/link";
 import {FaRegEdit} from "react-icons/fa";
 import SubmitButton from "@/components/ChildComponents/SubmitButton";
 import {ErrToast, IsEmpty, Successtoast} from "@/utility/FromHelper";
-import { SweetAlert} from "@/utility/SweetAlert";
+import {SuccessAlert, SweetAlert} from "@/utility/SweetAlert";
 import NextStep from "@/components/ChildComponents/NextStep";
 import {BiSolidMessageSquareAdd} from "react-icons/bi";
 
@@ -17,90 +17,94 @@ const EducationComponent = () => {
     const [hidden,setHidden] = useState(false)
     const [submit,setSubmit] = useState(false);
     const [endDate ,setEndDate] = useState(false)
-    let  school_nameRef, degreeRef, start_dateRef,end_dateRef = useRef(null);
+    let school_nameRef = useRef(null)
+    let degreeRef = useRef(null)
+    let start_dateRef = useRef(null)
+    let end_dateRef = useRef(null);
 
-
+    const GetEducationFetchDAta = async () => {
+        try {
+            const response = await Get('/api/my-cv/education/read-all'); // Replace with your actual API endpoint
+            if (response.status === true) {
+                setData(response.data);
+                response.data.length > 0 ? setHidden(false) : setHidden(true);
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error); // Handle errors
+        }
+    };
 
     useEffect(  ()=>{
-        const getData = async () => {
-            try {
-                const response = await Get('/api/my-cv/education/read-all'); // Replace with your actual API endpoint
-                if (response.status === true) {
-                    setData(response.data);
-                    response.data.length > 0 ? setHidden(false) : setHidden(true);
-                }
-            } catch (error) {
-                console.error('Error fetching data:', error); // Handle errors
-            }
-        };
-
-        getData();
+        GetEducationFetchDAta()
     },[])
 
+    const educationSubmit = async () => {
+        setSubmit(true);
 
-    const educationSubmit =async () => {
-        setSubmit(true)
+        let data = {
+            school_name: school_nameRef.current.value,
+            degree: degreeRef.current.value,
+            start_date: start_dateRef.current.value,
+            end_date: endDate ? "Going On" : end_dateRef.current.value,
+        };
 
-        let data ={
-            school_name : school_nameRef.value,
-            degree : degreeRef.value,
-            start_date : start_dateRef.value,
-            end_date : endDate ? "Going On" : end_dateRef.value
+        if (IsEmpty(data.school_name)) {
+            setSubmit(false);
+            return ErrToast("School name is required!!");
+        } else if (IsEmpty(data.degree)) {
+            setSubmit(false);
+            return ErrToast("Degree is required!!");
+        } else if (IsEmpty(data.start_date)) {
+            setSubmit(false);
+            return ErrToast("Start date is required!!");
+        } else if (IsEmpty(data.end_date)) {
+            setSubmit(false);
+            return ErrToast("End date is required!!");
         }
 
-        if(IsEmpty(data.school_name)){
-            setSubmit(false)
-            return ErrToast("School names required!!");
-        }else if(IsEmpty(data.degree)){
-            setSubmit(false)
-            return ErrToast("Degree is Required!!");
-        }else if(IsEmpty(data.start_date)){
-            setSubmit(false)
-            return ErrToast("Sart date is Required!!");
-        }else if(IsEmpty(data.end_date)){
-            setSubmit(false)
-            return ErrToast("End Date is required!!");
-        }else {
-            Create("/api/my-cv/education/create",data).then((res)=>{
-                if(res?.status === true){
-                    Successtoast("Project created success")
-                   Get('/api/my-cv/education/read-all')
-                       .then((res)=>{
-                           if(res?.status === true){
-                               setData(res?.data)
-                               setSubmit(false)
-                               setHidden(false)
-                           }
-                       })
-                }}).catch(()=>{
-                    setSubmit(false)
-                return ErrToast("Something went wrong")
-            })
-            school_nameRef.value = "";
-            degreeRef.value = "";
-            start_dateRef.value = "";
-            end_dateRef.value = "";
-            setEndDate(false)
-        }}
+        try {
+            const res = await Create("/api/my-cv/education/create", data);
 
+            if (res?.status === true) {
+                await SuccessAlert(res?.message || "Education created successfully");
 
+                // 🔥 Call reusable fetch instead of repeating code
+                await GetEducationFetchDAta();
 
+                setSubmit(false);
 
-    const DeleteEducation = (id) => {
-            SweetAlert(`/api/my-cv/education/delete?id=${id}`)
-                .then(async (res)=>{
-                    if(res){
-                        Get("/api/my-cv/education/read-all").then((res)=>{
-                               if(res?.status === true){
-                                   Successtoast("Delete Success")
-                                   setData(res?.data)
-                           }})
-                    }})
-    }
+                // ✅ Reset form fields
+                school_nameRef.current.value = "";
+                degreeRef.current.value = "";
+                start_dateRef.current.value = "";
+                end_dateRef.current.value = "";
+                setEndDate(false);
+            } else {
+                setSubmit(false);
+                ErrToast(res?.message || "Something went wrong");
+            }
+        } catch (error) {
+            setSubmit(false);
+            ErrToast("Something went wrong");
+        }
+    };
+
+    const DeleteEducation = async (id) => {
+        try {
+            const confirmed = await SweetAlert(`/api/my-cv/education/delete?id=${id}`);
+            if (!confirmed) return; // User cancelled
+
+           await GetEducationFetchDAta();
+        } catch (error) {
+            console.error("Delete education error:", error);
+            ErrToast("Something went wrong while deleting");
+        }
+    };
+
     return (
         <section className={hidden ? "py-10 px-6 bg-gray-100 -z-20 w-full h-screen " :" w-full h-auto py-10 px-6 bg-gray-100 "}>
             <div className="container flex flex-col ">
-                <Toaster position="top-center" reverseOrder={false} />
+                {/*<Toaster position="top-center" reverseOrder={false} />*/}
                 <div className={ "flex justify-center items-center w-full flex-col gap-y-8 relative z-10"}>
                     <h1 className="text-2xl md:text-3xl border-b-2 border-b-blue-200 rounded-b-xl w-full pb-5 font-medium text-black capitalize text-center block">Your All educations </h1>
                     <div className={"flex w-full flex-col gap-y-4"}>
@@ -136,14 +140,19 @@ const EducationComponent = () => {
                                             <MdDelete size={18}/>
                                         </button>
                                     </div>
-                                    <div
-                                        className={"hidden md:block absolute bottom-4 left-1/2 -translate-x-1/2 flex-col mt-2"}>
-                                        <button className="btnBG mx-auto flex px-16 justify-center items-center "
-                                                type="submit"
-                                                onClick={() => setHidden(true)}>
-                                            <MdAdd size={17} className="mr-2"/> Add New Education
-                                        </button>
-                                    </div>
+                                    {
+                                        id === data.length -1 && (
+                                            <div className="hidden md:block absolute bottom-4 left-1/2 -translate-x-1/2 flex-col mt-2">
+                                                <button
+                                                    className="btnBG mx-auto flex px-16 justify-center items-center"
+                                                    type="submit"
+                                                    onClick={() => setHidden(true)}
+                                                >
+                                                    <MdAdd size={17} className="mr-2" /> Add New Education
+                                                </button>
+                                            </div>
+                                        )
+                                    }
 
                                 </div>
 
@@ -158,7 +167,7 @@ const EducationComponent = () => {
                                 <label className="inputLabel ">School Name</label>
                                 <input type="text"
                                        className="inputFiled capitalize"
-                                       ref={(input) => school_nameRef= input}
+                                       ref={school_nameRef}
                                 />
                             </div>
                             <div className="w-full">
@@ -166,7 +175,7 @@ const EducationComponent = () => {
                                 <input
                                     type="text"
                                     className="inputFiled capitalize"
-                                    ref={(input)=> degreeRef = input}
+                                    ref={degreeRef}
                                 />
                             </div>
                             <div className="flex gap-x-4 gap-y-5 flex-col md:flex-row w-full">
@@ -175,7 +184,7 @@ const EducationComponent = () => {
                                     <input
                                         type="date"
                                         className="inputFiled rounded"
-                                        ref={(input)=> start_dateRef = input}
+                                        ref={start_dateRef}
                                     />
                                 </div>
 
@@ -198,7 +207,7 @@ const EducationComponent = () => {
                                         value={endDate ? "Going On":end_dateRef.value}
                                         disabled={endDate}
                                         className={endDate ? " inputFiled border-red-300 outline-none cursor-not-allowed rounded":"inputFiled rounded-lg capitalize"}
-                                        ref={(input)=> end_dateRef = input}
+                                        ref={end_dateRef}
                                     />
                                 </div>
 

@@ -19,8 +19,8 @@ const LoginComponents = () => {
         const checkIfLoggedIn = () => {
             const token = cookies.get("token");
             if (token) {
-                SuccessAlert("You are already logged in.", "info");
-                router.replace("/profile");
+                // SuccessAlert("You are already logged in.", "info");
+                router.push("/profile");
             }
         };
 
@@ -45,17 +45,17 @@ const LoginComponents = () => {
 
                 if(res.status === true){
                     setSubmit(false)
-                    SuccessAlert("Login Success")
+                    await SuccessAlert("Login Success")
                     window.location.href = "/my-cv"
                 } else {
                     setSubmit(false);
-                    ErrorSweet(res.message || "Something went wrong");
+                   await ErrorSweet(res.message || "Something went wrong");
                 }
 
 
             }catch (e) {
                 setSubmit(false)
-                ErrorSweet(e.message || "Something went wrong");
+                await ErrorSweet(e.message || "Something went wrong");
             }
         }
     }

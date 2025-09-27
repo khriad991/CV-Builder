@@ -10,12 +10,14 @@ import {ErrToast, Successtoast} from '@/utility/FromHelper';
 import {RiEdit2Fill} from "react-icons/ri";
 import {FaRegEdit } from "react-icons/fa";
 import {SuccessAlert, SweetAlert} from "@/utility/SweetAlert";
+import Loader from './ChildComponents/Loader';
 
 
 
 
 const MyCvComponent = () => {
     const router = useRouter();
+    const [isLoading, setIsLoading] = useState(true);
     const [hidden,setHidden] = useState(false)
     const [user ,setUser] = useState([])
     const [skill ,setSkill] = useState([])
@@ -28,6 +30,7 @@ const MyCvComponent = () => {
         Get("/api/my-cv/cv").then((res)=>{
             if(res?.status === true){
                 // user data set
+                setIsLoading(false)
                 setUser(res?.data[0]?.user)
                 setHidden(!hidden)
 
@@ -246,190 +249,194 @@ const MyCvComponent = () => {
     }
 
     return (
-        <section className={hidden ? "bg-sky-50 bg-opacity-25 py-20":"hidden"}>
-            <div className="container bg-gray-300  py-6 ">
-                <div className="flex gap-6 py-2 mt-4 w-full my-5">
-                    <button type="submit" className="btn flex justify-center items-center gap-x-4"
-                            onClick={() => generateCvPdf("download")}><IoMdDownload size={25}/> Download CV
-                    </button>
-                    <button type="submit" className="btnBG flex justify-center items-center gap-x-4"
-                            onClick={() => generateCvPdf("view")}><MdFullscreen size={25}/> view CV
-                        </button>
-                </div>
+       <>
+       {isLoading ? <Loader /> : (
+          <section className={hidden ? "bg-sky-50 bg-opacity-25 py-20":"hidden"}>
+          <div className="container bg-gray-300  py-6 ">
+              <div className="flex gap-6 py-2 mt-4 w-full my-5">
+                  <button type="submit" className="btn flex justify-center items-center gap-x-4"
+                          onClick={() => generateCvPdf("download")}><IoMdDownload size={25}/> Download CV
+                  </button>
+                  <button type="submit" className="btnBG flex justify-center items-center gap-x-4"
+                          onClick={() => generateCvPdf("view")}><MdFullscreen size={25}/> view CV
+                      </button>
+              </div>
 
-                <div className=" flex flex-col p-6 w-[850px] bg-white">
+              <div className=" flex flex-col p-6 w-[850px] bg-white">
 
-                    {/*user section --*/}
-                    <div className={"hover:bg-gray-100 my-transition p-3 relative flex flex-col border-[1px] border-transparent hover:border-blue-200 rounded-lg"}>
-                        <h1 className="cv-title font-bold mb-2 ">{user?.full_name}</h1>
-                        <div className="flex items-center gap-2">
-                            <span className="cv-subTitle">Email :</span>
-                            <p className="text-sm"> {user?.email}</p>
-                        </div>
+                  {/*user section --*/}
+                  <div className={"hover:bg-gray-100 my-transition p-3 relative flex flex-col border-[1px] border-transparent hover:border-blue-200 rounded-lg"}>
+                      <h1 className="cv-title font-bold mb-2 ">{user?.full_name}</h1>
+                      <div className="flex items-center gap-2">
+                          <span className="cv-subTitle">Email :</span>
+                          <p className="text-sm"> {user?.email}</p>
+                      </div>
 
-                        <div className="flex items-center gap-2">
-                            <span className="cv-subTitle">Phone :</span>
-                            <p className="text-sm"> {user?.mobile}</p>
-                        </div>
+                      <div className="flex items-center gap-2">
+                          <span className="cv-subTitle">Phone :</span>
+                          <p className="text-sm"> {user?.mobile}</p>
+                      </div>
 
-                        <div className="flex gap-x-4">
-                            <Link className="cursor-pointer underline capitalize text-[#199aec] text-sm" target="_blank" href={`${user?.linkdin}`}> Linkdin </Link>
-                            <Link className="cursor-pointer underline capitalize text-[#199aec] text-sm" target="_blank" href={`${user?.git}`}> github </Link>
-                        </div>
-                        <p className={"text-sm mt-1"}>{user?.summary}</p>
-                        <Link className="cvlink btn w-fit absolute top-[35%] !right-4 " href={`/profile`}><RiEdit2Fill /> </Link>
-                    </div>
+                      <div className="flex gap-x-4">
+                          <Link className="cursor-pointer underline capitalize text-[#199aec] text-sm" target="_blank" href={`${user?.linkdin}`}> Linkdin </Link>
+                          <Link className="cursor-pointer underline capitalize text-[#199aec] text-sm" target="_blank" href={`${user?.git}`}> github </Link>
+                      </div>
+                      <p className={"text-sm mt-1"}>{user?.summary}</p>
+                      <Link className="cvlink btn w-fit absolute top-[35%] !right-4 " href={`/profile`}><RiEdit2Fill /> </Link>
+                  </div>
 
-                    {/*work secton -------*/}
-                    <div className="work">
-                        <div className="py-1.5 w-full border-b-[.5px] border-b-gray-300">
-                            <h1 className="cv-title px-3">Work Experiance</h1>
-                        </div>
-                        <div className="flex flex-col gap-y-2">
-                            {
-                                work?.map((item) => (
-                                    <div
-                                        className="flex flex-col group relative px-3 hover:bg-gray-100 hover:shadow my-transition rounded py-1.5 last:-mt-2"
-                                        key={item?.id}>
-                                        <h1 className="cv-subTitle">{item?.company_name}</h1>
-                                        <h1 className="text-black font-medium mr-2">{item?.designation}</h1>
-                                        <div className="flex flex-row gap-x-3">
-                                            <p className="text-sm">Start At : {item?.start_date}</p>
-                                            <p className="text-sm">End : {item?.end_date}</p>
-                                        </div>
-                                        <div
-                                            className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-300 ease-in-out flex flex-col gap-y-auto  group-my-transtion gap-x-2 absolute right-3 top-1/2 -translate-y-1/2">
-                                            <button className="text-red-500 cursor-pointer hover:text-red-700">
-                                                <MdDelete size={20}/>
-                                            </button>
-                                            <Link href={`/my-cv/work`}
-                                                  className="text-sky-500 cursor-pointer hover:text-sky-700 my-transition ">
-                                                <IoIosAddCircle   size={20}  />
-                                            </Link>
-                                            <Link href={`/my-cv/work/update?id=${item?.id}`} className="text-blue-400 cursor-pointer hover:text-blue-700 my-transition ">
-                                                <FaRegEdit size={20}  />
-                                            </Link>
+                  {/*work secton -------*/}
+                  <div className="work">
+                      <div className="py-1.5 w-full border-b-[.5px] border-b-gray-300">
+                          <h1 className="cv-title px-3">Work Experiance</h1>
+                      </div>
+                      <div className="flex flex-col gap-y-2">
+                          {
+                              work?.map((item) => (
+                                  <div
+                                      className="flex flex-col group relative px-3 hover:bg-gray-100 hover:shadow my-transition rounded py-1.5 last:-mt-2"
+                                      key={item?.id}>
+                                      <h1 className="cv-subTitle">{item?.company_name}</h1>
+                                      <h1 className="text-black font-medium mr-2">{item?.designation}</h1>
+                                      <div className="flex flex-row gap-x-3">
+                                          <p className="text-sm">Start At : {item?.start_date}</p>
+                                          <p className="text-sm">End : {item?.end_date}</p>
+                                      </div>
+                                      <div
+                                          className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-300 ease-in-out flex flex-col gap-y-auto  group-my-transtion gap-x-2 absolute right-3 top-1/2 -translate-y-1/2">
+                                          <button className="text-red-500 cursor-pointer hover:text-red-700">
+                                              <MdDelete size={20}/>
+                                          </button>
+                                          <Link href={`/my-cv/work`}
+                                                className="text-sky-500 cursor-pointer hover:text-sky-700 my-transition ">
+                                              <IoIosAddCircle   size={20}  />
+                                          </Link>
+                                          <Link href={`/my-cv/work/update?id=${item?.id}`} className="text-blue-400 cursor-pointer hover:text-blue-700 my-transition ">
+                                              <FaRegEdit size={20}  />
+                                          </Link>
 
-                                        </div>
-                                    </div>
-                                ))
-                            }
-                        </div>
-                    </div>
+                                      </div>
+                                  </div>
+                              ))
+                          }
+                      </div>
+                  </div>
 
-                    {/* skill section */}
-                    <div className={"p-3 "}>
-                        <div className="py-1 w-full border-b-[.5px] border-b-gray-300 group flex justify-between ">
-                            <h1 className="cv-title">skill</h1>
+                  {/* skill section */}
+                  <div className={"p-3 "}>
+                      <div className="py-1 w-full border-b-[.5px] border-b-gray-300 group flex justify-between ">
+                          <h1 className="cv-title">skill</h1>
 
-                            <Link className={`block w-fit text-sm bg-blue-500 hover:bg-transparent border border-blue-500 hover:text-blue-500 capitalize cursor-pointer my-transition text-white font-semibold py-1 px-3 -translate-y-2 rounded-md`}  href={`/my-cv/skill`}>
-                                add new skill
-                            </Link>
-                        </div>
-                        <div className=" flex flex-col  gap-y-1 mt-2">
-                            {
-                                skill && (
-                                    skill?.map((item) => (
-                                        <div
-                                            className="flex justify-start gap-x-1.5 group relative hover:bg-gray-200 py-2 px-3 -mx-3 rounded  "
-                                            key={item?.id}>
-                                            <h1 className="cv-subTitle mr-2.5 -my-2">{item?.title}</h1>
-                                            {/*<p className="-my-2">{item?.range}</p>*/}
+                          <Link className={`block w-fit text-sm bg-blue-500 hover:bg-transparent border border-blue-500 hover:text-blue-500 capitalize cursor-pointer my-transition text-white font-semibold py-1 px-3 -translate-y-2 rounded-md`}  href={`/my-cv/skill`}>
+                              add new skill
+                          </Link>
+                      </div>
+                      <div className=" flex flex-col  gap-y-1 mt-2">
+                          {
+                              skill && (
+                                  skill?.map((item) => (
+                                      <div
+                                          className="flex justify-start gap-x-1.5 group relative hover:bg-gray-200 py-2 px-3 -mx-3 rounded  "
+                                          key={item?.id}>
+                                          <h1 className="cv-subTitle mr-2.5 -my-2">{item?.title}</h1>
+                                          {/*<p className="-my-2">{item?.range}</p>*/}
 
-                                            <div
-                                                className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-300 ease-in-out flex flex-row  gap-y-5 group-my-transtion gap-x-2 absolute right-3 top-1/2 -translate-y-1/2">
-                                                <button onClick={()=> DeleteItem(`/api/my-cv/skill/delete?id=${item.id}`, `/api/my-cv/skill/read-all`, setSkill)} className="text-red-500 cursor-pointer">
-                                                    <title>Delete Skill</title>
-                                                    <MdDelete size={20}/>
-                                                </button>
-                                                <Link href={`/my-cv/skill/update?id=${item?.id}`}
-                                                      className="text-blue-500 ">
-                                                    <FaRegEdit size={20}/>
-                                                </Link>
+                                          <div
+                                              className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-300 ease-in-out flex flex-row  gap-y-5 group-my-transtion gap-x-2 absolute right-3 top-1/2 -translate-y-1/2">
+                                              <button onClick={()=> DeleteItem(`/api/my-cv/skill/delete?id=${item.id}`, `/api/my-cv/skill/read-all`, setSkill)} className="text-red-500 cursor-pointer">
+                                                  <title>Delete Skill</title>
+                                                  <MdDelete size={20}/>
+                                              </button>
+                                              <Link href={`/my-cv/skill/update?id=${item?.id}`}
+                                                    className="text-blue-500 ">
+                                                  <FaRegEdit size={20}/>
+                                              </Link>
 
-                                            </div>
+                                          </div>
 
-                                        </div>
-                                    ))
-                                )
-                            }
-                        </div>
-                    </div>
+                                      </div>
+                                  ))
+                              )
+                          }
+                      </div>
+                  </div>
 
-                    {/*Project secton -------*/}
+                  {/*Project secton -------*/}
 
-                    <div className={"project"}>
-                        <div className="py-1.5 w-full border-b-[.5px] border-b-gray-300">
-                            <h1 className="cv-title px-3">project</h1>
-                        </div>
-                        <div className="flex flex-col gap-y-2 mt-1">
-                            {
-                                project?.slice(0, 3).map((item)=>(
-                                    <div className="flex flex-col px-3 relative group " key={item?.id}>
-                                        <h1 className="cv-subTitle">{item?.name}</h1>
-                                        <div className="flex gap-x-4">
-                                            <Link className="text-base cursor-pointer underline capitalize text-[#199aec]" target="_blank" href={`${user?.live_link}`}> live Link </Link>
-                                            <Link className="text-base cursor-pointer underline capitalize text-[#199aec]" target="_blank" href={`${user?.github_link}`}> Source Code </Link>
-                                        </div>
-                                        <p className="text-sm pr-6 text-justify mt-1 md:pr-12">{item?.des}</p>
-                                        <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-300 ease-in-out flex flex-col gap-y-5 group-my-transtion gap-x-2 absolute right-3 top-1/2 -translate-y-1/2">
-                                            <button className="bg-red-500 text-white p-1.5 w-fit h-fit hover:text-red-500 border-[1px] rounded border-red-500 hover:bg-transparent my-transition flex justify-center items-center">
-                                                <MdDelete size={12} />
-                                            </button>
-                                            <Link href={`/my-cv/project/update?id=${item?.id}`} className="bg-transparent text-blue-500 hover:text-white p-1.5 w-fit h-fit hover:bg-blue-500 border-[1px] rounded border-blue-500 hover:border-transparent  hover:bg-transparent my-transition flex justify-center items-center">
-                                                <FaRegEdit size={12}  />
-                                            </Link>
-                                        </div>
+                  <div className={"project"}>
+                      <div className="py-1.5 w-full border-b-[.5px] border-b-gray-300">
+                          <h1 className="cv-title px-3">project</h1>
+                      </div>
+                      <div className="flex flex-col gap-y-2 mt-1">
+                          {
+                              project?.slice(0, 3).map((item)=>(
+                                  <div className="flex flex-col px-3 relative group " key={item?.id}>
+                                      <h1 className="cv-subTitle">{item?.name}</h1>
+                                      <div className="flex gap-x-4">
+                                          <Link className="text-base cursor-pointer underline capitalize text-[#199aec]" target="_blank" href={`${user?.live_link}`}> live Link </Link>
+                                          <Link className="text-base cursor-pointer underline capitalize text-[#199aec]" target="_blank" href={`${user?.github_link}`}> Source Code </Link>
+                                      </div>
+                                      <p className="text-sm pr-6 text-justify mt-1 md:pr-12">{item?.des}</p>
+                                      <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-300 ease-in-out flex flex-col gap-y-5 group-my-transtion gap-x-2 absolute right-3 top-1/2 -translate-y-1/2">
+                                          <button className="bg-red-500 text-white p-1.5 w-fit h-fit hover:text-red-500 border-[1px] rounded border-red-500 hover:bg-transparent my-transition flex justify-center items-center">
+                                              <MdDelete size={12} />
+                                          </button>
+                                          <Link href={`/my-cv/project/update?id=${item?.id}`} className="bg-transparent text-blue-500 hover:text-white p-1.5 w-fit h-fit hover:bg-blue-500 border-[1px] rounded border-blue-500 hover:border-transparent  hover:bg-transparent my-transition flex justify-center items-center">
+                                              <FaRegEdit size={12}  />
+                                          </Link>
+                                      </div>
 
-                                    </div>
-                                ))
-                            }
-                        </div>
-                    </div>
+                                  </div>
+                              ))
+                          }
+                      </div>
+                  </div>
 
-                    {/* education section*/}
-                    <div className={"education "} >
-                        <div className="py-1.5 w-full border-b-[.5px] border-b-gray-300 mb-1.5">
-                            <h1 className="cv-title px-3">Education</h1>
-                        </div>
-                        <div className="flex flex-col gap-y-2 mt-2">
-                            {
-                                education?.slice(0, 2).map((item)=>(
-                                    <div className="flex flex-col relative group px-3 py-3 rounded-md hover:bg-gray-200 last:-mt-5" key={item?.id}>
-                                        <h1 className="cv-subTitle">{item?.school_name}</h1>
-                                        <h1 className="cv-subTitle uppercase">{item?.degree}</h1>
-                                        <div className="flex gap-x-6">
-                                            <div className="flex gap-x-2 ">
-                                                <p className="text-sm">Start Date</p>
-                                                <p className="text-sm" >{item?.start_date}</p>
-                                            </div>
-                                            <div className="flex gap-x-2 ">
-                                                <p  className="text-sm">End Date</p>
-                                                <p  className="text-sm">{item?.end_date}</p>
-                                            </div>
-                                        </div>
+                  {/* education section*/}
+                  <div className={"education "} >
+                      <div className="py-1.5 w-full border-b-[.5px] border-b-gray-300 mb-1.5">
+                          <h1 className="cv-title px-3">Education</h1>
+                      </div>
+                      <div className="flex flex-col gap-y-2 mt-2">
+                          {
+                              education?.slice(0, 2).map((item)=>(
+                                  <div className="flex flex-col relative group px-3 py-3 rounded-md hover:bg-gray-200 last:-mt-5" key={item?.id}>
+                                      <h1 className="cv-subTitle">{item?.school_name}</h1>
+                                      <h1 className="cv-subTitle uppercase">{item?.degree}</h1>
+                                      <div className="flex gap-x-6">
+                                          <div className="flex gap-x-2 ">
+                                              <p className="text-sm">Start Date</p>
+                                              <p className="text-sm" >{item?.start_date}</p>
+                                          </div>
+                                          <div className="flex gap-x-2 ">
+                                              <p  className="text-sm">End Date</p>
+                                              <p  className="text-sm">{item?.end_date}</p>
+                                          </div>
+                                      </div>
 
-                                        <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-300 ease-in-out flex flex-col gap-y-auto  group-my-transtion gap-x-2 absolute right-3 top-1/2 -translate-y-1/2">
-                                            <button className="text-red-500 cursor-pointer hover:text-red-700">
-                                                <MdDelete size={20} />
-                                            </button>
-                                            <Link href={`/my-cv/education`} className="text-sky-500 cursor-pointer hover:text-sky-700 my-transition ">
-                                                <IoIosAddCircle   size={20}  />
-                                            </Link>
-                                            <Link href={`/my-cv/education/update?id=${item?.id}`} className="text-blue-400 cursor-pointer hover:text-blue-700 my-transition ">
-                                                <FaRegEdit size={20}  />
-                                            </Link>
+                                      <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-300 ease-in-out flex flex-col gap-y-auto  group-my-transtion gap-x-2 absolute right-3 top-1/2 -translate-y-1/2">
+                                          <button className="text-red-500 cursor-pointer hover:text-red-700">
+                                              <MdDelete size={20} />
+                                          </button>
+                                          <Link href={`/my-cv/education`} className="text-sky-500 cursor-pointer hover:text-sky-700 my-transition ">
+                                              <IoIosAddCircle   size={20}  />
+                                          </Link>
+                                          <Link href={`/my-cv/education/update?id=${item?.id}`} className="text-blue-400 cursor-pointer hover:text-blue-700 my-transition ">
+                                              <FaRegEdit size={20}  />
+                                          </Link>
 
-                                        </div>
+                                      </div>
 
-                                    </div>
-                                ))
-                            }
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+                                  </div>
+                              ))
+                          }
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+       )}
+       </>
     );
 };
 
