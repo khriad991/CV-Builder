@@ -4,20 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6abf905c-9097-4fc3-bc30-acfa4a15ebff" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/layout.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/user/login/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/user/login/page.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ChildComponents/SubmitButton.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ChildComponents/SubmitButton.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MyCVComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MyCVComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/NavBar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavBar.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/education/EducationComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/education/EducationComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/education/UpdateEducationComponents.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/education/UpdateEducationComponents.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/skill/SkillComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/skill/SkillComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/user/ProfileForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user/ProfileForm.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/user/loginComponents.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user/loginComponents.jsx" afterDir="false" />
-    </list>
+    <list default="true" id="6abf905c-9097-4fc3-bc30-acfa4a15ebff" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -135,7 +122,7 @@
       <workItem from="1758882159994" duration="2202000" />
       <workItem from="1758980687777" duration="3351000" />
       <workItem from="1758984269386" duration="71000" />
-      <workItem from="1758984370182" duration="8672000" />
+      <workItem from="1758984370182" duration="9009000" />
     </task>
     <servers />
   </component>
